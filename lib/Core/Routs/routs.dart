@@ -1,5 +1,6 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:uremz100/View/Home/Bottom_NabBar/Bottom_NabBar_Screens.dart';
 import '../../View/Auth/Authentications_Screens/Forgot_OTP_Screen/forgot_OTP_Screen.dart';
 import '../../View/Auth/Authentications_Screens/Forgot_Pass_Screen/forgot_Pass_Screen.dart';
 import '../../View/Auth/Authentications_Screens/Set_Pass_Screen/set_Pass_Screen.dart';
@@ -16,6 +17,7 @@ class Routes {
   static const String forgotPassScreen = "/ForgotPassScreen";
   static const String forgotOtpScreen = "/ForgotOtpScreen";
   static const String setPassScreen = "/SetPassScreen";
+  static const String bottomNabbarScreens = "/BottomNabbarScreens";
 
   static List<GetPage> routes = [
     GetPage(
@@ -51,6 +53,11 @@ class Routes {
     GetPage(
       name: setPassScreen,
       page: () => SetPassScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: bottomNabbarScreens,
+      page: () => BottomNabbarScreens(),
       transition: Transition.noTransition,
     ),
   ];

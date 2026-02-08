@@ -109,7 +109,7 @@ class SigninScreen extends StatelessWidget {
               CustomButton(
                 text: "Sign in",
                 onPressed: () {
-                  // Navigator.pushNamed(context, Routes.homeScreen);
+                  Get.toNamed(Routes.bottomNabbarScreens);
                 },
               ),
               SizedBox(height: 18.h),
