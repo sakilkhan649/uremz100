@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uremz100/Widgets/Custom_Button.dart';
+import '../../../../Core/Routs/routs.dart';
 import '../../../../Utils/app_colors.dart';
 import '../../../../Utils/app_images.dart';
 
@@ -59,7 +62,7 @@ class SigninAndSignupScreen extends StatelessWidget {
                 CustomButton(
                   text: "Sign in",
                   onPressed: () {
-                    // Navigate to Sign In
+                    Get.toNamed(Routes.signinScreen);
                   },
                 ),
                 SizedBox(height: 14.h),
@@ -68,7 +71,7 @@ class SigninAndSignupScreen extends StatelessWidget {
                   backgroundColor: AppColors.white100,
                   textColor: AppColors.red100,
                   onPressed: () {
-                    // Navigate to Sign Up
+                    Get.toNamed(Routes.signupScreen);
                   },
                 ),
                 SizedBox(height: 60.h),

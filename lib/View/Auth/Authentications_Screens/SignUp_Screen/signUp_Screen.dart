@@ -1,10 +1,229 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:uremz100/Utils/app_colors.dart';
+import 'package:uremz100/Widgets/Custom_Button.dart';
+import 'package:uremz100/Widgets/Custom_Button_Icon.dart';
+import 'package:uremz100/Widgets/Custom_Text_Field.dart';
+import 'package:uremz100/Widgets/Custom_Text_Gray.dart';
+import '../../../../Core/Routs/routs.dart';
+import '../../../../Utils/app_icons.dart';
+import '../../../../Utils/app_images.dart';
 
 class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key});
+  SignupScreen({super.key});
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController NewPasswordController = TextEditingController();
+  TextEditingController ConfromPasswordController = TextEditingController();
+
+  // Reactive variable to control password visibility
+  final isConformPasswordVisible = false.obs;
+  final isNewPasswordVisible = false.obs;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: AppColors.black100,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 80.h),
+              Center(
+                child: Image.asset(
+                  AppImages.app_logo,
+                  height: 120.w,
+                  width: 120.w,
+                ),
+              ),
+              SizedBox(height: 10.h),
+              Center(
+                child: CustomTextgray(
+                  text: "Sign Up",
+                  fontSize: 22.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(height: 2.h),
+              Center(
+                child: CustomTextgray(
+                  text: "Sign Up to access your travel wise  account",
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.gray300,
+                ),
+              ),
+              SizedBox(height: 18.h),
+              // Email Field
+              CustomTextgray(
+                text: "Name",
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+              ),
+              SizedBox(height: 8.h),
+              Customtextfield(
+                controller: nameController,
+                hintText: "Enter your Full Name",
+                obscureText: false,
+                textInputType: TextInputType.name,
+              ),
+              SizedBox(height: 18.h),
+              // Email Field
+              CustomTextgray(
+                text: "Email",
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+              ),
+              SizedBox(height: 8.h),
+              Customtextfield(
+                controller: emailController,
+                hintText: "mdibukholil@gmail.com",
+                obscureText: false,
+                textInputType: TextInputType.emailAddress,
+              ),
+              SizedBox(height: 18.h),
+              // New Password Field
+              CustomTextgray(
+                text: "New Password",
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+              ),
+              SizedBox(height: 8.h),
+              Obx(
+                () => Customtextfield(
+                  controller: NewPasswordController,
+                  hintText: "Enter your new password",
+                  obscureText: !isNewPasswordVisible.value,
+                  textInputType: TextInputType.visiblePassword,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      isNewPasswordVisible.value
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                      color: AppColors.gray200,
+                    ),
+                    onPressed: () {
+                      isNewPasswordVisible.value =
+                          !isNewPasswordVisible.value; // Toggle visibility
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(height: 18.h),
+              // Confirm Password
+              CustomTextgray(
+                text: "Confirm Password",
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+              ),
+              SizedBox(height: 8.h),
+              Obx(
+                () => Customtextfield(
+                  controller: ConfromPasswordController,
+                  hintText: "Re-enter your new password",
+                  obscureText: !isConformPasswordVisible.value,
+                  textInputType: TextInputType.visiblePassword,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      isConformPasswordVisible.value
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                      color: AppColors.gray200,
+                    ),
+                    onPressed: () {
+                      isConformPasswordVisible.value =
+                          !isConformPasswordVisible.value; // Toggle visibility
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(height: 18.h),
+              // Sign In Button
+              CustomButton(
+                text: "Sign Up",
+                onPressed: () {
+                  Get.toNamed(Routes.forgotOtpScreen);
+                },
+              ),
+              SizedBox(height: 18.h),
+              Row(
+                children: [
+                  Expanded(
+                    child: Divider(thickness: 1, color: AppColors.gray300),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: CustomTextgray(
+                      text: "or continue with",
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.gray300,
+                    ),
+                  ),
+                  Expanded(
+                    child: Divider(thickness: 1, color: AppColors.gray300),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.h),
+              CustomButtonIcon(
+                text: "Continue with Google",
+                iconWidget: SvgPicture.asset(AppIcons.google_icon),
+                onPressed: () {},
+              ),
+              SizedBox(height: 20.h),
+              CustomButtonIcon(
+                text: "Continue with Apple",
+                iconWidget: SvgPicture.asset(AppIcons.apple_icon),
+                onPressed: () {},
+              ),
+              SizedBox(height: 20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomTextgray(
+                    text: "Already have an account?",
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.normal,
+                    color: AppColors.gray300,
+                  ),
+                  SizedBox(width: 4.w),
+                  GestureDetector(
+                    onTap: () {
+                      Get.toNamed(Routes.signinScreen);
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          "Login Here",
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFFFFC727),
+                          ),
+                        ),
+                        Container(
+                          height: 1,
+                          width: 72.w, // underline এর width
+                          color: Color(0xFFFFC727),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 40.h),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
