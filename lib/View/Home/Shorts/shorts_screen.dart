@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import '../../../Utils/app_icons.dart';
 import '../../../Utils/app_images.dart';
 import '../../../Utils/app_colors.dart';
-import 'Controller/ShortsController.dart';
-import 'Widget/ShortsSideButton.dart';
-import 'Widget/ShortsInfoOverlay.dart';
+import 'Controller/Shorts_Controller.dart';
+import 'Widget/Shorts_InfoOverlay.dart';
+import 'Widget/Shorts_SideButton.dart';
 
 class ShortsScreen extends StatelessWidget {
   const ShortsScreen({super.key});
