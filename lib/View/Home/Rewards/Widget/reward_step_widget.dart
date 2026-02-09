@@ -22,46 +22,32 @@ class RewardStepWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 50.w,
-          height: 60.h,
+          padding: EdgeInsets.all(10.w),
           decoration: BoxDecoration(
-            color: Color(0xFF2C2C2E),
-            borderRadius: BorderRadius.circular(8.r),
+            color: const Color(0xFF131416).withOpacity(0.4),
+            borderRadius: BorderRadius.circular(10.r),
+            border: Border.all(color: Colors.white.withOpacity(0.08), width: 1),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: 24.w,
+              SvgPicture.asset(
+                AppIcons.rewards__rank_icon,
                 height: 24.w,
-                decoration: BoxDecoration(
-                  color: AppColors.yellow100,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.3),
-                    width: 1.w,
-                  ),
-                ),
-                child: Center(
-                  child: SvgPicture.asset(
-                    AppIcons.rewards__rank_icon,
-                    height: 14.w,
-                    width: 14.w,
-                  ),
-                ),
+                width: 24.w,
               ),
-              SizedBox(height: 5.h),
+              SizedBox(height: 10.h),
               CustomText(
                 text: coins,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w600,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
                 color: Colors.white,
               ),
             ],
           ),
         ),
-        SizedBox(height: 8.h),
-        CustomText(text: time, fontSize: 10.sp, color: AppColors.gray200),
+        SizedBox(height: 5.h),
+        CustomText(text: time, fontSize: 12.sp, color: AppColors.white100,fontWeight: FontWeight.w400),
       ],
     );
   }

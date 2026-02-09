@@ -29,7 +29,7 @@ class TaskItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 12.h),
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -40,16 +40,16 @@ class TaskItemWidget extends StatelessWidget {
                 if (layoutType == 'subtitle_coins') ...[
                   CustomText(
                     text: title,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
                     color: Colors.white,
                   ),
-                  SizedBox(height: 4.h),
                   RichText(
                     text: TextSpan(
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.9),
-                        fontSize: 14.sp,
+                        color: Color(0xFFEDADA1),
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500,
                       ),
                       children: [
                         TextSpan(text: subtitle ?? ""),
@@ -69,50 +69,45 @@ class TaskItemWidget extends StatelessWidget {
                     children: [
                       SvgPicture.asset(
                         AppIcons.rewards__rank_icon,
-                        height: 24.w,
-                        width: 24.w,
+                        height: 20.w,
+                        width: 20.w,
                       ),
-                      SizedBox(width: 8.w),
+                      SizedBox(width: 4.w),
                       CustomText(
                         text: coinsLabel ?? "",
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
                         color: AppColors.yellow100,
                       ),
                     ],
                   ),
-                  SizedBox(height: 2.h),
                   CustomText(
                     text: title,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white.withOpacity(0.8),
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFEDADA1),
                   ),
                 ],
               ],
             ),
           ),
-          SizedBox(
-            width: 88.w,
-            height: 38.h,
-            child: ElevatedButton(
-              onPressed: onTap,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: isHighlight
-                    ? AppColors.yellow200
-                    : AppColors.orange100,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6.r),
-                ),
-                padding: EdgeInsets.zero,
-                elevation: 0,
+          ElevatedButton(
+            onPressed: onTap,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: isHighlight
+                  ? AppColors.yellow200
+                  : AppColors.orange100,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.r),
               ),
-              child: CustomText(
-                text: buttonText,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w600,
-                color: isHighlight ? Colors.black : Colors.white,
-              ),
+              padding: EdgeInsets.symmetric(vertical: 8.h),
+              elevation: 0,
+            ),
+            child: CustomText(
+              text: buttonText,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
             ),
           ),
         ],
