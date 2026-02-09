@@ -7,7 +7,6 @@ class AppIcons {
   static const String my_list_icon="$iconurl/my_list_icon.svg";
   static const String rewards_icon="$iconurl/rewards_icon.svg";
   static const String profile_icon="$iconurl/profile_icon.svg";
-
-
-
+  static const String share_icon="$iconurl/share_icon.svg";
+  static const String list_icon="$iconurl/list_icon.svg";
 }
