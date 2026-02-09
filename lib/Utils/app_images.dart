@@ -9,6 +9,7 @@ class AppImages{
   static const String sent_otp_image="$buseurl/sent_otp_image.png";
   static const String shorts_image="$buseurl/shorts_image.png";
   static const String profile_image="$buseurl/profile_image.png";
+  static const String rewards_image="$buseurl/rewards_image.png";
 
 
 

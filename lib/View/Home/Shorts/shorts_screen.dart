@@ -99,6 +99,14 @@ class ShortsScreen extends StatelessWidget {
                       label: "Share",
                       onTap: () {},
                     ),
+                    SizedBox(height: 16.h),
+
+                    // Download Button
+                    ShortsSideButton(
+                      iconPath: AppIcons.download_icon,
+                      label: "Download",
+                      onTap: () {},
+                    ),
                   ],
                 ),
               ),

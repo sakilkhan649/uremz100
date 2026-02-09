@@ -5,19 +5,57 @@ import 'package:get/get.dart';
 import '../Utils/app_colors.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
+  final String? title;
+  final TextStyle? titleStyle;
+  final bool centerTitle;
+  final List<Widget>? actions;
+  final bool showBackButton;
+  final VoidCallback? onBackPressed;
+  final Color? backgroundColor;
+  final Color? backButtonColor;
+  final double? elevation;
+
+  const CustomAppBar({
+    super.key,
+    this.title,
+    this.titleStyle,
+    this.centerTitle = true,
+    this.actions,
+    this.showBackButton = true,
+    this.onBackPressed,
+    this.backgroundColor = Colors.transparent,
+    this.backButtonColor,
+    this.elevation = 0,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      leading: IconButton(
-        icon: Icon(CupertinoIcons.back, color: AppColors.white100, size: 24.sp),
-        onPressed: () {
-          Get.back();
-        },
-      ),
+      backgroundColor: backgroundColor,
+      elevation: elevation,
+      centerTitle: centerTitle,
+      leading: showBackButton
+          ? IconButton(
+        icon: Icon(
+          CupertinoIcons.back,
+          color: backButtonColor ?? AppColors.white100,
+          size: 24.sp,
+        ),
+        onPressed: onBackPressed ?? () => Get.back(),
+      )
+          : null,
+      title: title != null
+          ? Text(
+        title!,
+        style: titleStyle ??
+            TextStyle(
+              color: AppColors.white100,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w700,
+            ),
+      )
+          : null,
+      actions: actions,
     );
   }
 
