@@ -18,38 +18,26 @@ class DiscoverController extends GetxController {
 
   // Mock data for different sections
   final RxList<MovieModel> comingSoon = <MovieModel>[
-    MovieModel(
-      title: "Spider-Man Brand New Day",
-      imageUrl: AppImages.rewards_image,
-      badge: "Exclusive",
-    ),
+    MovieModel(title: "Spider-Man Brand New Day", imageUrl: AppImages.move_1),
     MovieModel(
       title: "Crimson Chars Exclusive",
-      imageUrl: AppImages.rewards_image,
+      imageUrl: AppImages.move_6,
       badge: "Exclusive",
     ),
     MovieModel(
       title: "Glass In Cinemas January 1st",
-      imageUrl: AppImages.rewards_image,
+      imageUrl: AppImages.move_2,
+    ),
+    MovieModel(title: "Spider-Man Brand New Day", imageUrl: AppImages.move_3),
+    MovieModel(title: "Crimson Chars Exclusive", imageUrl: AppImages.move_4),
+    MovieModel(
+      title: "Spider-Man Brand New Day",
+      imageUrl: AppImages.move_5,
+      badge: "New",
     ),
   ].obs;
 
   final RxList<MovieModel> newRelease = <MovieModel>[
-    MovieModel(
-      title: "Spider-Man Brand New Day",
-      imageUrl: AppImages.rewards_image,
-      badge: "New",
-    ),
-    MovieModel(
-      title: "Crimson Chars Exclusive",
-      imageUrl: AppImages.rewards_image,
-      badge: "New",
-    ),
-    MovieModel(
-      title: "Spider-Man Brand New Day",
-      imageUrl: AppImages.rewards_image,
-      badge: "New",
-    ),
     MovieModel(title: "Joker", imageUrl: AppImages.rewards_image, badge: "New"),
     MovieModel(
       title: "Crimson Chars Exclusive",

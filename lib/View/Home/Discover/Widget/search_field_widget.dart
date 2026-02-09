@@ -9,26 +9,25 @@ class SearchFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40.h,
       decoration: BoxDecoration(
-        color: const Color(0xFF1C1C1E),
+        color: const Color(0xFF1D1817),
         borderRadius: BorderRadius.circular(8.r),
+        border: Border.all(color: Color(0xFFC5C5C5), width: 1),
       ),
       child: TextField(
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(
-            color: Colors.white.withOpacity(0.3),
-            fontSize: 14.sp,
-          ),
-          prefixIcon: Icon(
-            Icons.search,
-            color: Colors.white.withOpacity(0.3),
-            size: 20.sp,
+          hintStyle: TextStyle(color: Color(0xFFC5C5C5), fontSize: 14.sp),
+          suffixIcon: IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.search, color: Color(0xFFC5C5C5), size: 24.sp),
           ),
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 8.h),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 10.h,
+            horizontal: 10.w,
+          ),
         ),
       ),
     );

@@ -10,6 +10,12 @@ class AppImages{
   static const String shorts_image="$buseurl/shorts_image.png";
   static const String profile_image="$buseurl/profile_image.png";
   static const String rewards_image="$buseurl/rewards_image.png";
+  static const String move_1="$buseurl/move_1.png";
+  static const String move_2="$buseurl/move_2.png";
+  static const String move_3="$buseurl/move_3.png";
+  static const String move_4="$buseurl/move_4.png";
+  static const String move_5="$buseurl/move_5.png";
+  static const String move_6="$buseurl/move_6.png";
 
 
 

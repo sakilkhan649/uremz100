@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:uremz100/Utils/app_icons.dart';
 import 'package:uremz100/Widgets/Custom_Text.dart';
 import 'package:uremz100/Utils/app_colors.dart';
 import 'Controller/discover_controller.dart';
@@ -17,7 +19,6 @@ class DiscoverScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: SafeArea(
         child: Column(
           children: [
@@ -38,14 +39,11 @@ class DiscoverScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 12.w),
-                  Container(
-                    padding: EdgeInsets.all(4.w),
-                    child: Icon(
-                      Icons.stars,
-                      color: AppColors.orange100,
-                      size: 28.sp,
-                    ), // Mock VIP icon
-                  ),
+                  SvgPicture.asset(
+                    AppIcons.vip_icon,
+                    height: 36.w,
+                    width: 36.w,
+                  ), // Mock VIP icon
                 ],
               ),
             ),
@@ -72,9 +70,9 @@ class DiscoverScreen extends StatelessWidget {
                             children: [
                               CustomText(
                                 text: controller.mainTabs[index],
-                                fontSize: isSelected ? 18.sp : 14.sp,
+                                fontSize: isSelected ? 18.sp : 16.sp,
                                 fontWeight: isSelected
-                                    ? FontWeight.w700
+                                    ? FontWeight.w600
                                     : FontWeight.w400,
                                 color: isSelected
                                     ? Colors.white
@@ -99,7 +97,6 @@ class DiscoverScreen extends StatelessWidget {
                 },
               ),
             ),
-
             // Main Scrollable Content
             Expanded(
               child: SingleChildScrollView(
@@ -109,7 +106,6 @@ class DiscoverScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Coming Soon Section
-                    const SectionHeader(title: "Coming Soon"),
                     SizedBox(
                       height: 215.h,
                       child: ListView.builder(
