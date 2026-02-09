@@ -78,6 +78,16 @@ class DiscoverScreen extends StatelessWidget {
                                   ? Colors.white
                                   : Colors.white.withOpacity(0.5),
                             ),
+                            if (isSelected)
+                              Container(
+                                margin: EdgeInsets.only(top: 4.h),
+                                height: 2.5.h,
+                                width: 24.w,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFF35820),
+                                  borderRadius: BorderRadius.circular(2.r),
+                                ),
+                              ),
                           ],
                         ),
                       ),
