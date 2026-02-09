@@ -32,18 +32,22 @@ class RewardStepWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                width: 20.w,
-                height: 20.w,
+                width: 24.w,
+                height: 24.w,
                 decoration: BoxDecoration(
                   color: AppColors.yellow100,
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: Colors.white.withOpacity(0.5),
+                    color: Colors.white.withOpacity(0.3),
                     width: 1.w,
                   ),
                 ),
                 child: Center(
-                  child:SvgPicture.asset(AppIcons.rewards__rank_icon,height: 24.w,width: 24.w,)
+                  child: SvgPicture.asset(
+                    AppIcons.rewards__rank_icon,
+                    height: 14.w,
+                    width: 14.w,
+                  ),
                 ),
               ),
               SizedBox(height: 5.h),

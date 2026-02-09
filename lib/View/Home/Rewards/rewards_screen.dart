@@ -17,7 +17,6 @@ class RewardsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
       appBar: const CustomAppBar(
         title: "Rewards",
@@ -35,12 +34,13 @@ class RewardsScreen extends StatelessWidget {
                   alignment: Alignment.topRight,
                   child: Image.asset(
                     AppImages.rewards_image,
-                    height: 240.h,
-                    fit: BoxFit.contain,
+                    height: 280.h,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Positioned(
-                  bottom: 20.h,
+                  top: 100.h,
                   left: 16.w,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,14 +49,14 @@ class RewardsScreen extends StatelessWidget {
                         children: [
                           CustomText(
                             text: "Quest ",
-                            fontSize: 28.sp,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 32.sp,
+                            fontWeight: FontWeight.w800,
                             color: Colors.white,
                           ),
                           CustomText(
                             text: "Coins,",
-                            fontSize: 28.sp,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 32.sp,
+                            fontWeight: FontWeight.w800,
                             color: AppColors.yellow100,
                           ),
                         ],
@@ -65,14 +65,14 @@ class RewardsScreen extends StatelessWidget {
                         children: [
                           CustomText(
                             text: "Unlock ",
-                            fontSize: 28.sp,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 32.sp,
+                            fontWeight: FontWeight.w800,
                             color: AppColors.yellow100,
                           ),
                           CustomText(
                             text: "Dramas",
-                            fontSize: 28.sp,
-                            fontWeight: FontWeight.w700,
+                            fontSize: 32.sp,
+                            fontWeight: FontWeight.w800,
                             color: Colors.white,
                           ),
                         ],
@@ -88,8 +88,6 @@ class RewardsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10.h),
-
                   // Rewards Progress Card
                   Container(
                     width: double.infinity,
@@ -98,13 +96,14 @@ class RewardsScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20.r),
                       gradient: LinearGradient(
                         colors: [
-                          const Color(0xFF6C4E32).withOpacity(0.6),
-                          const Color(0xFF1A1B20).withOpacity(0.9),
+                          const Color(0xFF6C4E32),
+                          const Color(0xFF1A1B20),
+                          const Color(0xFF1A1B20),
                         ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        stops: const [0.0, 0.4, 1.0],
                       ),
-                      border: Border.all(color: Colors.white.withOpacity(0.05)),
                     ),
                     child: Column(
                       children: [
@@ -141,13 +140,14 @@ class RewardsScreen extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.orange100,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.r),
+                                borderRadius: BorderRadius.circular(10.r),
                               ),
+                              elevation: 0,
                             ),
                             child: CustomText(
                               text: "Quest Coins",
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 18.sp,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ),
