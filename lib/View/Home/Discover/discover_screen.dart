@@ -52,7 +52,7 @@ class DiscoverScreen extends StatelessWidget {
 
             // Horizontal Tab Bar
             Container(
-              height: 50.h,
+              height: 62.h,
               padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -111,7 +111,7 @@ class DiscoverScreen extends StatelessWidget {
                     // Coming Soon Section
                     const SectionHeader(title: "Coming Soon"),
                     SizedBox(
-                      height: 190.h,
+                      height: 215.h,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: controller.comingSoon.length,
@@ -135,7 +135,7 @@ class DiscoverScreen extends StatelessWidget {
                         crossAxisCount: 3,
                         mainAxisSpacing: 16.h,
                         crossAxisSpacing: 12.w,
-                        childAspectRatio: 0.55,
+                        childAspectRatio: 0.50,
                       ),
                       itemCount: controller.newRelease.length,
                       itemBuilder: (context, index) {
@@ -153,7 +153,7 @@ class DiscoverScreen extends StatelessWidget {
                     // Top VIP Picks Section
                     const SectionHeader(title: "Top VIP Picks"),
                     SizedBox(
-                      height: 195.h,
+                      height: 215.h,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: controller.topVipPicks.length,
@@ -172,7 +172,7 @@ class DiscoverScreen extends StatelessWidget {
                     // Recently Watched Section
                     const SectionHeader(title: "Recently Watched"),
                     SizedBox(
-                      height: 180.h,
+                      height: 210.h,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: controller.recentlyWatched.length,
@@ -190,7 +190,7 @@ class DiscoverScreen extends StatelessWidget {
                     // You Might Like Section
                     const SectionHeader(title: "You Might Like"),
                     SizedBox(
-                      height: 195.h,
+                      height: 215.h,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: controller.youMightLike.length,
@@ -255,7 +255,7 @@ class DiscoverScreen extends StatelessWidget {
                         crossAxisCount: 3,
                         mainAxisSpacing: 16.h,
                         crossAxisSpacing: 12.w,
-                        childAspectRatio: 0.55,
+                        childAspectRatio: 0.50,
                       ),
                       itemCount: controller.mostPopularSeries.length,
                       itemBuilder: (context, index) {
