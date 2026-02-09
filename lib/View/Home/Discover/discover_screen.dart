@@ -65,30 +65,33 @@ class DiscoverScreen extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
                         alignment: Alignment.center,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            CustomText(
-                              text: controller.mainTabs[index],
-                              fontSize: isSelected ? 18.sp : 14.sp,
-                              fontWeight: isSelected
-                                  ? FontWeight.w700
-                                  : FontWeight.w400,
-                              color: isSelected
-                                  ? Colors.white
-                                  : Colors.white.withOpacity(0.5),
-                            ),
-                            if (isSelected)
-                              Container(
-                                margin: EdgeInsets.only(top: 4.h),
-                                height: 2.5.h,
-                                width: 24.w,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFF35820),
-                                  borderRadius: BorderRadius.circular(2.r),
-                                ),
+                        child: IntrinsicWidth(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              CustomText(
+                                text: controller.mainTabs[index],
+                                fontSize: isSelected ? 18.sp : 14.sp,
+                                fontWeight: isSelected
+                                    ? FontWeight.w700
+                                    : FontWeight.w400,
+                                color: isSelected
+                                    ? Colors.white
+                                    : Colors.white.withOpacity(0.5),
+                                textAlign: TextAlign.center,
                               ),
-                          ],
+                              if (isSelected)
+                                Container(
+                                  margin: EdgeInsets.only(top: 4.h),
+                                  height: 2.5.h,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFF35820),
+                                    borderRadius: BorderRadius.circular(2.r),
+                                  ),
+                                ),
+                            ],
+                          ),
                         ),
                       ),
                     );
