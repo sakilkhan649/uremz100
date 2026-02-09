@@ -13,6 +13,7 @@ class RewardsController extends GetxController {
   // Mock data for Today's Benefits
   final RxList<Map<String, dynamic>> todayBenefits = <Map<String, dynamic>>[
     {
+      "layoutType": "subtitle_coins",
       "title": "Check-in",
       "subtitle": "Check-in streak 7 days ",
       "coins": "+540",
@@ -20,18 +21,21 @@ class RewardsController extends GetxController {
       "isClaimed": false,
     },
     {
+      "layoutType": "top_coins",
       "title": "Turn On Notifications",
       "coins": "30",
       "buttonText": "Go",
       "isClaimed": false,
     },
     {
+      "layoutType": "top_coins",
       "title": "Watch Ads, Earn Bonus",
       "coins": "10",
       "buttonText": "Go",
       "isClaimed": false,
     },
     {
+      "layoutType": "top_coins",
       "title": "Login Rewards",
       "coins": "50",
       "buttonText": "Claim",
@@ -39,18 +43,21 @@ class RewardsController extends GetxController {
       "isClaimed": false,
     },
     {
+      "layoutType": "top_coins",
       "title": "Bind Email",
       "coins": "30",
       "buttonText": "Go",
       "isClaimed": false,
     },
     {
+      "layoutType": "top_coins",
       "title": "Follow us on Facebook",
       "coins": "20",
       "buttonText": "Go",
       "isClaimed": false,
     },
     {
+      "layoutType": "top_coins",
       "title": "Follow us on Instragram",
       "coins": "20",
       "buttonText": "Go",

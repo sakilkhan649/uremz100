@@ -166,6 +166,7 @@ class RewardsScreen extends StatelessWidget {
                       coinsLabel: item['coins'],
                       buttonText: item['buttonText'],
                       isHighlight: item['isHighlight'] ?? false,
+                      layoutType: item['layoutType'] ?? 'top_coins',
                       onTap: () {},
                     );
                   },
