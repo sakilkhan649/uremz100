@@ -36,7 +36,7 @@ class MovieCard extends StatelessWidget {
           Stack(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(10.r),
+                borderRadius: BorderRadius.circular(12.r),
                 child: Image.asset(
                   imageUrl,
                   height: height ?? 160.h,
@@ -89,46 +89,55 @@ class MovieCard extends StatelessWidget {
                     ),
                   ),
                 ),
-              if (views != null)
-                Positioned(
-                  bottom: 6.h,
-                  right: 6.w,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.5),
-                          blurRadius: 10,
-                          spreadRadius: 5,
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
+              Positioned(
+                bottom: 6.h,
+                right: 6.w,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 22.w,
+                      height: 22.w,
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.80),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Icon(
                           Icons.play_arrow,
                           color: Colors.white,
-                          size: 12.sp,
+                          size: 13.sp,
                         ),
-                        SizedBox(width: 2.w),
-                        CustomText(
-                          text: views!,
-                          fontSize: 10.sp,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                    SizedBox(width: 6.w),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.w,
+                        vertical: 3.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.80),
+                        borderRadius: BorderRadius.circular(12.r),
+                      ),
+                      child: CustomText(
+                        text: views ?? "12.1M",
+                        fontSize: 11.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
                 ),
+              ),
             ],
           ),
           SizedBox(height: 8.h),
           CustomText(
             text: title,
-            fontSize: 12.sp,
-            color: Colors.white.withOpacity(0.9),
-            fontWeight: FontWeight.w500,
+            fontSize: 14.sp,
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
