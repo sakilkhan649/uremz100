@@ -8,7 +8,7 @@ import '../../View/Auth/Authentications_Screens/SignIn_Screen/signIn_Screen.dart
 import '../../View/Auth/Authentications_Screens/SignUp_Screen/signUp_Screen.dart';
 import '../../View/Auth/Authentications_Screens/Signin_&_Signup_Screen/Signin_And_Signup_Screen.dart';
 import '../../View/Auth/Welcome_Screen/welcome_Screen.dart';
-import '../../View/Home/Discover/Category/category_screen.dart';
+
 
 class Routes {
   static const String welcomeScreen = "/WelcomeScreen";
@@ -60,11 +60,6 @@ class Routes {
     GetPage(
       name: bottomNabbarScreens,
       page: () => BottomNabbarScreens(),
-      transition: Transition.noTransition,
-    ),
-    GetPage(
-      name: categoryScreen,
-      page: () => CategoryScreen(),
       transition: Transition.noTransition,
     ),
   ];
