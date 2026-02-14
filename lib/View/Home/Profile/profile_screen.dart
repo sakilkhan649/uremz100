@@ -21,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 40.h),
+            SizedBox(height: 60.h),
             // Profile Header
             Row(
               children: [
@@ -43,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
                       text: "UID: 637676603",
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w500,
-                      color: AppColors.gray200,
+                      color: Color(0xFFD4D4D4),
                     ),
                   ],
                 ),

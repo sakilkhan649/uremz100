@@ -6,14 +6,19 @@ import 'package:uremz100/Utils/app_images.dart';
 import 'package:uremz100/Widgets/Custom_AppBar.dart';
 import 'package:uremz100/Widgets/Custom_Text.dart';
 
+import '../../../../Core/Routs/routs.dart';
+
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+  SettingsScreen({super.key});
+
+  final isPasswordVisible = false.obs;
+  final isAccountExpanded = false.obs;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.black100,
-      appBar: const CustomAppBar(title: "Settings", showBackButton: true),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
@@ -24,78 +29,100 @@ class SettingsScreen extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  radius: 30.r,
-                  backgroundImage: const AssetImage(AppImages.profile_image),
+                  radius: 26.r,
+                  backgroundImage: AssetImage(AppImages.profile_image),
                 ),
-                SizedBox(width: 12.w),
+                SizedBox(width: 10.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomText(
                       text: "Md Ibrahim Khalil",
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
                     ),
+                    SizedBox(height: 5.h),
                     CustomText(
                       text: "UID: 637676603",
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.gray200,
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFFD4D4D4),
                     ),
                   ],
                 ),
               ],
             ),
-            SizedBox(height: 32.h),
+            SizedBox(height: 20.h),
 
             // Personal Section
             _buildSectionHeader("Personal"),
-            _buildSettingItem("Account Info", isExpandable: true),
-            _buildSettingItem(
-              "Change Profile Info",
-              onTap: () => Get.toNamed('/change_profile_info'),
-            ),
-            _buildSettingItem(
-              "Change Password",
-              onTap: () => Get.toNamed('/change_password'),
+            Obx(
+              () => Column(
+                children: [
+                  _buildSettingItem(
+                    "Account Info",
+                    isExpandable: true,
+                    isExpanded: isAccountExpanded.value,
+                    onTap: () => isAccountExpanded.toggle(),
+                  ),
+                  AnimatedSize(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    child: isAccountExpanded.value
+                        ? Column(
+                            children: [
+                              _buildSettingItem(
+                                "Change Profile Info",
+                                onTap: () =>
+                                    Get.toNamed(Routes.changeProfileInfo),
+                              ),
+                              _buildSettingItem(
+                                "Change Password",
+                                onTap: () => Get.toNamed(Routes.changePassword),
+                              ),
+                            ],
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                ],
+              ),
             ),
 
-            SizedBox(height: 24.h),
+            SizedBox(height: 20.h),
 
             // Else Section
             _buildSectionHeader("Else"),
             _buildSettingItem(
               "Privacy Policy",
-              onTap: () => Get.toNamed('/privacy_policy'),
+              onTap: () => Get.toNamed(Routes.privacyPolicy),
             ),
             _buildSettingItem(
               "User Agreement",
-              onTap: () => Get.toNamed('/user_agreement'),
+              onTap: () => Get.toNamed(Routes.userAgreement),
             ),
             _buildSettingItem(
               "Delete Account",
               onTap: () => _showDeleteAccountModal(context),
             ),
 
-            SizedBox(height: 60.h),
+            SizedBox(height: 174.h),
 
             // Logout Button
             Container(
               width: double.infinity,
-              height: 50.h,
-              margin: EdgeInsets.symmetric(horizontal: 16.w),
+              padding: EdgeInsets.symmetric(vertical: 12.h),
               child: ElevatedButton(
                 onPressed: () => _showLogoutModal(context),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.orange100,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.r),
+                    borderRadius: BorderRadius.circular(8.r),
                   ),
                 ),
                 child: CustomText(
                   text: "Log Out",
                   fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -108,25 +135,26 @@ class SettingsScreen extends StatelessWidget {
 
   Widget _buildSectionHeader(String title) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 12.h),
+      padding: EdgeInsets.only(bottom: 10.h),
       child: CustomText(
         text: title,
         fontSize: 14.sp,
         fontWeight: FontWeight.w400,
-        color: AppColors.gray200,
+        color: Color(0xFFB9B5B5),
       ),
     );
   }
 
   Widget _buildSettingItem(
-      String title, {
-        bool isExpandable = false,
-        VoidCallback? onTap,
-      }) {
+    String title, {
+    bool isExpandable = false,
+    bool isExpanded = false,
+    VoidCallback? onTap,
+  }) {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 16.h),
+        padding: EdgeInsets.symmetric(vertical: 8.h),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(color: Colors.white.withOpacity(0.05)),
@@ -136,14 +164,18 @@ class SettingsScreen extends StatelessWidget {
           children: [
             CustomText(
               text: title,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w500,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w400,
             ),
             const Spacer(),
-            Icon(
-              isExpandable ? Icons.keyboard_arrow_down : Icons.chevron_right,
-              color: AppColors.white100,
-              size: 24.sp,
+            AnimatedRotation(
+              turns: isExpanded ? 0.5 : 0,
+              duration: const Duration(milliseconds: 300),
+              child: Icon(
+                isExpandable ? Icons.keyboard_arrow_down : Icons.chevron_right,
+                color: const Color(0xFFB7B3B3),
+                size: 24.sp,
+              ),
             ),
           ],
         ),
@@ -165,8 +197,8 @@ class SettingsScreen extends StatelessWidget {
             SizedBox(height: 10.h),
             CustomText(
               text: "Do you want to log out of your\nprofile?",
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w500,
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 24.h),
@@ -177,20 +209,21 @@ class SettingsScreen extends StatelessWidget {
                     onPressed: () => Get.back(),
                     style: OutlinedButton.styleFrom(
                       side: BorderSide.none,
-                      backgroundColor: AppColors.gray100.withOpacity(0.1),
+                      backgroundColor: Color(0xFFE6EDF7),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                       padding: EdgeInsets.symmetric(vertical: 12.h),
                     ),
-                    child: const CustomText(
+                    child: CustomText(
                       text: "Cancel",
-                      fontSize: 16,
-                      color: Colors.white,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
                     ),
                   ),
                 ),
-                SizedBox(width: 12.w),
+                SizedBox(width: 20.w),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
@@ -204,9 +237,10 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       padding: EdgeInsets.symmetric(vertical: 12.h),
                     ),
-                    child: const CustomText(
+                    child: CustomText(
                       text: "Log Out",
-                      fontSize: 16,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
                       color: Colors.white,
                     ),
                   ),
@@ -234,51 +268,69 @@ class SettingsScreen extends StatelessWidget {
           children: [
             CustomText(
               text: "Want to delete account !",
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w700,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w600,
             ),
             SizedBox(height: 8.h),
             CustomText(
               text: "Please confirm your password to\nremove your account.",
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w400,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
               textAlign: TextAlign.center,
-              color: AppColors.gray200,
+              color: Color(0xFFE0E0E0),
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 18.h),
             Align(
               alignment: Alignment.centerLeft,
               child: CustomText(
                 text: "New password",
-                fontSize: 16.sp,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),
             SizedBox(height: 8.h),
-            TextField(
-              obscureText: true,
-              style: const TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                hintText: "Password",
-                hintStyle: TextStyle(color: AppColors.gray200),
-                filled: true,
-                fillColor: Colors.black,
-                suffixIcon: Icon(
-                  Icons.visibility_off,
-                  color: AppColors.gray200,
-                  size: 20.sp,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                  borderSide: BorderSide(color: Colors.white24),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                  borderSide: BorderSide(color: Colors.white24),
+            Obx(
+              () => TextField(
+                obscureText: isPasswordVisible.value,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 12.h,
+                  ),
+                  hintText: "Password",
+                  hintStyle: const TextStyle(color: Color(0xFFCDCDCD)),
+                  filled: true,
+                  fillColor: Colors.black,
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      isPasswordVisible.value = !isPasswordVisible.value;
+                    },
+                    child: Icon(
+                      isPasswordVisible.value
+                          ? Icons
+                                .visibility // eye open  → text visible
+                          : Icons.visibility_off, // eye off   → text hidden
+                      color: const Color(0xFFCDCDCD),
+                      size: 20.sp,
+                    ),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.r),
+                    borderSide: const BorderSide(color: Colors.white),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.r),
+                    borderSide: const BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.r),
+                    borderSide: const BorderSide(color: Colors.white),
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 24.h),
+            SizedBox(height: 30.h),
             Row(
               children: [
                 Expanded(
@@ -286,24 +338,25 @@ class SettingsScreen extends StatelessWidget {
                     onPressed: () => Get.back(),
                     style: OutlinedButton.styleFrom(
                       side: BorderSide.none,
-                      backgroundColor: AppColors.gray100.withOpacity(0.1),
+                      backgroundColor: Color(0xFFE6EDF7),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                       padding: EdgeInsets.symmetric(vertical: 12.h),
                     ),
-                    child: const CustomText(
+                    child: CustomText(
                       text: "Cancel",
-                      fontSize: 16,
-                      color: Colors.white,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
                     ),
                   ),
                 ),
-                SizedBox(width: 12.w),
+                SizedBox(width: 20.w),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      // Handle Delete
+                      // Handle Logout
                       Get.back();
                     },
                     style: ElevatedButton.styleFrom(
@@ -313,9 +366,10 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       padding: EdgeInsets.symmetric(vertical: 12.h),
                     ),
-                    child: const CustomText(
-                      text: "Delete",
-                      fontSize: 16,
+                    child: CustomText(
+                      text: "Log Out",
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w500,
                       color: Colors.white,
                     ),
                   ),

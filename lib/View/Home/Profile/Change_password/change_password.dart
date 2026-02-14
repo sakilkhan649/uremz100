@@ -21,11 +21,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.black100,
-      appBar: const CustomAppBar(
-        title: "Change Password",
-        showBackButton: true,
-      ),
+      appBar: CustomAppBar(title: "Change Password", showBackButton: true),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
@@ -34,11 +30,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             SizedBox(height: 24.h),
             CustomText(
               text: "Change Password",
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w400,
-              color: AppColors.gray200,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFFB4B9BF),
             ),
-            SizedBox(height: 32.h),
+            SizedBox(height: 15.h),
 
             // Old Password
             _buildLabel("Old Password"),
@@ -49,7 +45,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               obscureText: true,
               textInputType: TextInputType.visiblePassword,
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 14.h),
 
             // New Password
             _buildLabel("New Password"),
@@ -60,7 +56,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               obscureText: true,
               textInputType: TextInputType.visiblePassword,
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 14.h),
 
             // Confirm Password
             _buildLabel("Confirm Password"),
@@ -72,12 +68,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               textInputType: TextInputType.visiblePassword,
             ),
 
-            SizedBox(height: 48.h),
+            SizedBox(height: 200.h),
 
             // Buttons
-            Container(
+            SizedBox(
               width: double.infinity,
-              height: 50.h,
               child: ElevatedButton(
                 onPressed: () => Get.back(),
                 style: ElevatedButton.styleFrom(
@@ -85,6 +80,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.r),
                   ),
+                  padding: EdgeInsets.symmetric(vertical: 15.h),
                 ),
                 child: CustomText(
                   text: "Save",
@@ -93,23 +89,23 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 12.h),
-            Container(
+            SizedBox(height: 15.h),
+            SizedBox(
               width: double.infinity,
-              height: 50.h,
               child: OutlinedButton(
                 onPressed: () => Get.back(),
                 style: OutlinedButton.styleFrom(
                   side: BorderSide.none,
-                  backgroundColor: AppColors.gray100.withOpacity(0.1),
+                  backgroundColor: AppColors.gray100,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.r),
                   ),
+                  padding: EdgeInsets.symmetric(vertical: 15.h),
                 ),
-                child: const CustomText(
+                child: CustomText(
                   text: "Cancel",
-                  fontSize: 16,
-                  color: Colors.white,
+                  fontSize: 16.sp,
+                  color: Colors.black,
                 ),
               ),
             ),
@@ -121,6 +117,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   }
 
   Widget _buildLabel(String text) {
-    return CustomText(text: text, fontSize: 16.sp, fontWeight: FontWeight.w600);
+    return CustomText(text: text, fontSize: 14.sp, fontWeight: FontWeight.w400);
   }
 }

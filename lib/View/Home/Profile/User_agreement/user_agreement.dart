@@ -10,7 +10,6 @@ class UserAgreementScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.black100,
       appBar: const CustomAppBar(title: "User Agreement", showBackButton: true),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.w),
@@ -75,7 +74,7 @@ class UserAgreementScreen extends StatelessWidget {
         text: text,
         fontSize: 14.sp,
         fontWeight: FontWeight.w400,
-        color: AppColors.gray200,
+        color: Color(0xFFE4E4E4),
       ),
     );
   }

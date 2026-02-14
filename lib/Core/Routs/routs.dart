@@ -9,10 +9,10 @@ import '../../View/Auth/Authentications_Screens/Signin_&_Signup_Screen/Signin_An
 import '../../View/Auth/Welcome_Screen/welcome_Screen.dart';
 import '../../View/Home/Discover/discover_screen.dart';
 import '../../View/Home/Profile/Settings/settings_screen.dart';
-import '../../View/Home/Profile/change_password.dart';
-import '../../View/Home/Profile/change_profile_info.dart';
-import '../../View/Home/Profile/privacy_policy.dart';
-import '../../View/Home/Profile/user_agreement.dart';
+import '../../View/Home/Profile/Change_password/change_password.dart';
+import '../../View/Home/Profile/Change_profile_info/change_profile_info.dart';
+import '../../View/Home/Profile/Privacy_Policy/privacy_policy.dart';
+import '../../View/Home/Profile/User_agreement/user_agreement.dart';
 
 class Routes {
   static const String welcomeScreen = "/WelcomeScreen";
@@ -78,7 +78,7 @@ class Routes {
     ),
     GetPage(
       name: settingsScreen,
-      page: () => const SettingsScreen(),
+      page: () => SettingsScreen(),
       transition: Transition.noTransition,
     ),
     GetPage(
