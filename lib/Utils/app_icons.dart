@@ -13,4 +13,9 @@ class AppIcons {
   static const String rewards__rank_icon="$iconurl/rewards__rank_icon.svg";
   static const String sech_icon="$iconurl/sech_icon.svg";
   static const String vip_icon="$iconurl/vip_icon.svg";
+  static const String drama_icon="$iconurl/drama_icon.svg";
+  static const String full_hd_icon="$iconurl/full_hd_icon.svg";
+  static const String faqs_icon="$iconurl/faqs_icon.svg";
+  static const String language_icon="$iconurl/language_icon.svg";
+  static const String setting_icon="$iconurl/setting_icon.svg";
 }

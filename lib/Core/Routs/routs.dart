@@ -1,5 +1,4 @@
-import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:get/get.dart';
 import 'package:uremz100/View/Home/Bottom_NabBar/Bottom_NabBar_Screens.dart';
 import '../../View/Auth/Authentications_Screens/Forgot_OTP_Screen/forgot_OTP_Screen.dart';
 import '../../View/Auth/Authentications_Screens/Forgot_Pass_Screen/forgot_Pass_Screen.dart';
@@ -8,7 +7,12 @@ import '../../View/Auth/Authentications_Screens/SignIn_Screen/signIn_Screen.dart
 import '../../View/Auth/Authentications_Screens/SignUp_Screen/signUp_Screen.dart';
 import '../../View/Auth/Authentications_Screens/Signin_&_Signup_Screen/Signin_And_Signup_Screen.dart';
 import '../../View/Auth/Welcome_Screen/welcome_Screen.dart';
-import '../../View/Home/Discover/Category/category_screen.dart';
+import '../../View/Home/Discover/discover_screen.dart';
+import '../../View/Home/Profile/Settings/settings_screen.dart';
+import '../../View/Home/Profile/change_password.dart';
+import '../../View/Home/Profile/change_profile_info.dart';
+import '../../View/Home/Profile/privacy_policy.dart';
+import '../../View/Home/Profile/user_agreement.dart';
 
 class Routes {
   static const String welcomeScreen = "/WelcomeScreen";
@@ -19,7 +23,12 @@ class Routes {
   static const String forgotOtpScreen = "/ForgotOtpScreen";
   static const String setPassScreen = "/SetPassScreen";
   static const String bottomNabbarScreens = "/BottomNabbarScreens";
-  static const String categoryScreen = "/CategoryScreen";
+  static const String discoverScreen = "/DiscoverScreen";
+  static const String settingsScreen = "/SettingsScreen";
+  static const String changeProfileInfo = "/change_profile_info";
+  static const String changePassword = "/change_password";
+  static const String privacyPolicy = "/privacy_policy";
+  static const String userAgreement = "/user_agreement";
 
   static List<GetPage> routes = [
     GetPage(
@@ -63,8 +72,33 @@ class Routes {
       transition: Transition.noTransition,
     ),
     GetPage(
-      name: categoryScreen,
-      page: () => CategoryScreen(),
+      name: discoverScreen,
+      page: () => DiscoverScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: settingsScreen,
+      page: () => const SettingsScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: changeProfileInfo,
+      page: () => ChangeProfileInfoScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: changePassword,
+      page: () => ChangePasswordScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: privacyPolicy,
+      page: () => PrivacyPolicyScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: userAgreement,
+      page: () => UserAgreementScreen(),
       transition: Transition.noTransition,
     ),
   ];
