@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:uremz100/Utils/app_colors.dart';
 import 'package:uremz100/Utils/app_icons.dart';
 import 'package:uremz100/Widgets/Custom_Text.dart';
+import '../Bottom_NabBar/Controller/Bottom_NabBar_Controller.dart';
 import 'Widget/subscribe_widgets.dart';
 
 class SubscribeScreen extends StatelessWidget {
@@ -9,6 +13,8 @@ class SubscribeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NavigationController navController = Get.find<NavigationController>();
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -132,12 +138,25 @@ class SubscribeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 30.h),
+            SizedBox(height: 14.h),
             _buildSectionTitle("About Subscription"),
             SizedBox(height: 16.h),
             SubscriptionRules(),
             SizedBox(height: 40.h),
           ],
+        ),
+      ),
+      bottomNavigationBar: Obx(
+        () => Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+          decoration: const BoxDecoration(color: Colors.black),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List.generate(
+              5,
+              (index) => _buildCustomIcon(index, navController),
+            ),
+          ),
         ),
       ),
     );
@@ -150,5 +169,65 @@ class SubscribeScreen extends StatelessWidget {
       fontWeight: FontWeight.w700,
       color: Colors.white,
     );
+  }
+
+  Widget _buildCustomIcon(int index, NavigationController navController) {
+    final bool isSelected = navController.currentIndex.value == index;
+
+    return GestureDetector(
+      onTap: () {
+        navController.changeIndex(index);
+        Get.back();
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.asset(_getSvgForIndex(index), width: 24.w, height: 24.w),
+          SizedBox(height: 6.h),
+          Text(
+            _getLabelForIndex(index),
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w400,
+              color: isSelected ? Colors.white : AppColors.gray400,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _getSvgForIndex(int index) {
+    switch (index) {
+      case 0:
+        return AppIcons.discover_icon;
+      case 1:
+        return AppIcons.shorts_icon;
+      case 2:
+        return AppIcons.my_list_icon;
+      case 3:
+        return AppIcons.rewards_icon;
+      case 4:
+        return AppIcons.profile_icon;
+      default:
+        return '';
+    }
+  }
+
+  String _getLabelForIndex(int index) {
+    switch (index) {
+      case 0:
+        return 'Discover';
+      case 1:
+        return 'Shorts';
+      case 2:
+        return 'My List';
+      case 3:
+        return 'Rewards';
+      case 4:
+        return 'Profile';
+      default:
+        return '';
+    }
   }
 }
