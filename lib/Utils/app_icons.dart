@@ -18,4 +18,5 @@ class AppIcons {
   static const String faqs_icon="$iconurl/faqs_icon.svg";
   static const String language_icon="$iconurl/language_icon.svg";
   static const String setting_icon="$iconurl/setting_icon.svg";
+  static const String alarm_icon="$iconurl/alarm_icon.svg";
 }
