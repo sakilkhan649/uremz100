@@ -21,4 +21,5 @@ class AppIcons {
   static const String alarm_icon="$iconurl/alarm_icon.svg";
   static const String ad_free_icon="$iconurl/ad_free_icon.svg";
   static const String download_two_icon="$iconurl/download_two_icon.svg";
+  static const String fire_icon="$iconurl/fire_icon.svg";
 }

@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:uremz100/Core/Routs/routs.dart';
 import 'package:uremz100/Utils/app_colors.dart';
 import 'package:uremz100/Widgets/Custom_Text.dart';
 import '../../../../Utils/app_images.dart';
@@ -15,8 +13,9 @@ import '../../../../Widgets/Custom_Text_Gray.dart';
 class SetPassScreen extends StatelessWidget {
   SetPassScreen({super.key});
 
-  TextEditingController NewPasswordController = TextEditingController();
-  TextEditingController ConfromPasswordController = TextEditingController();
+  final TextEditingController NewPasswordController = TextEditingController();
+  final TextEditingController ConfromPasswordController =
+      TextEditingController();
 
   // Reactive variable to control password visibility
   final isConformPasswordVisible = false.obs;
@@ -140,7 +139,7 @@ class SetPassScreen extends StatelessWidget {
               CustomButton(
                 text: "Reset Password",
                 onPressed: () {
-                 // Get.toNamed(Routes.forgotOtpScreen);
+                  // Get.toNamed(Routes.forgotOtpScreen);
                 },
               ),
             ],

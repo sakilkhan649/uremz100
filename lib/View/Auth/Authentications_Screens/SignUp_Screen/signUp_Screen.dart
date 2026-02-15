@@ -15,10 +15,11 @@ import '../../../../Utils/app_images.dart';
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController NewPasswordController = TextEditingController();
-  TextEditingController ConfromPasswordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController NewPasswordController = TextEditingController();
+  final TextEditingController ConfromPasswordController =
+      TextEditingController();
 
   // Reactive variable to control password visibility
   final isConformPasswordVisible = false.obs;
