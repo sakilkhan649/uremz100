@@ -109,7 +109,7 @@ class SigninScreen extends StatelessWidget {
               CustomButton(
                 text: "Sign in",
                 onPressed: () {
-                  Get.toNamed(Routes.bottomNabbarScreens);
+                  Get.offAllNamed(Routes.bottomNabbarScreens);
                 },
               ),
               SizedBox(height: 18.h),
