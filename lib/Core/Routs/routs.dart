@@ -13,6 +13,7 @@ import '../../View/Home/Profile/Change_password/change_password.dart';
 import '../../View/Home/Profile/Change_profile_info/change_profile_info.dart';
 import '../../View/Home/Profile/Privacy_Policy/privacy_policy.dart';
 import '../../View/Home/Profile/User_agreement/user_agreement.dart';
+import '../../View/Home/Subscribe/subscribe_screen.dart';
 
 class Routes {
   static const String welcomeScreen = "/WelcomeScreen";
@@ -29,6 +30,7 @@ class Routes {
   static const String changePassword = "/change_password";
   static const String privacyPolicy = "/privacy_policy";
   static const String userAgreement = "/user_agreement";
+  static const String subscribeScreen = "/SubscribeScreen";
 
   static List<GetPage> routes = [
     GetPage(
@@ -99,6 +101,11 @@ class Routes {
     GetPage(
       name: userAgreement,
       page: () => UserAgreementScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: subscribeScreen,
+      page: () => SubscribeScreen(),
       transition: Transition.noTransition,
     ),
   ];

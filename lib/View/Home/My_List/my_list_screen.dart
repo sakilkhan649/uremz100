@@ -6,7 +6,9 @@ import 'package:uremz100/Utils/app_colors.dart';
 import 'package:uremz100/Utils/app_icons.dart';
 import 'package:uremz100/Widgets/Custom_AppBar.dart';
 import 'package:uremz100/Widgets/Custom_Text.dart';
+import '../../../Core/Routs/routs.dart';
 import 'Controller/my_list_controller.dart';
+import 'Model/my_list_model.dart';
 
 class MyListScreen extends GetView<MyListController> {
   const MyListScreen({super.key});
@@ -18,12 +20,17 @@ class MyListScreen extends GetView<MyListController> {
       appBar: CustomAppBar(
         title: "My Collection",
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 16.w),
-            child: SvgPicture.asset(
-              AppIcons.vip_icon,
-              height: 30.w,
-              width: 30.w,
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(Routes.subscribeScreen);
+            },
+            child: Padding(
+              padding: EdgeInsets.only(right: 16.w),
+              child: SvgPicture.asset(
+                AppIcons.vip_icon,
+                height: 30.w,
+                width: 30.w,
+              ),
             ),
           ),
         ],
