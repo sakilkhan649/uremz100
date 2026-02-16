@@ -5,6 +5,7 @@ import '../Data/discover_data.dart';
 class DiscoverController extends GetxController {
   var selectedCategory = 'Popular'.obs;
   var showBonusPopup = false.obs;
+  var vipPeriod = 'Daily'.obs;
 
   final List<String> categories = DiscoverData.categories;
   final List<DiscoverMovie> allMovies = DiscoverData.allMovies;
@@ -21,6 +22,10 @@ class DiscoverController extends GetxController {
 
   void changeCategory(String category) {
     selectedCategory.value = category;
+  }
+
+  void changeVipPeriod(String period) {
+    vipPeriod.value = period;
   }
 
   List<DiscoverMovie> get filteredMovies {

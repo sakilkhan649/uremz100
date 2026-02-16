@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import '../../../../Core/Routs/routs.dart';
 import '../../../../Utils/app_icons.dart';
 import '../../../../Widgets/Custom_Text.dart';
 import '../Controller/discover_controller.dart';
@@ -46,7 +47,11 @@ class DiscoverSearchBar extends StatelessWidget {
           ),
         ),
         SizedBox(width: 12.w),
-        SvgPicture.asset(AppIcons.vip_icon, width: 32.w, height: 32.w),
+        GestureDetector(
+            onTap: () {
+              Get.toNamed(Routes.subscribeScreen);
+            },
+            child: SvgPicture.asset(AppIcons.vip_icon, width: 32.w, height: 32.w)),
       ],
     );
   }
@@ -143,7 +148,7 @@ class MovieGrid extends StatelessWidget {
       itemCount: items.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: count,
-        mainAxisSpacing: 10.h,
+        mainAxisSpacing: 0.h,
         crossAxisSpacing: 10.w,
         childAspectRatio: 0.52,
       ),

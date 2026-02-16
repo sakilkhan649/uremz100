@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../Controller/discover_controller.dart';
+import '../New/new.dart';
 import '../Widget/discrive_widget.dart';
 
 class PopularView extends StatelessWidget {
