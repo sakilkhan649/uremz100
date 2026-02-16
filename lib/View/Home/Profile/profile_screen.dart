@@ -194,12 +194,12 @@ class ProfileScreen extends StatelessWidget {
             _buildMenuItem(
               AppIcons.rewards_icon,
               "Earn Rewards",
-              //onTap: () => Get.toNamed(Routes.settingsScreen),
+              onTap: () => Get.toNamed(Routes.rewardsScreen),
             ),
             _buildMenuItem(
               AppIcons.my_list_icon,
               "My List",
-              //onTap: () => Get.toNamed(Routes.settingsScreen),
+              onTap: () => Get.toNamed(Routes.myListScreen),
             ),
             _buildMenuItem(
               AppIcons.download_icon,
@@ -209,7 +209,7 @@ class ProfileScreen extends StatelessWidget {
             _buildMenuItem(
               AppIcons.faqs_icon,
               "FAQs",
-              //onTap: () => Get.toNamed(Routes.settingsScreen),
+              //onTap: () => Get.toNamed(Routes.faqsScreen()),
             ),
             _buildMenuItem(
               AppIcons.language_icon,

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:uremz100/View/Home/Bottom_NabBar/Bottom_NabBar_Screens.dart';
+import 'package:uremz100/View/Home/My_List/my_list_screen.dart';
 import '../../View/Auth/Authentications_Screens/Forgot_OTP_Screen/forgot_OTP_Screen.dart';
 import '../../View/Auth/Authentications_Screens/Forgot_Pass_Screen/forgot_Pass_Screen.dart';
 import '../../View/Auth/Authentications_Screens/Set_Pass_Screen/set_Pass_Screen.dart';
@@ -13,6 +14,7 @@ import '../../View/Home/Profile/Change_password/change_password.dart';
 import '../../View/Home/Profile/Change_profile_info/change_profile_info.dart';
 import '../../View/Home/Profile/Privacy_Policy/privacy_policy.dart';
 import '../../View/Home/Profile/User_agreement/user_agreement.dart';
+import '../../View/Home/Rewards/rewards_screen.dart';
 import '../../View/Home/Subscribe/subscribe_screen.dart';
 
 class Routes {
@@ -31,6 +33,8 @@ class Routes {
   static const String privacyPolicy = "/privacy_policy";
   static const String userAgreement = "/user_agreement";
   static const String subscribeScreen = "/SubscribeScreen";
+  static const String myListScreen = "/MyListScreen";
+  static const String rewardsScreen = "/RewardsScreen";
 
   static List<GetPage> routes = [
     GetPage(
@@ -106,6 +110,16 @@ class Routes {
     GetPage(
       name: subscribeScreen,
       page: () => SubscribeScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: myListScreen,
+      page: () => MyListScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: rewardsScreen,
+      page: () => RewardsScreen(),
       transition: Transition.noTransition,
     ),
   ];
