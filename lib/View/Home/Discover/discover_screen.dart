@@ -17,39 +17,52 @@ class DiscoverScreen extends StatelessWidget {
       body: Stack(
         children: [
           SafeArea(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 10.h),
-                  DiscoverSearchBar(),
-                  SizedBox(height: 18.h),
-                  CategoryTabs(),
-                  SizedBox(height: 20.h),
-                  Obx(() {
-                    switch (controller.selectedCategory.value) {
-                      case 'Popular':
-                        return PopularView(controller: controller);
-                      case 'New':
-                        return _buildNewView(controller);
-                      case 'VIP':
-                        return _buildVipView(controller);
-                      case 'Ranking':
-                        return _buildRankingView(controller);
-                      default:
-                        return PopularView(controller: controller);
-                    }
-                  }),
-                  SizedBox(height: 40.h), // Space for bottom navigation
-                ],
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 10.h),
+                      const DiscoverSearchBar(),
+                      SizedBox(height: 18.h),
+                      const CategoryTabs(),
+                      SizedBox(height: 5.h),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Column(
+                      children: [
+                        Obx(() {
+                          switch (controller.selectedCategory.value) {
+                            case 'Popular':
+                              return PopularView(controller: controller);
+                            case 'New':
+                              return _buildNewView(controller);
+                            case 'VIP':
+                              return _buildVipView(controller);
+                            case 'Ranking':
+                              return _buildRankingView(controller);
+                            default:
+                              return PopularView(controller: controller);
+                          }
+                        }),
+                        SizedBox(height: 40.h), // Space for bottom navigation
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Obx(
             () => controller.showBonusPopup.value
                 ? DailyBonusPopup(onClose: controller.closePopup)
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
           ),
         ],
       ),

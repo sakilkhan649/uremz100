@@ -12,7 +12,7 @@ class PopularView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 4.h),
+        SizedBox(height: 8.h),
         // First Row (Spider-Man, Crimson Chars, Glass)
         MovieGrid(items: controller.allMovies.sublist(0, 3), count: 3),
         SizedBox(height: 12.h),

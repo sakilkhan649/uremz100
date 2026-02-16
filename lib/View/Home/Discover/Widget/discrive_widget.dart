@@ -6,7 +6,6 @@ import '../../../../Utils/app_icons.dart';
 import '../../../../Widgets/Custom_Text.dart';
 import '../Controller/discover_controller.dart';
 import 'MovieCard.dart';
-import 'TopPicksList.dart';
 
 export 'MovieCard.dart';
 export 'TopPicksList.dart';
