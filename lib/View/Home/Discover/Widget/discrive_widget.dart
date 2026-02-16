@@ -161,7 +161,7 @@ class MovieCard extends StatelessWidget {
                       vertical: 2.h,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFF76212),
+                      color: Color(0xFFF76212),
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(8.r),
                         bottomLeft: Radius.circular(8.r),
@@ -197,14 +197,15 @@ class MovieCard extends StatelessWidget {
           CustomText(
             text: movie.title,
             fontSize: 12.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFFE3E3E3),
             overflow: TextOverflow.ellipsis,
           ),
           CustomText(
             text: movie.subtitle,
-            fontSize: 10.sp,
-            color: const Color(0xFF8E8E8E),
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFFE3E3E3),
             overflow: TextOverflow.ellipsis,
           ),
         ],
@@ -221,11 +222,20 @@ class TopPicksList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF0C0C0C),
         borderRadius: BorderRadius.circular(12.r),
         border: Border.all(color: Colors.white.withOpacity(0.05)),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF994A24),  // orange — top left
+            Color(0xFF1B1616),  // dark brown — middle
+            Color(0xFF000000),  // dark brown — middle
+          ],
+          stops: [0.0, 0.30, 2.0],
+        ),
       ),
-      padding: EdgeInsets.all(12.r),
+      padding: EdgeInsets.all(14.r),
       child: Column(
         children: [
           Row(
@@ -233,9 +243,9 @@ class TopPicksList extends StatelessWidget {
             children: [
               CustomText(
                 text: "Top Picks",
-                fontSize: 14.sp,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w700,
-                color: const Color(0xFFFFD400),
+                color: const Color(0xFFF76212),
               ),
             ],
           ),
@@ -244,7 +254,7 @@ class TopPicksList extends StatelessWidget {
             int idx = entry.key;
             DiscoverMovie movie = entry.value;
             return Padding(
-              padding: EdgeInsets.only(bottom: 12.h),
+              padding: EdgeInsets.only(bottom: 10.h),
               child: GestureDetector(
                 onTap: () => Get.to(() => MovieDetailScreen(movie: movie)),
                 child: Row(
@@ -253,28 +263,28 @@ class TopPicksList extends StatelessWidget {
                       alignment: Alignment.bottomLeft,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(4.r),
+                          borderRadius: BorderRadius.circular(8.r),
                           child: Image.asset(
                             movie.image,
-                            width: 50.w,
-                            height: 50.w,
+                            width: 64.w,
+                            height: 74.w,
                             fit: BoxFit.cover,
                           ),
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 4.w),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF76212),
+                            color:Color(0xFFF76212),
                             borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(4.r),
-                              bottomLeft: Radius.circular(4.r),
+                              topRight: Radius.circular(8.r),
+                              bottomLeft: Radius.circular(8.r),
                             ),
                           ),
                           child: CustomText(
                             text: "${idx + 1}",
-                            fontSize: 10.sp,
+                            fontSize: 8.sp,
                             color: Colors.white,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
@@ -286,22 +296,19 @@ class TopPicksList extends StatelessWidget {
                         children: [
                           CustomText(
                             text: movie.title,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
                             color: Colors.white,
                           ),
                           Row(
                             children: [
-                              Icon(
-                                Icons.local_fire_department,
-                                color: const Color(0xFFF76212),
-                                size: 12.sp,
-                              ),
+                              SvgPicture.asset(AppIcons.fire_icon, width: 14.w, height: 14.w),
                               SizedBox(width: 4.w),
                               CustomText(
                                 text: "307k",
-                                fontSize: 10.sp,
-                                color: const Color(0xFFF76212),
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                                color:Color(0xFFF76212),
                               ),
                             ],
                           ),
@@ -313,10 +320,21 @@ class TopPicksList extends StatelessWidget {
               ),
             );
           }).toList(),
-          CustomText(
-            text: "Explore More >",
-            fontSize: 10.sp,
-            color: const Color(0xFF8E8E8E),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomText(
+                text: "Explore More",
+                fontSize: 10.sp,
+                color: Color(0xFFD9D9D9),
+              ),
+              SizedBox(width: 5.w),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: Color(0xFFD9D9D9),
+                size: 10.sp,
+              ),
+            ],
           ),
         ],
       ),

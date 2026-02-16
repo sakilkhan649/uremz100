@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'Controller/discover_controller.dart';
 import 'Widget/discrive_widget.dart';
 import '../../../../Utils/app_images.dart';
@@ -39,7 +40,7 @@ class DiscoverScreen extends StatelessWidget {
                         return _buildPopularView(controller);
                     }
                   }),
-                  SizedBox(height: 100.h), // Space for bottom navigation
+                  SizedBox(height: 40.h), // Space for bottom navigation
                 ],
               ),
             ),
@@ -47,7 +48,7 @@ class DiscoverScreen extends StatelessWidget {
           Obx(
             () => controller.showBonusPopup.value
                 ? DailyBonusPopup(onClose: controller.closePopup)
-                : const SizedBox.shrink(),
+                : SizedBox.shrink(),
           ),
         ],
       ),
@@ -59,33 +60,51 @@ class DiscoverScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 4.h),
-        _buildMovieGrid(controller.allMovies.take(3).toList(), 3),
-        SizedBox(height: 24.h),
-        const SectionHeader(title: "Recently Watched"),
+        // First Row
+        _buildMovieGrid(controller.allMovies.sublist(0, 3), 3),
+        // Second Row
+        _buildMovieGrid(controller.allMovies.sublist(3, 6), 3),
+        SectionHeader(title: "Recently Watched"),
         SizedBox(height: 12.h),
-        _buildMovieGrid(controller.allMovies.take(2).toList(), 3),
-        SizedBox(height: 24.h),
-        const SectionHeader(title: "You Might Like"),
-        SizedBox(height: 12.h),
+        // Recently Watched
+        _buildMovieGrid(controller.allMovies.sublist(0, 2), 3),
+        SectionHeader(title: "You Might Like"),
+        SizedBox(height: 16.h),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(flex: 1, child: MovieCard(movie: controller.allMovies[0])),
+            // Left Column: 2 Movies stacked
+            Expanded(
+              flex: 1,
+              child: Column(
+                children: [
+                  MovieCard(movie: controller.allMovies[1]), // Crimson Chars
+                  SizedBox(height: 12.h),
+                  MovieCard(movie: controller.allMovies[3]), // Spider-Man Brand
+                ],
+              ),
+            ),
             SizedBox(width: 12.w),
+            // Right Column: Top Picks Card
             Expanded(
               flex: 2,
               child: TopPicksList(
-                movies: controller.allMovies.take(4).toList(),
+                movies: controller.allMovies.sublist(
+                  7,
+                  11,
+                ), // Avatar to Avatar (4 items)
               ),
             ),
           ],
         ),
+        SizedBox(height: 18.h),
+        SectionHeader(title: "Most Popular Series"),
         SizedBox(height: 12.h),
-        _buildMovieGrid(controller.allMovies.take(3).toList(), 3),
-        SizedBox(height: 24.h),
-        const SectionHeader(title: "Most Popular Series"),
-        SizedBox(height: 12.h),
-        _buildMovieGrid(controller.allMovies.take(3).toList(), 3),
+        _buildMovieGrid([
+          controller.allMovies[4],
+          controller.allMovies[5],
+          controller.allMovies[6],
+        ], 3),
       ],
     );
   }
@@ -94,11 +113,11 @@ class DiscoverScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionHeader(title: "Coming Soon"),
+        SectionHeader(title: "Coming Soon"),
         SizedBox(height: 12.h),
         _buildMovieGrid(controller.allMovies.take(3).toList(), 3),
         SizedBox(height: 24.h),
-        const SectionHeader(title: "New Release"),
+        SectionHeader(title: "New Release"),
         SizedBox(height: 12.h),
         _buildMovieGrid([...controller.allMovies, ...controller.allMovies], 3),
       ],
@@ -113,11 +132,11 @@ class DiscoverScreen extends StatelessWidget {
         SizedBox(height: 12.h),
         _buildMovieGrid(controller.allMovies.take(3).toList(), 3),
         SizedBox(height: 24.h),
-        const SectionHeader(title: "Only On ShortMax"),
+        SectionHeader(title: "Only On ShortMax"),
         SizedBox(height: 12.h),
         _buildMovieGrid(controller.allMovies.take(3).toList(), 3),
         SizedBox(height: 24.h),
-        const SectionHeader(title: "Hot Now"),
+        SectionHeader(title: "Hot Now"),
         SizedBox(height: 12.h),
         _buildMovieGrid([...controller.allMovies, ...controller.allMovies], 3),
       ],
@@ -142,7 +161,7 @@ class DiscoverScreen extends StatelessWidget {
         SizedBox(height: 20.h),
         ListView.builder(
           shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           itemCount: 7,
           itemBuilder: (context, index) {
             return _buildRankingItem(index);
@@ -155,13 +174,13 @@ class DiscoverScreen extends StatelessWidget {
   Widget _buildMovieGrid(List<dynamic> items, int count) {
     return GridView.builder(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       itemCount: items.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: count,
         mainAxisSpacing: 10.h,
         crossAxisSpacing: 10.w,
-        childAspectRatio: 0.55,
+        childAspectRatio: 0.52,
       ),
       itemBuilder: (context, index) {
         return MovieCard(movie: items[index]);
@@ -179,7 +198,7 @@ class DiscoverScreen extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: TextStyle(
+        style: GoogleFonts.inter(
           color: isSelected ? Colors.black : const Color(0xFF8E8E8E),
           fontSize: 12.sp,
           fontWeight: FontWeight.w600,
@@ -216,7 +235,7 @@ class DiscoverScreen extends StatelessWidget {
                 ),
                 child: Text(
                   "${index + 1}",
-                  style: TextStyle(
+                  style: GoogleFonts.inter(
                     color: Colors.white,
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w700,
