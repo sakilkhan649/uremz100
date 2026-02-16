@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Controller/discover_controller.dart';
 import 'Widget/discrive_widget.dart';
+import 'Popular/popular.dart';
 import '../../../../Utils/app_images.dart';
 
 class DiscoverScreen extends StatelessWidget {
@@ -29,7 +30,7 @@ class DiscoverScreen extends StatelessWidget {
                   Obx(() {
                     switch (controller.selectedCategory.value) {
                       case 'Popular':
-                        return _buildPopularView(controller);
+                        return PopularView(controller: controller);
                       case 'New':
                         return _buildNewView(controller);
                       case 'VIP':
@@ -37,7 +38,7 @@ class DiscoverScreen extends StatelessWidget {
                       case 'Ranking':
                         return _buildRankingView(controller);
                       default:
-                        return _buildPopularView(controller);
+                        return PopularView(controller: controller);
                     }
                   }),
                   SizedBox(height: 40.h), // Space for bottom navigation
@@ -55,71 +56,20 @@ class DiscoverScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPopularView(DiscoverController controller) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 4.h),
-        // First Row
-        _buildMovieGrid(controller.allMovies.sublist(0, 3), 3),
-        // Second Row
-        _buildMovieGrid(controller.allMovies.sublist(3, 6), 3),
-        SectionHeader(title: "Recently Watched"),
-        SizedBox(height: 12.h),
-        // Recently Watched
-        _buildMovieGrid(controller.allMovies.sublist(0, 2), 3),
-        SectionHeader(title: "You Might Like"),
-        SizedBox(height: 16.h),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Left Column: 2 Movies stacked
-            Expanded(
-              flex: 1,
-              child: Column(
-                children: [
-                  MovieCard(movie: controller.allMovies[1]), // Crimson Chars
-                  SizedBox(height: 12.h),
-                  MovieCard(movie: controller.allMovies[3]), // Spider-Man Brand
-                ],
-              ),
-            ),
-            SizedBox(width: 12.w),
-            // Right Column: Top Picks Card
-            Expanded(
-              flex: 2,
-              child: TopPicksList(
-                movies: controller.allMovies.sublist(
-                  7,
-                  11,
-                ), // Avatar to Avatar (4 items)
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 18.h),
-        SectionHeader(title: "Most Popular Series"),
-        SizedBox(height: 12.h),
-        _buildMovieGrid([
-          controller.allMovies[4],
-          controller.allMovies[5],
-          controller.allMovies[6],
-        ], 3),
-      ],
-    );
-  }
-
   Widget _buildNewView(DiscoverController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionHeader(title: "Coming Soon"),
         SizedBox(height: 12.h),
-        _buildMovieGrid(controller.allMovies.take(3).toList(), 3),
+        MovieGrid(items: controller.allMovies.take(3).toList(), count: 3),
         SizedBox(height: 24.h),
         SectionHeader(title: "New Release"),
         SizedBox(height: 12.h),
-        _buildMovieGrid([...controller.allMovies, ...controller.allMovies], 3),
+        MovieGrid(
+          items: [...controller.allMovies, ...controller.allMovies],
+          count: 3,
+        ),
       ],
     );
   }
@@ -130,15 +80,18 @@ class DiscoverScreen extends StatelessWidget {
       children: [
         SectionHeader(title: "Top VIP Picks", onMore: () {}),
         SizedBox(height: 12.h),
-        _buildMovieGrid(controller.allMovies.take(3).toList(), 3),
+        MovieGrid(items: controller.allMovies.take(3).toList(), count: 3),
         SizedBox(height: 24.h),
         SectionHeader(title: "Only On ShortMax"),
         SizedBox(height: 12.h),
-        _buildMovieGrid(controller.allMovies.take(3).toList(), 3),
+        MovieGrid(items: controller.allMovies.take(3).toList(), count: 3),
         SizedBox(height: 24.h),
         SectionHeader(title: "Hot Now"),
         SizedBox(height: 12.h),
-        _buildMovieGrid([...controller.allMovies, ...controller.allMovies], 3),
+        MovieGrid(
+          items: [...controller.allMovies, ...controller.allMovies],
+          count: 3,
+        ),
       ],
     );
   }
@@ -168,23 +121,6 @@ class DiscoverScreen extends StatelessWidget {
           },
         ),
       ],
-    );
-  }
-
-  Widget _buildMovieGrid(List<dynamic> items, int count) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: items.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: count,
-        mainAxisSpacing: 10.h,
-        crossAxisSpacing: 10.w,
-        childAspectRatio: 0.52,
-      ),
-      itemBuilder: (context, index) {
-        return MovieCard(movie: items[index]);
-      },
     );
   }
 
