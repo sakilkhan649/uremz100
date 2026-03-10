@@ -26,19 +26,21 @@ class BottomNabbarScreens extends StatelessWidget {
       ProfileScreen(),
     ];
 
-    return Scaffold(
-      body: Obx(() => pages[navController.currentIndex.value]),
-      bottomNavigationBar: Obx(
-        () => Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-          decoration: BoxDecoration(
-            color: Colors.black, // Background color
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: List.generate(
-              5,
-              (index) => _buildCustomIcon(index, navController),
+    return SafeArea(
+      child: Scaffold(
+        body: Obx(() => pages[navController.currentIndex.value]),
+        bottomNavigationBar: Obx(
+          () => Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+            decoration: BoxDecoration(
+              color: Colors.black, // Background color
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: List.generate(
+                5,
+                (index) => _buildCustomIcon(index, navController),
+              ),
             ),
           ),
         ),

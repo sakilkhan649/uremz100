@@ -6,11 +6,13 @@ import '../../../../Widgets/Custom_Text.dart';
 class ShortsInfoOverlay extends StatelessWidget {
   final String title;
   final String description;
+  final String? profileImage;
 
   const ShortsInfoOverlay({
     super.key,
     required this.title,
     required this.description,
+    this.profileImage,
   });
 
   @override
@@ -19,15 +21,25 @@ class ShortsInfoOverlay extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        CustomText(
-          text: title,
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w600,
-          color: AppColors.white100,
+        Row(
+          children: [
+            if (profileImage != null)
+              CircleAvatar(
+                radius: 14.r,
+                backgroundImage: AssetImage(profileImage!),
+              ),
+            if (profileImage != null) SizedBox(width: 8.w),
+            CustomText(
+              text: title,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w600,
+              color: AppColors.white100,
+            ),
+          ],
         ),
         SizedBox(height: 8.h),
         SizedBox(
-          width: 250.w,
+          width: 280.w,
           child: RichText(
             text: TextSpan(
               children: [

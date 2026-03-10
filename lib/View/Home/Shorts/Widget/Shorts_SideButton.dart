@@ -23,31 +23,34 @@ class ShortsSideButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Column(
-        children: [
-          icon ??
-              (iconPath != null
-                  ? SvgPicture.asset(
-                iconPath!,
-                width: 32.w,
-                height: 32.w,
-                colorFilter: color != null
-                    ? ColorFilter.mode(color!, BlendMode.srcIn)
-                    : null,
-              )
-                  : const SizedBox()),
-          if (label != null) ...[
-            SizedBox(height: 4.h),
-            Text(
-              label!,
-              style: TextStyle(
-                color: AppColors.white100,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w400,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 8.h),
+        child: Column(
+          children: [
+            icon ??
+                (iconPath != null
+                    ? SvgPicture.asset(
+                  iconPath!,
+                  width: 32.w,
+                  height: 32.w,
+                  colorFilter: color != null
+                      ? ColorFilter.mode(color!, BlendMode.srcIn)
+                      : null,
+                )
+                    : const SizedBox()),
+            if (label != null) ...[
+              SizedBox(height: 4.h),
+              Text(
+                label!,
+                style: TextStyle(
+                  color: AppColors.white100,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
-            ),
+            ],
           ],
-        ],
+        ),
       ),
     );
   }

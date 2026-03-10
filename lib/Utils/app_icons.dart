@@ -22,4 +22,12 @@ class AppIcons {
   static const String ad_free_icon="$iconurl/ad_free_icon.svg";
   static const String download_two_icon="$iconurl/download_two_icon.svg";
   static const String fire_icon="$iconurl/fire_icon.svg";
+  static const String hard_icon="$iconurl/hard_icon.svg";
+  static const String save_icon="$iconurl/save_icon.svg";
+  static const String short_reword_icon="$iconurl/short_reword_icon.svg";
+  static const String more_icon="$iconurl/more_icon.svg";
+  static const String speed_icon="$iconurl/speed_icon.svg";
+  static const String quality_icon="$iconurl/quality_icon.svg";
+  static const String picture_icon="$iconurl/picture_icon.svg";
+  static const String report_icon="$iconurl/report_icon.svg";
 }
