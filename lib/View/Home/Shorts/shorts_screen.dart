@@ -182,46 +182,56 @@ class ShortsScreen extends StatelessWidget {
                     left: 16.w,
                     right: 16.w,
                     bottom: 22.h,
-                    child: Container(
-                      height: 44.h,
-                      padding: EdgeInsets.symmetric(horizontal: 14.w),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF3A3A3A).withOpacity(0.20),
-                        borderRadius: BorderRadius.circular(8.r),
-                        border: Border.all(
-                          color: Colors.white.withOpacity(0.1),
+                    child: GestureDetector(
+                      onTap: () => controller.toggleEpisodePopup(),
+                      child: Container(
+                        height: 44.h,
+                        padding: EdgeInsets.symmetric(horizontal: 14.w),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF3A3A3A).withOpacity(0.20),
+                          borderRadius: BorderRadius.circular(8.r),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.1),
+                          ),
                         ),
-                      ),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            AppIcons.episode_icon,
-                            height: 20.sp,
-                            width: 20.sp,
-                          ),
-                          SizedBox(width: 9.w),
-                          Obx(
-                            () => CustomText(
-                              text:
-                                  "Episode ${controller.currentEpisode.value} • Season ${controller.currentSeason.value}",
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFFFFFFFF),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              AppIcons.episode_icon,
+                              height: 20.sp,
+                              width: 20.sp,
                             ),
-                          ),
-                          const Spacer(),
-                          SvgPicture.asset(
-                            AppIcons.dowp_icon,
-                            height: 20.sp,
-                            width: 20.sp,
-                          ),
-                        ],
+                            SizedBox(width: 9.w),
+                            Obx(
+                              () => CustomText(
+                                text:
+                                    "Episode ${controller.currentEpisode.value} • Season ${controller.currentSeason.value}",
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0xFFFFFFFF),
+                              ),
+                            ),
+                            const Spacer(),
+                            SvgPicture.asset(
+                              AppIcons.dowp_icon,
+                              height: 20.sp,
+                              width: 20.sp,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ],
               );
             },
+          ),
+
+          // Episode Selection Popup
+          Obx(
+            () => controller.showEpisodePopup.value
+                ? _buildEpisodePopup(context, controller)
+                : const SizedBox.shrink(),
           ),
 
           // More Menu Overlay
@@ -372,6 +382,175 @@ class ShortsScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildEpisodePopup(BuildContext context, ShortsController controller) {
+    return GestureDetector(
+      onTap: () => controller.toggleEpisodePopup(),
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Colors.transparent, // Shadow/Dim background removed
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            GestureDetector(
+              onTap: () {}, // Prevent closing when clicking inside
+              child: Container(
+                margin: EdgeInsets.only(
+                  bottom: 70.h,
+                ), // Respect the bottom margin
+                width: double.infinity,
+                height: 406.h,
+                padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 0),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF121212),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(32.r),
+                    topRight: Radius.circular(32.r),
+                  ),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Header
+                    CustomText(
+                      text: "Episodes",
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
+                    SizedBox(height: 30.h),
+
+                    // 1. Episode Range Section (Custom Widget)
+                    _buildRangeSection(controller),
+
+                    SizedBox(height: 24.h),
+
+                    // 2. Episodes Grid Section (Custom Widget)
+                    _buildEpisodeGrid(controller),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // --- 1. Episode Range Section ---
+  Widget _buildRangeSection(ShortsController controller) {
+    return Row(
+      children: [
+        _buildEpisodeRangeTab(controller, "1-25"),
+        SizedBox(width: 40.w),
+        _buildEpisodeRangeTab(controller, "26-43"),
+        SizedBox(width: 40.w),
+        _buildEpisodeRangeTab(controller, "44-93"),
+      ],
+    );
+  }
+
+  // --- 2. Episodes Grid Section ---
+  Widget _buildEpisodeGrid(ShortsController controller) {
+    return Expanded(
+      child: Obx(() {
+        final episodes = controller.episodesForSelectedRange;
+        return GridView.builder(
+          padding: EdgeInsets.only(bottom: 20.h),
+          shrinkWrap: false,
+          physics: const BouncingScrollPhysics(),
+          itemCount: episodes.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+            crossAxisSpacing: 14.w,
+            mainAxisSpacing: 14.h,
+            childAspectRatio: 1.1,
+          ),
+          itemBuilder: (context, index) {
+            int episodeNum = episodes[index];
+            bool isLocked = episodeNum > 10;
+            return _buildEpisodeItem(controller, episodeNum, isLocked);
+          },
+        );
+      }),
+    );
+  }
+
+  // --- Episode Item Custom Widget ---
+  Widget _buildEpisodeItem(
+    ShortsController controller,
+    int episodeNum,
+    bool isLocked,
+  ) {
+    return GestureDetector(
+      onTap: () => controller.selectEpisode(episodeNum),
+      child: Stack(
+        children: [
+          // Background Tile
+          Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFF2D2D2D),
+              borderRadius: BorderRadius.circular(6.r),
+            ),
+            alignment: Alignment.center,
+            child: CustomText(
+              text: "$episodeNum",
+              fontSize: 12.sp,
+              color: Colors.white,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          // Locked Badge (Top Right)
+          if (isLocked)
+            Positioned(
+              top: 0,
+              right: 0,
+              child: Container(
+                padding: EdgeInsets.all(3.r),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF76212),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(6.r),
+                    bottomLeft: Radius.circular(6.r),
+                  ),
+                ),
+                child: Icon(Icons.lock, size: 8.sp, color: Colors.white),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEpisodeRangeTab(ShortsController controller, String range) {
+    return Obx(() {
+      bool isSelected = controller.selectedEpisodeRange.value == range;
+      return GestureDetector(
+        onTap: () => controller.changeEpisodeRange(range),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomText(
+              text: range,
+              fontSize: 18.sp,
+              fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+              color: isSelected
+                  ? const Color(0xFFF76212)
+                  : const Color(0xFF8E8E8E),
+            ),
+            SizedBox(height: 8.h),
+            Container(
+              height: 2.h,
+              width: 50.w,
+              color: isSelected ? const Color(0xFFF76212) : Colors.transparent,
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   Widget _buildDivider() {
