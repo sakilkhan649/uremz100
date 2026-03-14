@@ -6,150 +6,92 @@ import 'package:uremz100/Utils/app_colors.dart';
 import 'package:uremz100/Utils/app_icons.dart';
 import 'package:uremz100/Widgets/Custom_Text.dart';
 import '../Bottom_NabBar/Controller/Bottom_NabBar_Controller.dart';
+import 'Basic_VIP/basic_vip.dart';
+import 'Controller/standart_vip_controller.dart';
 import 'Widget/subscribe_widgets.dart';
 
-class SubscribeScreen extends StatelessWidget {
-  const SubscribeScreen({super.key});
+class StandardVip extends StatelessWidget {
+  const StandardVip({super.key});
 
   @override
   Widget build(BuildContext context) {
     final NavigationController navController = Get.find<NavigationController>();
+    final StandartVipController controller = Get.put(StandartVipController());
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
+          onPressed: () => Get.back(),
+        ),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 50.h),
-            const ProfileHeader(),
             SizedBox(height: 10.h),
-            _buildSectionTitle("Subscribe"),
-            SizedBox(height: 16.h),
-            SubscribeCard(
-              title: "Weekly Pass Pro",
-              price: "1,500",
-              features: [
-                SubscribeFeature(
-                  label: "Short Drama Viewing",
-                  iconPath: AppIcons.drama_icon,
-                ),
-                SubscribeFeature(
-                  label: "Ad-Free",
-                  iconPath: AppIcons.ad_free_icon,
-                ),
-                SubscribeFeature(
-                  label: "Daily VIP Reward",
-                  iconPath: AppIcons.rewards_icon,
-                ),
-                SubscribeFeature(
-                  label: "1080p Full HD",
-                  iconPath: AppIcons.full_hd_icon,
-                ),
-              ],
+            CustomText(
+              text: "Become Standard VIP to Access All",
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFFFFFFFF),
             ),
-            SubscribeCard(
-              title: "Monthly Pass Pro",
-              price: "2,500",
-              features: [
-                SubscribeFeature(
-                  label: "Short Drama Viewing",
-                  iconPath: AppIcons.drama_icon,
-                ),
-                SubscribeFeature(
-                  label: "Ad-Free",
-                  iconPath: AppIcons.ad_free_icon,
-                ),
-                SubscribeFeature(
-                  label: "Daily VIP Reward",
-                  iconPath: AppIcons.rewards_icon,
-                ),
-                SubscribeFeature(
-                  label: "1080p Full HD",
-                  iconPath: AppIcons.full_hd_icon,
-                ),
-              ],
+            CustomText(
+              text: "Exclusive Features",
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFFFFFFFF),
             ),
-            SubscribeCard(
-              title: "Yearly VIP",
-              price: "4,500",
-              features: [
-                SubscribeFeature(
-                  label: "Short Drama Viewing",
-                  iconPath: AppIcons.drama_icon,
+            SizedBox(height: 30.h),
+            // Custom TabBar
+            Obx(
+              () => Container(
+                height: 45.h,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF1F1F1F),
+                  borderRadius: BorderRadius.circular(8.r),
                 ),
-                SubscribeFeature(
-                  label: "Offline Download",
-                  iconPath: AppIcons.download_two_icon,
+                child: Row(
+                  children: [
+                    _buildTabItem(
+                      "Standard VIP",
+                      isSelected: controller.selectedTabIndex.value == 0,
+                      onTap: () => controller.changeTab(0),
+                      isLeft: true,
+                    ),
+                    _buildTabItem(
+                      "Basic VIP",
+                      isSelected: controller.selectedTabIndex.value == 1,
+                      onTap: () => controller.changeTab(1),
+                      isLeft: false,
+                    ),
+                  ],
                 ),
-                SubscribeFeature(
-                  label: "Daily VIP Reward",
-                  iconPath: AppIcons.rewards_icon,
-                ),
-                SubscribeFeature(
-                  label: "1080p Full HD",
-                  iconPath: AppIcons.full_hd_icon,
-                ),
-              ],
+              ),
             ),
-            _buildSectionTitle("Refill"),
-            SizedBox(height: 16.h),
-            Row(
-              children: [
-                Expanded(
-                  child: RefillCard(
-                    coins: "300 + 30",
-                    bonus: "",
-                    price: "15.08",
-                    discount: "10%",
-                  ),
-                ),
-                SizedBox(width: 10.w),
-                Expanded(
-                  child: RefillCard(
-                    coins: "250 + 20",
-                    bonus: "",
-                    price: "10.08",
-                    discount: "10%",
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 14.h),
-            Row(
-              children: [
-                Expanded(
-                  child: RefillCard(
-                    coins: "300 + 30",
-                    bonus: "",
-                    price: "15.08",
-                    discount: "10%",
-                  ),
-                ),
-                SizedBox(width: 10.w),
-                Expanded(
-                  child: RefillCard(
-                    coins: "300 + 30",
-                    bonus: "",
-                    price: "15.08",
-                    discount: "10%",
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 14.h),
-            _buildSectionTitle("About Subscription"),
-            SizedBox(height: 16.h),
-            SubscriptionRules(),
-            SizedBox(height: 40.h),
+            SizedBox(height: 13.h),
+            // Content based on tab
+            Obx(() {
+              if (controller.selectedTabIndex.value == 0) {
+                return _buildStandardContent(controller);
+              } else {
+                return const BasicVip();
+              }
+            }),
+            SubscriptionRules(rules: controller.subscriptionRules),
           ],
         ),
       ),
       bottomNavigationBar: Obx(
         () => Container(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-          decoration: const BoxDecoration(color: Colors.black),
+          decoration: const BoxDecoration(
+            color: Colors.black,
+            border: Border(top: BorderSide(color: Colors.white12, width: 0.5)),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: List.generate(
@@ -162,12 +104,48 @@ class SubscribeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
-    return CustomText(
-      text: title,
-      fontSize: 18.sp,
-      fontWeight: FontWeight.w700,
-      color: Colors.white,
+  Widget _buildTabItem(
+    String title, {
+    required bool isSelected,
+    required VoidCallback onTap,
+    required bool isLeft,
+  }) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: isSelected ? const Color(0xFF764820) : Color(0xFF3F3E3E),
+            borderRadius: isLeft
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(8.r),
+                    bottomLeft: Radius.circular(8.r),
+                  )
+                : BorderRadius.only(
+                    topRight: Radius.circular(8.r),
+                    bottomRight: Radius.circular(8.r),
+                  ),
+          ),
+          child: CustomText(
+            text: title,
+            fontSize: 18.sp,
+            fontWeight: isSelected ? FontWeight.w500 : FontWeight.w500,
+            color: isSelected ? Colors.white : Color(0xFFB0B0B0),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStandardContent(StandartVipController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ...controller.standardPlans.map((plan) => SubscribeCard(plan: plan)),
+        MovieGrid(movies: controller.bestMovies, title: "Best Movies"),
+        MovieGrid(movies: controller.comingSoonMovies, title: "Coming Soon"),
+      ],
     );
   }
 
@@ -182,12 +160,20 @@ class SubscribeScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(_getSvgForIndex(index), width: 24.w, height: 24.w),
+          SvgPicture.asset(
+            _getSvgForIndex(index),
+            width: 24.w,
+            height: 24.w,
+            colorFilter: ColorFilter.mode(
+              isSelected ? Colors.white : AppColors.gray400,
+              BlendMode.srcIn,
+            ),
+          ),
           SizedBox(height: 6.h),
           Text(
             _getLabelForIndex(index),
             style: TextStyle(
-              fontSize: 12.sp,
+              fontSize: 10.sp,
               fontWeight: FontWeight.w400,
               color: isSelected ? Colors.white : AppColors.gray400,
             ),

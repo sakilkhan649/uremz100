@@ -22,7 +22,7 @@ class MyListScreen extends GetView<MyListController> {
         actions: [
           GestureDetector(
             onTap: () {
-              Get.toNamed(Routes.subscribeScreen);
+              Get.toNamed(Routes.standardVip);
             },
             child: Padding(
               padding: EdgeInsets.only(right: 16.w),

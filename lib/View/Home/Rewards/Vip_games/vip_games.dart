@@ -188,7 +188,7 @@ class VipGames extends StatelessWidget {
                         child: Column(
                           children: [
                             CustomText(
-                              text: "Subscribe to claim",
+                              text: "Standard_VIP to claim",
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF272424),

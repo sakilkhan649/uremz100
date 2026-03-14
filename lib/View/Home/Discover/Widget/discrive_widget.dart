@@ -49,7 +49,7 @@ class DiscoverSearchBar extends StatelessWidget {
         SizedBox(width: 12.w),
         GestureDetector(
             onTap: () {
-              Get.toNamed(Routes.subscribeScreen);
+              Get.toNamed(Routes.standardVip);
             },
             child: SvgPicture.asset(AppIcons.vip_icon, width: 32.w, height: 32.w)),
       ],

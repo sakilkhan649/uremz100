@@ -23,7 +23,7 @@ class OnboardingController extends GetxController {
     ),
     OnboardingInfo(
       AppImages.on_image_three,
-      "Subscribe & watch unlimited content",
+      "Standard_VIP & watch unlimited content",
       "Affordable plans starting at \$2.99. Join and start streaming now.",
       Color(0xFF262922), // Gradient start color - Dark green
       Color(0xFF000000), // Gradient end color - Black
