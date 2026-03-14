@@ -17,6 +17,7 @@ class AppImages{
   static const String move_5="$buseurl/move_5.png";
   static const String move_6="$buseurl/move_6.png";
   static const String move_7="$buseurl/short_image_five.png";
+  static const String crack_box_image="$buseurl/crack_box_image.png";
 
 
 

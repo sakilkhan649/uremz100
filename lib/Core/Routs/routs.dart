@@ -14,6 +14,7 @@ import '../../View/Home/Profile/Change_password/change_password.dart';
 import '../../View/Home/Profile/Change_profile_info/change_profile_info.dart';
 import '../../View/Home/Profile/Privacy_Policy/privacy_policy.dart';
 import '../../View/Home/Profile/User_agreement/user_agreement.dart';
+import '../../View/Home/Rewards/Vip_games/vip_games.dart';
 import '../../View/Home/Rewards/rewards_screen.dart';
 import '../../View/Home/Subscribe/subscribe_screen.dart';
 
@@ -35,6 +36,7 @@ class Routes {
   static const String subscribeScreen = "/SubscribeScreen";
   static const String myListScreen = "/MyListScreen";
   static const String rewardsScreen = "/RewardsScreen";
+  static const String vipGames = "/VipGames";
 
   static List<GetPage> routes = [
     GetPage(
@@ -120,6 +122,11 @@ class Routes {
     GetPage(
       name: rewardsScreen,
       page: () => RewardsScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: vipGames,
+      page: () => VipGames(),
       transition: Transition.noTransition,
     ),
   ];
