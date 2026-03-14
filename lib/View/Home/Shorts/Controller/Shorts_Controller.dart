@@ -10,6 +10,19 @@ class ShortsController extends GetxController {
   var isPipEnabled = true.obs;
   var playbackSpeed = "1.0x".obs;
   var videoQuality = "1080p".obs;
+  var isDescriptionExpanded = false.obs;
+
+  void toggleDescription() {
+    isDescriptionExpanded.value = !isDescriptionExpanded.value;
+  }
+
+  void updatePlaybackSpeed(String speed) {
+    playbackSpeed.value = speed;
+  }
+
+  void updateVideoQuality(String quality) {
+    videoQuality.value = quality;
+  }
 
   void toggleFav() {
     isFav.value = !isFav.value;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../Utils/app_colors.dart';
 
 class ShortsSideButton extends StatelessWidget {
@@ -31,18 +32,18 @@ class ShortsSideButton extends StatelessWidget {
                 (iconPath != null
                     ? SvgPicture.asset(
                   iconPath!,
-                  width: 32.w,
-                  height: 32.w,
+                  width: 28.w,
+                  height: 28.w,
                   colorFilter: color != null
                       ? ColorFilter.mode(color!, BlendMode.srcIn)
                       : null,
                 )
                     : const SizedBox()),
             if (label != null) ...[
-              SizedBox(height: 4.h),
+              SizedBox(height: 14.h),
               Text(
                 label!,
-                style: TextStyle(
+                style: GoogleFonts.inter(
                   color: AppColors.white100,
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,

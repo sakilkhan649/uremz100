@@ -71,10 +71,51 @@ class ShortsScreen extends StatelessWidget {
                     ),
                   ),
 
+                  // Reward Icon
+                  Positioned(
+                    top: 51.h,
+                    right: 22.w,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        SvgPicture.asset(
+                          AppIcons.short_reword_icon,
+                          width: 24.w,
+                          height: 24.w,
+                        ),
+                        Positioned(
+                          top: -18,
+                          right: -2,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0xFF272727),
+                                  blurRadius: 6,
+                                ),
+                              ],
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                ///
+                              },
+                              child: Icon(
+                                Icons.close,
+                                size: 10.sp,
+                                color: Color(0xFFE6E6E6),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   // Right Side Action Buttons
                   Positioned(
                     right: 16.w,
-                    bottom: 120.h,
+                    bottom: 73.h,
                     child: Column(
                       children: [
                         // Bookmark Button
@@ -82,8 +123,8 @@ class ShortsScreen extends StatelessWidget {
                           () => ShortsSideButton(
                             iconPath: AppIcons.save_icon,
                             color: controller.isBookmarked.value
-                                ? AppColors.orange100
-                                : Colors.white,
+                                ? AppColors.gray500
+                                : AppColors.orange100,
                             label: "15.5k",
                             onTap: () => controller.toggleBookmark(),
                           ),
@@ -93,15 +134,10 @@ class ShortsScreen extends StatelessWidget {
                         // Favorite Button
                         Obx(
                           () => ShortsSideButton(
-                            icon: Icon(
-                              controller.isFav.value
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: controller.isFav.value
-                                  ? Colors.red
-                                  : Colors.white,
-                              size: 32.sp,
-                            ),
+                            iconPath: AppIcons.hard_icon,
+                            color: controller.isFav.value
+                                ? AppColors.gray500
+                                : AppColors.orange100,
                             label: "14.4k",
                             onTap: () => controller.toggleFav(),
                           ),
@@ -128,12 +164,16 @@ class ShortsScreen extends StatelessWidget {
                   // Bottom Info Section
                   Positioned(
                     left: 16.w,
-                    bottom: 130.h,
-                    child: ShortsInfoOverlay(
-                      profileImage: AppImages.profile_image,
-                      title: "The Amazing Spiderman",
-                      description:
-                          "A young Peter Parker discovers his powers and learns that being a hero comes with responsibility..",
+                    bottom: 83.h,
+                    child: Obx(
+                      () => ShortsInfoOverlay(
+                        profileImage: AppImages.profile_image,
+                        title: "The Amazing Spiderman",
+                        description:
+                            "A young Peter Parker discovers his powers and learns that being a hero comes with responsibility A young Peter Parker discovers his powers and learns that being a hero comes with responsibility",
+                        isExpanded: controller.isDescriptionExpanded.value,
+                        onMoreTap: () => controller.toggleDescription(),
+                      ),
                     ),
                   ),
 
@@ -141,58 +181,39 @@ class ShortsScreen extends StatelessWidget {
                   Positioned(
                     left: 16.w,
                     right: 16.w,
-                    bottom: 85.h,
+                    bottom: 22.h,
                     child: Container(
-                      height: 40.h,
+                      height: 44.h,
+                      padding: EdgeInsets.symmetric(horizontal: 14.w),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.1),
+                        color: const Color(0xFF3A3A3A).withOpacity(0.20),
                         borderRadius: BorderRadius.circular(8.r),
-                        border: Border.all(color: Colors.white24),
-                      ),
-                      alignment: Alignment.center,
-                      child: CustomText(
-                        text: "Watch Now",
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-
-                  // Episode Bar
-                  Positioned(
-                    left: 16.w,
-                    right: 16.w,
-                    bottom: 45.h,
-                    child: Container(
-                      height: 36.h,
-                      padding: EdgeInsets.symmetric(horizontal: 12.w),
-                      decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(4.r),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.1),
+                        ),
                       ),
                       child: Row(
                         children: [
-                          Icon(
-                            Icons.layers,
-                            color: Colors.white70,
-                            size: 16.sp,
+                          SvgPicture.asset(
+                            AppIcons.episode_icon,
+                            height: 20.sp,
+                            width: 20.sp,
                           ),
-                          SizedBox(width: 8.w),
+                          SizedBox(width: 9.w),
                           Obx(
                             () => CustomText(
                               text:
                                   "Episode ${controller.currentEpisode.value} • Season ${controller.currentSeason.value}",
-                              fontSize: 12.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w400,
-                              color: Colors.white,
+                              color: Color(0xFFFFFFFF),
                             ),
                           ),
                           const Spacer(),
-                          Icon(
-                            Icons.keyboard_arrow_up,
-                            color: Colors.white70,
-                            size: 20.sp,
+                          SvgPicture.asset(
+                            AppIcons.dowp_icon,
+                            height: 20.sp,
+                            width: 20.sp,
                           ),
                         ],
                       ),
@@ -212,7 +233,7 @@ class ShortsScreen extends StatelessWidget {
                       color: Colors.black45,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children: [_buildMoreMenu(controller)],
+                        children: [_buildMoreMenu(context, controller)],
                       ),
                     ),
                   )
@@ -239,69 +260,125 @@ class ShortsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMoreMenu(ShortsController controller) {
+  Widget _buildMoreMenu(BuildContext context, ShortsController controller) {
     return Container(
-      padding: EdgeInsets.all(20.r),
+      margin: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 6.h),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: const Color(0xFF222222),
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+        color: const Color(0xFF292929),
+        borderRadius: BorderRadius.circular(20.r),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CustomText(
-                text: "More",
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
-              IconButton(
-                onPressed: () => controller.toggleMoreMenu(),
-                icon: const Icon(Icons.close, color: Colors.white),
-              ),
-            ],
-          ),
-          SizedBox(height: 20.h),
-          _buildMoreMenuItem(
-            iconPath: AppIcons.speed_icon,
-            title: "Playback Speed",
-            value: controller.playbackSpeed.value,
-            onTap: () {},
-          ),
-          _buildMoreMenuItem(
-            iconPath: AppIcons.quality_icon,
-            title: "Quality",
-            value: controller.videoQuality.value,
-            onTap: () {},
-          ),
-          _buildMoreMenuItem(
-            iconPath: AppIcons.picture_icon,
-            title: "Picture in Picture",
-            trailing: Obx(
-              () => Switch(
-                value: controller.isPipEnabled.value,
-                onChanged: (v) => controller.togglePip(),
-                activeColor: AppColors.orange100,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Header
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 10.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustomText(
+                    text: "More",
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFE3E3E3),
+                  ),
+                  GestureDetector(
+                    onTap: () => controller.toggleMoreMenu(),
+                    child: Icon(
+                      Icons.close,
+                      color: Color(0xFFE3E3E3),
+                      size: 20.sp,
+                    ),
+                  ),
+                ],
               ),
             ),
-            onTap: () {},
-          ),
-          _buildMoreMenuItem(
-            iconPath: AppIcons.share_icon,
-            title: "Share",
-            onTap: () {},
-          ),
-          _buildMoreMenuItem(
-            iconPath: AppIcons.report_icon,
-            title: "Report",
-            onTap: () {},
-          ),
-          SizedBox(height: 20.h),
-        ],
+
+            SizedBox(height: 12.h),
+            _buildDivider(),
+
+            // Menu Items
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 10.w),
+              child: _buildMoreMenuItem(
+                iconPath: AppIcons.speed_icon,
+                title: "Playback Speed",
+                value: controller.playbackSpeed.value,
+                showArrow: true,
+                onTap: () => _showSpeedSelection(context, controller),
+              ),
+            ),
+            _buildDivider(),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 10.w),
+              child: _buildMoreMenuItem(
+                iconPath: AppIcons.quality_icon,
+                title: "Quality",
+                value: controller.videoQuality.value,
+                showArrow: true,
+                onTap: () => _showQualitySelection(context, controller),
+              ),
+            ),
+            _buildDivider(),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 10.w),
+              child: _buildMoreMenuItem(
+                iconPath: AppIcons.picture_icon,
+                title: "Picture in Picture",
+                trailing: Obx(
+                  () => SizedBox(
+                    height: 26.h,
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Switch(
+                        value: controller.isPipEnabled.value,
+                        onChanged: (v) => controller.togglePip(),
+                        activeColor: Colors.white,
+                        activeTrackColor: const Color(0xFFE8124C),
+                        inactiveThumbColor: Colors.white,
+                        inactiveTrackColor: Colors.grey.shade800,
+                      ),
+                    ),
+                  ),
+                ),
+                showArrow: false,
+                onTap: () {},
+              ),
+            ),
+            _buildDivider(),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 10.w),
+              child: _buildMoreMenuItem(
+                iconPath: AppIcons.share_icon,
+                title: "Share",
+                showArrow: true,
+                onTap: () {},
+              ),
+            ),
+            _buildDivider(),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 10.w),
+              child: _buildMoreMenuItem(
+                iconPath: AppIcons.report_icon,
+                title: "Report",
+                showArrow: true,
+                onTap: () {},
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildDivider() {
+    return Divider(
+      color: Colors.white.withOpacity(0.08),
+      height: 1,
+      thickness: 1,
     );
   }
 
@@ -310,43 +387,196 @@ class ShortsScreen extends StatelessWidget {
     required String title,
     String? value,
     Widget? trailing,
+    bool showArrow = true,
     required VoidCallback onTap,
   }) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      leading: SvgPicture.asset(
-        iconPath,
-        color: Colors.white70,
-        width: 24.sp,
-        height: 24.sp,
-      ),
-      title: CustomText(
-        text: title,
-        fontSize: 14.sp,
-        fontWeight: FontWeight.w400,
-        color: Colors.white,
-      ),
-      trailing:
-          trailing ??
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (value != null)
-                CustomText(
-                  text: value,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white70,
-                ),
-              SizedBox(width: 8.w),
-              const Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.white38,
-                size: 14,
-              ),
-            ],
-          ),
+    return InkWell(
       onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 12.h),
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              iconPath,
+              color: Colors.white,
+              width: 24.sp,
+              height: 24.sp,
+            ),
+            SizedBox(width: 12.w),
+            CustomText(
+              text: title,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+            const Spacer(),
+            if (trailing != null)
+              trailing
+            else
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (value != null)
+                    CustomText(
+                      text: value,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
+                  if (showArrow) ...[
+                    SizedBox(width: 8.w),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.white,
+                      size: 14.sp,
+                    ),
+                  ],
+                ],
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showSpeedSelection(BuildContext context, ShortsController controller) {
+    final speeds = [
+      "0.25x",
+      "0.5x",
+      "0.75x",
+      "Normal",
+      "1.25x",
+      "1.5x",
+      "2.0x",
+    ];
+    Get.bottomSheet(
+      Obx(
+        () => Container(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.7,
+          ),
+          padding: EdgeInsets.all(20.r),
+          decoration: BoxDecoration(
+            color: const Color(0xFF222222),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomText(
+                  text: "Playback Speed",
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+                SizedBox(height: 20.h),
+                ...speeds.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final speed = entry.value;
+                  final isSelected =
+                      controller.playbackSpeed.value ==
+                      (speed == "Normal" ? "1.0x" : speed);
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListTile(
+                        title: CustomText(
+                          text: speed,
+                          fontSize: 14.sp,
+                          color: isSelected
+                              ? AppColors.orange100
+                              : Colors.white,
+                        ),
+                        trailing: isSelected
+                            ? Icon(
+                                Icons.check,
+                                color: AppColors.orange100,
+                                size: 20.sp,
+                              )
+                            : null,
+                        onTap: () {
+                          controller.updatePlaybackSpeed(
+                            speed == "Normal" ? "1.0x" : speed,
+                          );
+                          Get.back();
+                        },
+                      ),
+                      if (index < speeds.length - 1) _buildDivider(),
+                    ],
+                  );
+                }),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showQualitySelection(
+    BuildContext context,
+    ShortsController controller,
+  ) {
+    final qualities = ["144p", "240p", "360p", "480p", "720p", "1080p", "Auto"];
+    Get.bottomSheet(
+      Obx(
+        () => Container(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.7,
+          ),
+          padding: EdgeInsets.all(20.r),
+          decoration: BoxDecoration(
+            color: const Color(0xFF222222),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomText(
+                  text: "Video Quality",
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+                SizedBox(height: 20.h),
+                ...qualities.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final quality = entry.value;
+                  final isSelected = controller.videoQuality.value == quality;
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListTile(
+                        title: CustomText(
+                          text: quality,
+                          fontSize: 14.sp,
+                          color: isSelected
+                              ? AppColors.orange100
+                              : Colors.white,
+                        ),
+                        trailing: isSelected
+                            ? Icon(
+                                Icons.check,
+                                color: AppColors.orange100,
+                                size: 20.sp,
+                              )
+                            : null,
+                        onTap: () {
+                          controller.updateVideoQuality(quality);
+                          Get.back();
+                        },
+                      ),
+                      if (index < qualities.length - 1) _buildDivider(),
+                    ],
+                  );
+                }),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
