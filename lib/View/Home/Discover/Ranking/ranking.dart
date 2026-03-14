@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,51 +15,62 @@ class RankingView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(height: 10.h),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              _buildSmallTab("Popular", true),
-              SizedBox(width: 10.w),
-              _buildSmallTab("Monthly Top", false),
-              SizedBox(width: 10.w),
-              _buildSmallTab("Annual Top", false),
-            ],
+          child: Obx(
+            () => Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                _buildSmallTab("Popular"),
+                SizedBox(width: 10.w),
+                _buildSmallTab("Daily Top"),
+                SizedBox(width: 10.w),
+                _buildSmallTab("Weekly Top"),
+                SizedBox(width: 10.w),
+                _buildSmallTab("Monthly Top"),
+              ],
+            ),
           ),
         ),
         SizedBox(height: 20.h),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: 7,
-          itemBuilder: (context, index) {
-            return _buildRankingItem(index);
-          },
+        Obx(
+          () => ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: controller.rankingMovies.length,
+            itemBuilder: (context, index) {
+              return _buildRankingItem(index);
+            },
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildSmallTab(String label, bool isSelected) {
-    return Container(
-      constraints: BoxConstraints(minWidth: 76.w),
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-      decoration: BoxDecoration(
-        color: isSelected ? Colors.white : Colors.black,
-        borderRadius: BorderRadius.circular(6.r),
-        border: Border.all(
-          color: isSelected ? Colors.white : const Color(0xFF262626),
-          width: 1,
+  Widget _buildSmallTab(String label) {
+    final isSelected = controller.selectedRankingTab.value == label;
+    return GestureDetector(
+      onTap: () => controller.changeRankingTab(label),
+      child: Container(
+        constraints: BoxConstraints(minWidth: 76.w),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.white : Colors.black,
+          borderRadius: BorderRadius.circular(6.r),
+          border: Border.all(
+            color: isSelected ? Colors.white : const Color(0xFF262626),
+            width: 1,
+          ),
         ),
-      ),
-      child: Center(
-        child: Text(
-          label,
-          style: GoogleFonts.inter(
-            color: isSelected ? Colors.black : const Color(0xFFD9D9D9),
-            fontSize: 13.sp,
-            fontWeight: FontWeight.w500,
+        child: Center(
+          child: Text(
+            label,
+            style: GoogleFonts.inter(
+              color: isSelected ? Colors.black : const Color(0xFFD9D9D9),
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ),
@@ -66,7 +78,7 @@ class RankingView extends StatelessWidget {
   }
 
   Widget _buildRankingItem(int index) {
-    final movie = controller.allMovies[index % controller.allMovies.length];
+    final movie = controller.rankingMovies[index];
     return Padding(
       padding: EdgeInsets.only(bottom: 20.h),
       child: Row(
@@ -137,7 +149,7 @@ class RankingView extends StatelessWidget {
                         ),
                         SizedBox(width: 4.w),
                         Text(
-                          "${127 + index * 100}k",
+                          movie.views,
                           style: GoogleFonts.inter(
                             color: const Color(0xFFF76212),
                             fontSize: 12.sp,
@@ -152,15 +164,13 @@ class RankingView extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 60.w),
                   child: Text(
-                    "An intense journey where danger, courage, and survival collide in a high-stakes battle.",
+                    movie.description,
                     style: GoogleFonts.inter(
                       color: const Color(0xFFD9D9D9),
                       fontSize: 11.sp,
                       fontWeight: FontWeight.w400,
                       height: 1.4,
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

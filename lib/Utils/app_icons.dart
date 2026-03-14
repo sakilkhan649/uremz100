@@ -34,4 +34,5 @@ class AppIcons {
   static const String dowp_icon="$iconurl/dowp_icon.svg";
   static const String vip_games_icon="$iconurl/vip_games_icon.svg";
   static const String vip_pass_icon="$iconurl/vip_pass_icon.svg";
+  static const String play_icon="$iconurl/play_icon.svg";
 }
