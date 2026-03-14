@@ -11,37 +11,35 @@ class VipView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SectionHeader(title: "Top VIP Picks", onMore: () {}),
-        SizedBox(height: 12.h),
-        Obx(
-          () => Row(
+    return Obx(() {
+      final movies = controller.vipMovies;
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SectionHeader(title: "Top VIP Picks", onMore: () {}),
+          SizedBox(height: 12.h),
+          Row(
             children: [
               _buildToggleButton("Daily"),
               SizedBox(width: 10.w),
               _buildToggleButton("Weekly"),
             ],
           ),
-        ),
-        SizedBox(height: 16.h),
-        MovieGrid(items: controller.allMovies.take(3).toList(), count: 3),
-        SizedBox(height: 24.h),
-        SectionHeader(title: "Only On ShortMax"),
-        SizedBox(height: 12.h),
-        MovieGrid(items: controller.allMovies.take(3).toList(), count: 3),
-        SizedBox(height: 24.h),
-        SectionHeader(title: "Hot Now"),
-        SizedBox(height: 12.h),
-        MovieGrid(items: controller.allMovies.take(3).toList(), count: 3),
-        SizedBox(height: 24.h),
-        MovieGrid(
-          items: controller.allMovies.skip(3).take(3).toList(),
-          count: 3,
-        ),
-      ],
-    );
+          SizedBox(height: 16.h),
+          MovieGrid(items: movies.take(3).toList(), count: 3),
+          SizedBox(height: 24.h),
+          SectionHeader(title: "Only On ShortMax"),
+          SizedBox(height: 12.h),
+          MovieGrid(items: movies.skip(1).take(3).toList(), count: 3),
+          SizedBox(height: 24.h),
+          SectionHeader(title: "Hot Now"),
+          SizedBox(height: 12.h),
+          MovieGrid(items: movies.skip(2).take(3).toList(), count: 3),
+          SizedBox(height: 24.h),
+          MovieGrid(items: movies.skip(3).take(3).toList(), count: 3),
+        ],
+      );
+    });
   }
 
   Widget _buildToggleButton(String label) {

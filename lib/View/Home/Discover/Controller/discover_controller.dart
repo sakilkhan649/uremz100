@@ -29,6 +29,16 @@ class DiscoverController extends GetxController {
     vipPeriod.value = period;
   }
 
+  List<DiscoverMovie> get vipMovies {
+    final period = vipPeriod.value;
+    if (period == 'Daily') {
+      return allMovies.take(6).toList();
+    } else if (period == 'Weekly') {
+      return allMovies.skip(3).take(6).toList();
+    }
+    return allMovies.take(6).toList();
+  }
+
   void changeRankingTab(String tab) {
     selectedRankingTab.value = tab;
   }
