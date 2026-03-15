@@ -49,7 +49,7 @@ class TopPicksList extends StatelessWidget {
             return Padding(
               padding: EdgeInsets.only(bottom: 10.h),
               child: GestureDetector(
-                onTap: () => Get.to(() => MovieDetailScreen(movie: movie)),
+                onTap: () {},
                 child: Row(
                   children: [
                     Stack(

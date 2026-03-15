@@ -66,6 +66,17 @@ class DiscoverScreen extends StatelessWidget {
                 ? DailyBonusPopup(onClose: controller.closePopup)
                 : const SizedBox.shrink(),
           ),
+          // Movie Details Popup
+          Obx(
+            () =>
+                controller.showMoviePopup.value &&
+                    controller.selectedMovie.value != null
+                ? MovieDetailsPopup(
+                    movie: controller.selectedMovie.value!,
+                    onClose: controller.closeMoviePopup,
+                  )
+                : const SizedBox.shrink(),
+          ),
         ],
       ),
     );

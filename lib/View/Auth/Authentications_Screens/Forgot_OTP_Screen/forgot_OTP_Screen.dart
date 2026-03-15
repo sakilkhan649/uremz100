@@ -169,7 +169,7 @@ class ForgotOtpScreen extends StatelessWidget {
               CustomButton(
                 text: "Submit OTP",
                 onPressed: () {
-                  Get.toNamed(Routes.setPassScreen);
+                  Get.toNamed(Routes.signinScreen);
                 },
               ),
             ],

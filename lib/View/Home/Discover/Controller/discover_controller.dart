@@ -7,6 +7,8 @@ class DiscoverController extends GetxController {
   var showBonusPopup = false.obs;
   var vipPeriod = 'Daily'.obs;
   var selectedRankingTab = 'Popular'.obs;
+  var selectedMovie = Rxn<DiscoverMovie>(); // Selected movie for popup
+  var showMoviePopup = false.obs; // Toggle movie popup visibility
 
   final List<String> categories = DiscoverData.categories;
   final List<DiscoverMovie> allMovies = DiscoverData.allMovies;
@@ -19,6 +21,15 @@ class DiscoverController extends GetxController {
     Future.delayed(const Duration(seconds: 1), () {
       showBonusPopup.value = true;
     });
+  }
+
+  void openMoviePopup(DiscoverMovie movie) {
+    selectedMovie.value = movie;
+    showMoviePopup.value = true;
+  }
+
+  void closeMoviePopup() {
+    showMoviePopup.value = false;
   }
 
   void changeCategory(String category) {

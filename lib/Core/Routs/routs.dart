@@ -16,6 +16,7 @@ import '../../View/Home/Profile/Privacy_Policy/privacy_policy.dart';
 import '../../View/Home/Profile/User_agreement/user_agreement.dart';
 import '../../View/Home/Rewards/Vip_games/vip_games.dart';
 import '../../View/Home/Rewards/rewards_screen.dart';
+import '../../View/Home/Shorts/shorts_screen.dart';
 import '../../View/Home/Standard_VIP/standard_vip.dart';
 
 
@@ -38,6 +39,7 @@ class Routes {
   static const String myListScreen = "/MyListScreen";
   static const String rewardsScreen = "/RewardsScreen";
   static const String vipGames = "/VipGames";
+  static const String shortsScreen = "/ShortsScreen";
 
   static List<GetPage> routes = [
     GetPage(
@@ -128,6 +130,11 @@ class Routes {
     GetPage(
       name: vipGames,
       page: () => VipGames(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: shortsScreen,
+      page: () => ShortsScreen(),
       transition: Transition.noTransition,
     ),
   ];

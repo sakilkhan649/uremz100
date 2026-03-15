@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:uremz100/View/Home/Bottom_NabBar/Bottom_NabBar_Screens.dart';
 
 import '../../../Utils/app_images.dart';
 import '../Authentications_Screens/Signin_&_Signup_Screen/Signin_And_Signup_Screen.dart';
@@ -21,7 +22,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     Timer(Duration(seconds: 3), () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SigninAndSignupScreen()),
+        MaterialPageRoute(builder: (context) => BottomNabbarScreens()),
       );
     });
   }

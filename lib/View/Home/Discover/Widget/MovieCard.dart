@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../Widgets/Custom_Text.dart';
+import '../Controller/discover_controller.dart';
 import '../Detail/discover_detail_screen.dart';
 import '../Models/discrive_models.dart';
 
@@ -11,8 +12,9 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<DiscoverController>();
     return GestureDetector(
-      onTap: () => Get.to(() => MovieDetailScreen(movie: movie)),
+      onTap: () => controller.openMoviePopup(movie),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

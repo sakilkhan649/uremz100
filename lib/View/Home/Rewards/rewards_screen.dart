@@ -64,7 +64,7 @@ class RewardsScreen extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 75.w, vertical: 10.h),
       child: Theme(
         data: Theme.of(context).copyWith(
           splashColor: Colors.transparent,

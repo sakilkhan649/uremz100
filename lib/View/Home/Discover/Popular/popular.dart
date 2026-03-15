@@ -216,78 +216,81 @@ class PopularView extends StatelessWidget {
 
   // --- Standard Movie Card (Consistent sizing) ---
   Widget _buildStandardMovieCard(DiscoverMovie movie) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12.r),
-              child: Image.asset(
-                movie.image,
-                height: 145.h,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            ),
-            if (movie.badge != null)
-              Positioned(
-                top: 0,
-                right: 0,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 4.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF76212),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12.r),
-                      bottomLeft: Radius.circular(12.r),
-                    ),
-                  ),
-                  child: CustomText(
-                    text: movie.badge!,
-                    fontSize: 8.sp,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
+    return GestureDetector(
+      onTap: () => controller.openMoviePopup(movie),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12.r),
+                child: Image.asset(
+                  movie.image,
+                  height: 145.h,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                 ),
               ),
-            Positioned(
-              bottom: 8.h,
-              right: 8.w,
-              child: Row(
-                children: [
-                  Icon(Icons.play_arrow, color: Colors.white, size: 12.sp),
-                  SizedBox(width: 2.w),
-                  CustomText(
-                    text: movie.views,
-                    fontSize: 8.sp,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
+              if (movie.badge != null)
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 4.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF76212),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(12.r),
+                        bottomLeft: Radius.circular(12.r),
+                      ),
+                    ),
+                    child: CustomText(
+                      text: movie.badge!,
+                      fontSize: 8.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
-                ],
+                ),
+              Positioned(
+                bottom: 8.h,
+                right: 8.w,
+                child: Row(
+                  children: [
+                    Icon(Icons.play_arrow, color: Colors.white, size: 12.sp),
+                    SizedBox(width: 2.w),
+                    CustomText(
+                      text: movie.views,
+                      fontSize: 8.sp,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 8.h),
-        CustomText(
-          text: movie.title,
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-          overflow: TextOverflow.ellipsis,
-        ),
-        CustomText(
-          text: movie.subtitle,
-          fontSize: 10.sp,
-          fontWeight: FontWeight.w400,
-          color: const Color(0xFF8E8E8E),
-          overflow: TextOverflow.ellipsis,
-        ),
-      ],
+            ],
+          ),
+          SizedBox(height: 8.h),
+          CustomText(
+            text: movie.title,
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+            overflow: TextOverflow.ellipsis,
+          ),
+          CustomText(
+            text: movie.subtitle,
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xFF8E8E8E),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
     );
   }
 
@@ -298,148 +301,151 @@ class PopularView extends StatelessWidget {
     required double progress,
     DiscoverMovie? overlayMovie,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Stack(
-          children: [
-            // Main Image
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12.r),
-              child: Stack(
-                children: [
-                  Image.asset(
-                    movie.image,
-                    height: 150.h,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () => controller.openMoviePopup(movie),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              // Main Image
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12.r),
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      movie.image,
+                      height: 150.h,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                    // Progress Bar at Bottom
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        height: 3.h,
+                        color: Colors.black.withOpacity(0.5),
+                        child: FractionallySizedBox(
+                          alignment: Alignment.centerLeft,
+                          widthFactor: progress,
+                          child: Container(color: Colors.red),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Badge
+              if (badge != null)
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                      vertical: 4.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF76212),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(12.r),
+                        bottomLeft: Radius.circular(12.r),
+                      ),
+                    ),
+                    child: CustomText(
+                      text: badge,
+                      fontSize: 8.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   ),
-                  // Progress Bar at Bottom
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      height: 3.h,
-                      color: Colors.black.withOpacity(0.5),
-                      child: FractionallySizedBox(
-                        alignment: Alignment.centerLeft,
-                        widthFactor: progress,
-                        child: Container(color: Colors.red),
+                ),
+              // Views
+              Positioned(
+                bottom: 8.h,
+                right: 8.w,
+                child: Row(
+                  children: [
+                    Icon(Icons.play_arrow, color: Colors.white, size: 12.sp),
+                    SizedBox(width: 2.w),
+                    CustomText(
+                      text: views,
+                      fontSize: 8.sp,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ],
+                ),
+              ),
+              // Close Button (X)
+              if (overlayMovie != null)
+                Positioned(
+                  bottom: 40.h,
+                  right: 20.w,
+                  child: Container(
+                    padding: EdgeInsets.all(2.r),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.8),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.close, size: 12.sp, color: Colors.black),
+                  ),
+                ),
+              // Small Overlay Image
+              if (overlayMovie != null)
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  child: Container(
+                    width: 60.w,
+                    height: 70.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.r),
+                      border: Border.all(color: Colors.white24, width: 1),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.r),
+                      child: Stack(
+                        children: [
+                          Image.asset(
+                            overlayMovie.image,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          ),
+                          const Center(
+                            child: Icon(
+                              Icons.play_arrow,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-            // Badge
-            if (badge != null)
-              Positioned(
-                top: 0,
-                right: 0,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                    vertical: 4.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF76212),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12.r),
-                      bottomLeft: Radius.circular(12.r),
-                    ),
-                  ),
-                  child: CustomText(
-                    text: badge,
-                    fontSize: 8.sp,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
                 ),
-              ),
-            // Views
-            Positioned(
-              bottom: 8.h,
-              right: 8.w,
-              child: Row(
-                children: [
-                  Icon(Icons.play_arrow, color: Colors.white, size: 12.sp),
-                  SizedBox(width: 2.w),
-                  CustomText(
-                    text: views,
-                    fontSize: 8.sp,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ],
-              ),
-            ),
-            // Close Button (X)
-            if (overlayMovie != null)
-              Positioned(
-                bottom: 40.h,
-                right: 20.w,
-                child: Container(
-                  padding: EdgeInsets.all(2.r),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.8),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(Icons.close, size: 12.sp, color: Colors.black),
-                ),
-              ),
-            // Small Overlay Image
-            if (overlayMovie != null)
-              Positioned(
-                bottom: 0,
-                left: 0,
-                child: Container(
-                  width: 60.w,
-                  height: 70.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.r),
-                    border: Border.all(color: Colors.white24, width: 1),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.r),
-                    child: Stack(
-                      children: [
-                        Image.asset(
-                          overlayMovie.image,
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                          height: double.infinity,
-                        ),
-                        const Center(
-                          child: Icon(
-                            Icons.play_arrow,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-          ],
-        ),
-        SizedBox(height: 8.h),
-        CustomText(
-          text: movie.title,
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-          overflow: TextOverflow.ellipsis,
-        ),
-        CustomText(
-          text: movie.subtitle,
-          fontSize: 10.sp,
-          fontWeight: FontWeight.w400,
-          color: const Color(0xFF8E8E8E),
-          overflow: TextOverflow.ellipsis,
-        ),
-      ],
+            ],
+          ),
+          SizedBox(height: 8.h),
+          CustomText(
+            text: movie.title,
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+            overflow: TextOverflow.ellipsis,
+          ),
+          CustomText(
+            text: movie.subtitle,
+            fontSize: 10.sp,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xFF8E8E8E),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
     );
   }
 
@@ -451,81 +457,85 @@ class PopularView extends StatelessWidget {
     required String views,
     double? height, // Added height parameter
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16.r),
-              child: Image.asset(
-                movie.image,
-                height:
-                    height ?? 380.h, // Use provided height or default to 380.h
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            ),
-            // VIP Badge
-            if (badge != null)
-              Positioned(
-                top: 0,
-                right: 0,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 6.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF76212),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(16.r),
-                      bottomLeft: Radius.circular(16.r),
-                    ),
-                  ),
-                  child: CustomText(
-                    text: badge,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
+    return GestureDetector(
+      onTap: () => controller.openMoviePopup(movie),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16.r),
+                child: Image.asset(
+                  movie.image,
+                  height:
+                      height ??
+                      380.h, // Use provided height or default to 380.h
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                 ),
               ),
-            // Views
-            Positioned(
-              bottom: 12.h,
-              right: 12.w,
-              child: Row(
-                children: [
-                  Icon(Icons.play_arrow, color: Colors.white, size: 18.sp),
-                  SizedBox(width: 4.w),
-                  CustomText(
-                    text: views,
-                    fontSize: 12.sp,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
+              // VIP Badge
+              if (badge != null)
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 6.h,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF76212),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(16.r),
+                        bottomLeft: Radius.circular(16.r),
+                      ),
+                    ),
+                    child: CustomText(
+                      text: badge,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
                   ),
-                ],
+                ),
+              // Views
+              Positioned(
+                bottom: 12.h,
+                right: 12.w,
+                child: Row(
+                  children: [
+                    Icon(Icons.play_arrow, color: Colors.white, size: 18.sp),
+                    SizedBox(width: 4.w),
+                    CustomText(
+                      text: views,
+                      fontSize: 12.sp,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 12.h),
-        CustomText(
-          text: title,
-          fontSize: 16.sp,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-          overflow: TextOverflow.ellipsis,
-        ),
-        CustomText(
-          text: subtitle,
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w400,
-          color: const Color(0xFF8E8E8E),
-          overflow: TextOverflow.ellipsis,
-        ),
-      ],
+            ],
+          ),
+          SizedBox(height: 12.h),
+          CustomText(
+            text: title,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+            overflow: TextOverflow.ellipsis,
+          ),
+          CustomText(
+            text: subtitle,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xFF8E8E8E),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
     );
   }
 
@@ -572,7 +582,7 @@ class PopularView extends StatelessWidget {
 
           // Right: Go Button
           GestureDetector(
-            onTap: () => Get.toNamed(Routes.standardVip),
+            onTap: () => Get.toNamed(Routes.rewardsScreen),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 8.h),
               decoration: BoxDecoration(
@@ -669,76 +679,82 @@ class PopularView extends StatelessWidget {
     required String subtitle,
     required String views,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12.r),
-              child: Image.asset(
-                movie.image,
-                height: 150.h,
-                width: double.infinity,
-                fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () => controller.openMoviePopup(movie),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12.r),
+                child: Image.asset(
+                  movie.image,
+                  height: 150.h,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            // Badge
-            Positioned(
-              top: 0,
-              right: 0,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 4.h),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF76212),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(12.r),
-                    bottomLeft: Radius.circular(12.r),
+              // Badge
+              Positioned(
+                top: 0,
+                right: 0,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 14.w,
+                    vertical: 4.h,
                   ),
-                ),
-                child: CustomText(
-                  text: badge,
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            // Views
-            Positioned(
-              bottom: 8.h,
-              right: 8.w,
-              child: Row(
-                children: [
-                  Icon(Icons.play_arrow, color: Colors.white, size: 14.sp),
-                  SizedBox(width: 2.w),
-                  CustomText(
-                    text: views,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF76212),
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(12.r),
+                      bottomLeft: Radius.circular(12.r),
+                    ),
+                  ),
+                  child: CustomText(
+                    text: badge,
                     fontSize: 10.sp,
-                    color: Colors.white,
                     fontWeight: FontWeight.w600,
+                    color: Colors.white,
                   ),
-                ],
+                ),
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 8.h),
-        CustomText(
-          text: title,
-          fontSize: 14.sp,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-          overflow: TextOverflow.ellipsis,
-        ),
-        CustomText(
-          text: subtitle,
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w400,
-          color: const Color(0xFF8E8E8E),
-          overflow: TextOverflow.ellipsis,
-        ),
-      ],
+              // Views
+              Positioned(
+                bottom: 8.h,
+                right: 8.w,
+                child: Row(
+                  children: [
+                    Icon(Icons.play_arrow, color: Colors.white, size: 14.sp),
+                    SizedBox(width: 2.w),
+                    CustomText(
+                      text: views,
+                      fontSize: 10.sp,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 8.h),
+          CustomText(
+            text: title,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+            overflow: TextOverflow.ellipsis,
+          ),
+          CustomText(
+            text: subtitle,
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xFF8E8E8E),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
+      ),
     );
   }
 }
