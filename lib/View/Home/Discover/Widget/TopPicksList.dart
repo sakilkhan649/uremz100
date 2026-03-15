@@ -14,6 +14,7 @@ class TopPicksList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 7.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
         border: Border.all(color: Colors.white.withOpacity(0.05)),
@@ -25,10 +26,9 @@ class TopPicksList extends StatelessWidget {
             Color(0xFF1B1616), // dark brown — middle
             Color(0xFF000000), // dark brown — middle
           ],
-          stops: [0.0, 0.30, 2.0],
+          stops: [0.0, 0.40, 2.0],
         ),
       ),
-      padding: EdgeInsets.all(14.r),
       child: Column(
         children: [
           Row(
@@ -56,11 +56,11 @@ class TopPicksList extends StatelessWidget {
                       alignment: Alignment.bottomLeft,
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(8.r),
+                          borderRadius: BorderRadius.circular(4.r),
                           child: Image.asset(
                             movie.image,
-                            width: 64.w,
-                            height: 74.w,
+                            width: 30.w,
+                            height: 35.w,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -69,43 +69,43 @@ class TopPicksList extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: const Color(0xFFF76212),
                             borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(8.r),
-                              bottomLeft: Radius.circular(8.r),
+                              topRight: Radius.circular(4.r),
+                              bottomLeft: Radius.circular(4.r),
                             ),
                           ),
                           child: CustomText(
                             text: "${idx + 1}",
-                            fontSize: 8.sp,
+                            fontSize: 4.sp,
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(width: 12.w),
+                    SizedBox(width: 4.w),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomText(
                             text: movie.title,
-                            fontSize: 14.sp,
+                            fontSize: 10.sp,
                             fontWeight: FontWeight.w500,
-                            color: Colors.white,
+                            color: const Color(0xFFFFFFFF),
                           ),
                           Row(
                             children: [
                               SvgPicture.asset(
                                 AppIcons.fire_icon,
-                                width: 14.w,
-                                height: 14.w,
+                                width: 10.w,
+                                height: 10.w,
                               ),
                               SizedBox(width: 4.w),
                               CustomText(
                                 text: "307k",
-                                fontSize: 12.sp,
+                                fontSize: 8.sp,
                                 fontWeight: FontWeight.w600,
-                                color: const Color(0xFFF76212),
+                                color: const Color(0xFFEC6A1A),
                               ),
                             ],
                           ),
