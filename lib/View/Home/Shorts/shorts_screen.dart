@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../../Utils/app_icons.dart';
-import '../../../Utils/app_images.dart';
 import '../../../Utils/app_colors.dart';
 import '../../../Widgets/Custom_Text.dart';
 import 'Controller/Shorts_Controller.dart';
 import 'Widget/Shorts_InfoOverlay.dart';
 import 'Widget/Shorts_SideButton.dart';
 import 'Widget/Login_Popup.dart';
+import 'Widget/Shorts_VideoPlayer.dart';
 import '../../../Core/Routs/routs.dart';
 
 class ShortsScreen extends StatelessWidget {
@@ -23,13 +23,16 @@ class ShortsScreen extends StatelessWidget {
         children: [
           PageView.builder(
             scrollDirection: Axis.vertical,
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return Stack(
-                fit: StackFit.expand,
-                children: [
-                  // Background Image
-                  Image.asset(AppImages.move_7, fit: BoxFit.cover),
+            itemCount: controller.shortsList.length,
+              itemBuilder: (context, index) {
+                final shorts = controller.shortsList[index];
+                return Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    // Background Video
+                    ShortsVideoPlayer(
+                      videoUrl: shorts.videoUrl,
+                    ),
 
                   // Top Gradient
                   Positioned(
@@ -167,10 +170,9 @@ class ShortsScreen extends StatelessWidget {
                     bottom: 83.h,
                     child: Obx(
                       () => ShortsInfoOverlay(
-                        profileImage: AppImages.profile_image,
-                        title: "The Amazing Spiderman",
-                        description:
-                            "A young Peter Parker discovers his powers and learns that being a hero comes with responsibility A young Peter Parker discovers his powers and learns that being a hero comes with responsibility",
+                        profileImage: shorts.profileImage,
+                        title: shorts.title,
+                        description: shorts.description,
                         isExpanded: controller.isDescriptionExpanded.value,
                         onMoreTap: () => controller.toggleDescription(),
                       ),
@@ -202,14 +204,12 @@ class ShortsScreen extends StatelessWidget {
                               width: 20.sp,
                             ),
                             SizedBox(width: 9.w),
-                            Obx(
-                              () => CustomText(
-                                text:
-                                    "Episode ${controller.currentEpisode.value} • Season ${controller.currentSeason.value}",
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w400,
-                                color: const Color(0xFFFFFFFF),
-                              ),
+                            CustomText(
+                              text:
+                                  "Episode ${shorts.episode} • Season ${shorts.season}",
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0xFFFFFFFF),
                             ),
                             const Spacer(),
                             SvgPicture.asset(
@@ -223,9 +223,9 @@ class ShortsScreen extends StatelessWidget {
                     ),
                   ),
                 ],
-              );
-            },
-          ),
+                );
+              },
+            ),
 
           // Episode Selection Popup
           Obx(
