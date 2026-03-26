@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import '../../../../Core/Routs/routs.dart';
 import 'package:uremz100/View/Home/Discover/Models/discrive_models.dart';
 import 'package:uremz100/Widgets/Custom_Text.dart';
 import '../Controller/discover_controller.dart';
@@ -52,79 +54,82 @@ class NewView extends StatelessWidget {
   }
 
   Widget _buildNewReleaseCard(DiscoverMovie movie) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12.r),
-                child: Image.asset(
-                  movie.image,
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              // "New" Badge
-              Positioned(
-                top: 0,
-                right: 0,
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 14.w,
-                    vertical: 4.h,
+    return GestureDetector(
+      onTap: () => Get.toNamed(Routes.shortsScreen),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12.r),
+                  child: Image.asset(
+                    movie.image,
+                    width: double.infinity,
+                    height: double.infinity,
+                    fit: BoxFit.cover,
                   ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF76212),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(12.r),
-                      bottomLeft: Radius.circular(12.r),
+                ),
+                // "New" Badge
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 14.w,
+                      vertical: 4.h,
                     ),
-                  ),
-                  child: CustomText(
-                    text: "New",
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              // Play Icon and Views
-              Positioned(
-                bottom: 8.h,
-                right: 8.w,
-                child: Row(
-                  children: [
-                    Icon(Icons.play_arrow, color: Colors.white, size: 14.sp),
-                    SizedBox(width: 2.w),
-                    CustomText(
-                      text: "3.1M",
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF76212),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(12.r),
+                        bottomLeft: Radius.circular(12.r),
+                      ),
+                    ),
+                    child: CustomText(
+                      text: "New",
                       fontSize: 10.sp,
-                      color: Colors.white,
                       fontWeight: FontWeight.w600,
+                      color: Colors.white,
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+                // Play Icon and Views
+                Positioned(
+                  bottom: 8.h,
+                  right: 8.w,
+                  child: Row(
+                    children: [
+                      Icon(Icons.play_arrow, color: Colors.white, size: 14.sp),
+                      SizedBox(width: 2.w),
+                      CustomText(
+                        text: "3.1M",
+                        fontSize: 10.sp,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        SizedBox(height: 8.h),
-        CustomText(
-          text: "Crinson Chars",
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-        ),
-        CustomText(
-          text: "Exclusive",
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w400,
-          color: const Color(0xFF8E8E8E),
-        ),
-      ],
+          SizedBox(height: 8.h),
+          CustomText(
+            text: "Crinson Chars",
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
+          CustomText(
+            text: "Exclusive",
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xFF8E8E8E),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -9,6 +9,7 @@ class DiscoverController extends GetxController {
   var selectedRankingTab = 'Popular'.obs;
   var selectedMovie = Rxn<DiscoverMovie>(); // Selected movie for popup
   var showMoviePopup = false.obs; // Toggle movie popup visibility
+  static bool _hasShownInitialPopups = false;
 
   final List<String> categories = DiscoverData.categories;
   final List<DiscoverMovie> allMovies = DiscoverData.allMovies;
@@ -17,10 +18,15 @@ class DiscoverController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    // Trigger popup on first load
-    Future.delayed(const Duration(seconds: 1), () {
-      showBonusPopup.value = true;
-    });
+    // Trigger popups on first load
+    if (!_hasShownInitialPopups) {
+      if (allMovies.isNotEmpty) {
+        Future.delayed(const Duration(milliseconds: 500), () {
+          openMoviePopup(allMovies.first);
+          _hasShownInitialPopups = true;
+        });
+      }
+    }
   }
 
   void openMoviePopup(DiscoverMovie movie) {
@@ -30,6 +36,10 @@ class DiscoverController extends GetxController {
 
   void closeMoviePopup() {
     showMoviePopup.value = false;
+    // After 1 second, show bonus popup
+    Future.delayed(const Duration(seconds: 1), () {
+      showBonusPopup.value = true;
+    });
   }
 
   void changeCategory(String category) {

@@ -217,7 +217,7 @@ class PopularView extends StatelessWidget {
   // --- Standard Movie Card (Consistent sizing) ---
   Widget _buildStandardMovieCard(DiscoverMovie movie) {
     return GestureDetector(
-      onTap: () => controller.openMoviePopup(movie),
+      onTap: () => Get.toNamed(Routes.shortsScreen),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -302,7 +302,7 @@ class PopularView extends StatelessWidget {
     DiscoverMovie? overlayMovie,
   }) {
     return GestureDetector(
-      onTap: () => controller.openMoviePopup(movie),
+      onTap: () => Get.toNamed(Routes.shortsScreen),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -458,7 +458,7 @@ class PopularView extends StatelessWidget {
     double? height, // Added height parameter
   }) {
     return GestureDetector(
-      onTap: () => controller.openMoviePopup(movie),
+      onTap: () => Get.toNamed(Routes.shortsScreen),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -680,7 +680,7 @@ class PopularView extends StatelessWidget {
     required String views,
   }) {
     return GestureDetector(
-      onTap: () => controller.openMoviePopup(movie),
+      onTap: () => Get.toNamed(Routes.shortsScreen),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

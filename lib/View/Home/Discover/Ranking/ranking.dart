@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../../Core/Routs/routs.dart';
 import '../../../../Utils/app_icons.dart';
 import '../Controller/discover_controller.dart';
 
@@ -79,104 +80,107 @@ class RankingView extends StatelessWidget {
 
   Widget _buildRankingItem(int index) {
     final movie = controller.rankingMovies[index];
-    return Padding(
-      padding: EdgeInsets.only(bottom: 20.h),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.r),
-                child: Image.asset(
-                  movie.image,
-                  width: 80.w,
-                  height: 100.h,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF76212),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(8.r),
-                      bottomLeft: Radius.circular(8.r),
-                    ),
-                  ),
-                  child: Text(
-                    "${index + 1}",
-                    style: GoogleFonts.inter(
-                      color: Colors.white,
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(width: 12.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: () => Get.toNamed(Routes.shortsScreen),
+      child: Padding(
+        padding: EdgeInsets.only(bottom: 20.h),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        movie.title,
-                        style: GoogleFonts.inter(
-                          color: Colors.white,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.r),
+                  child: Image.asset(
+                    movie.image,
+                    width: 80.w,
+                    height: 100.h,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF76212),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(8.r),
+                        bottomLeft: Radius.circular(8.r),
                       ),
                     ),
-                    SizedBox(width: 8.w),
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          AppIcons.fire_icon,
-                          width: 14.w,
-                          height: 14.w,
-                        ),
-                        SizedBox(width: 4.w),
-                        Text(
-                          movie.views,
-                          style: GoogleFonts.inter(
-                            color: const Color(0xFFF76212),
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8.h),
-                Padding(
-                  padding: EdgeInsets.only(right: 60.w),
-                  child: Text(
-                    movie.description,
-                    style: GoogleFonts.inter(
-                      color: const Color(0xFFD9D9D9),
-                      fontSize: 11.sp,
-                      fontWeight: FontWeight.w400,
-                      height: 1.4,
+                    child: Text(
+                      "${index + 1}",
+                      style: GoogleFonts.inter(
+                        color: Colors.white,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
-          ),
-        ],
+            SizedBox(width: 12.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          movie.title,
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      SizedBox(width: 8.w),
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                            AppIcons.fire_icon,
+                            width: 14.w,
+                            height: 14.w,
+                          ),
+                          SizedBox(width: 4.w),
+                          Text(
+                            movie.views,
+                            style: GoogleFonts.inter(
+                              color: const Color(0xFFF76212),
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8.h),
+                  Padding(
+                    padding: EdgeInsets.only(right: 60.w),
+                    child: Text(
+                      movie.description,
+                      style: GoogleFonts.inter(
+                        color: const Color(0xFFD9D9D9),
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w400,
+                        height: 1.4,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

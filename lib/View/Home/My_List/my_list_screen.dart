@@ -9,6 +9,7 @@ import 'package:uremz100/Widgets/Custom_Text.dart';
 import '../../../Core/Routs/routs.dart';
 import 'Controller/my_list_controller.dart';
 import 'Model/my_list_model.dart';
+import '../Bottom_NabBar/Controller/Bottom_NabBar_Controller.dart';
 
 class MyListScreen extends GetView<MyListController> {
   const MyListScreen({super.key});
@@ -19,18 +20,17 @@ class MyListScreen extends GetView<MyListController> {
     return Scaffold(
       appBar: CustomAppBar(
         title: "My Collection",
+        onBackPressed: () {
+          final NavigationController navController = Get.find<NavigationController>();
+          navController.changeIndex(0);
+        },
         actions: [
-          GestureDetector(
-            onTap: () {
-              Get.toNamed(Routes.standardVip);
-            },
-            child: Padding(
-              padding: EdgeInsets.only(right: 16.w),
-              child: SvgPicture.asset(
-                AppIcons.vip_icon,
-                height: 30.w,
-                width: 30.w,
-              ),
+          Padding(
+            padding: EdgeInsets.only(right: 16.w),
+            child: SvgPicture.asset(
+              AppIcons.vip_icon,
+              height: 30.w,
+              width: 30.w,
             ),
           ),
         ],
