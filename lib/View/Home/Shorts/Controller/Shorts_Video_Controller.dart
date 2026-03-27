@@ -59,13 +59,20 @@ class ShortsVideoController extends GetxController {
 
   void togglePlayPause() {
     if (videoPlayerController.value.isPlaying) {
-      videoPlayerController.pause();
-      isPlaying.value = false;
-      showPlayButton.value = true; // Show immediately when paused
+      pauseVideo();
     } else {
       videoPlayerController.play();
       isPlaying.value = true;
       _startPlayButtonTimer(); // Hide after 500ms when playing
+    }
+  }
+
+  void pauseVideo() {
+    if (videoPlayerController.value.isInitialized &&
+        videoPlayerController.value.isPlaying) {
+      videoPlayerController.pause();
+      isPlaying.value = false;
+      showPlayButton.value = true; // Show immediately when paused
     }
   }
 
@@ -81,6 +88,7 @@ class ShortsVideoController extends GetxController {
 
   @override
   void onClose() {
+    pauseVideo();
     videoPlayerController.dispose();
     super.onClose();
   }

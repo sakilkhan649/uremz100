@@ -34,6 +34,7 @@ class ShortsScreen extends StatelessWidget {
           controller.toggleFullSeriesMode();
         } else {
           // If in Shorts mode and no popups, go back to Discover tab (index 0)
+          controller.pauseCurrentVideo(); // Pause video before switching
           try {
             final navController = Get.find<NavigationController>();
             if (navController.currentIndex.value != 0) {

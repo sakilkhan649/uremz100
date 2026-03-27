@@ -160,6 +160,30 @@ class ShortsController extends GetxController {
     }
   }
 
+  void pauseCurrentVideo() {
+    try {
+      final videoUrl = shortsList[currentIndex.value].videoUrl;
+      if (Get.isRegistered<ShortsVideoController>(tag: videoUrl)) {
+        final videoController = Get.find<ShortsVideoController>(tag: videoUrl);
+        videoController.pauseVideo();
+      }
+    } catch (e) {
+      // Index out of range or controller not found
+    }
+  }
+
+  void exitFullSeries() {
+    pauseCurrentVideo(); // Pause before going back
+    isFullSeriesMode.value = false;
+    try {
+      final navController = Get.find<NavigationController>();
+      navController.toggleBottomNav(true);
+    } catch (e) {
+      // NavigationController not found
+    }
+    Get.back();
+  }
+
   void showPlaybackSpeedBottomSheet(String videoUrl) {
     if (!Get.isRegistered<ShortsVideoController>(tag: videoUrl)) return;
     final videoController = Get.find<ShortsVideoController>(tag: videoUrl);

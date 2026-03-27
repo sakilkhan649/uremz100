@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../../Shorts/Controller/Shorts_Controller.dart';
 
 class NavigationController extends GetxController {
   var currentIndex = 0.obs;
@@ -16,6 +17,13 @@ class NavigationController extends GetxController {
   }
 
   void changeIndex(int index) {
+    if (currentIndex.value == 1 && index != 1) {
+      // If leaving Shorts tab, pause the video
+      try {
+        final shortsController = Get.find<ShortsController>();
+        shortsController.pauseCurrentVideo();
+      } catch (e) {}
+    }
     currentIndex.value = index;
   }
 
