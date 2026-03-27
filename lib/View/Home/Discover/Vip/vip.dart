@@ -86,7 +86,7 @@ class VipView extends StatelessWidget {
     }
 
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.shortsScreen),
+      onTap: () => Get.toNamed(Routes.shortsFullSeriesOverlay),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

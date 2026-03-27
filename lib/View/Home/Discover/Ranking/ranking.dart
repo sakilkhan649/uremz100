@@ -81,7 +81,7 @@ class RankingView extends StatelessWidget {
   Widget _buildRankingItem(int index) {
     final movie = controller.rankingMovies[index];
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.shortsScreen),
+      onTap: () => Get.toNamed(Routes.shortsFullSeriesOverlay),
       child: Padding(
         padding: EdgeInsets.only(bottom: 20.h),
         child: Row(

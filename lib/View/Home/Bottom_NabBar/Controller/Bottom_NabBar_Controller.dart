@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 class NavigationController extends GetxController {
   var currentIndex = 0.obs;
+  var showBottomNav = true.obs;
 
   @override
   void onInit() {
@@ -16,5 +17,9 @@ class NavigationController extends GetxController {
 
   void changeIndex(int index) {
     currentIndex.value = index;
+  }
+
+  void toggleBottomNav(bool show) {
+    showBottomNav.value = show;
   }
 }

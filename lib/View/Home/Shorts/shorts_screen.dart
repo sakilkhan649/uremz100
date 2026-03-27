@@ -6,11 +6,12 @@ import '../../../Utils/app_icons.dart';
 import '../../../Utils/app_colors.dart';
 import '../../../Widgets/Custom_Text.dart';
 import 'Controller/Shorts_Controller.dart';
-import 'Widget/Shorts_InfoOverlay.dart';
-import 'Widget/Shorts_SideButton.dart';
 import 'Widget/Login_Popup.dart';
 import 'Widget/Shorts_VideoPlayer.dart';
+import 'Widget/Shorts_DefaultOverlay.dart';
+import 'Widget/Shorts_FullSeriesOverlay.dart';
 import '../../../Core/Routs/routs.dart';
+import '../Bottom_NabBar/Controller/Bottom_NabBar_Controller.dart';
 
 class ShortsScreen extends StatelessWidget {
   const ShortsScreen({super.key});
@@ -18,265 +19,125 @@ class ShortsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ShortsController());
-    return Scaffold(
-      body: Stack(
-        children: [
-          PageView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: controller.shortsList.length,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if (didPop) return;
+
+        if (controller.showMoreMenu.value) {
+          controller.toggleMoreMenu();
+        } else if (controller.showEpisodePopup.value) {
+          controller.toggleEpisodePopup();
+        } else if (controller.showLoginPopup.value) {
+          controller.toggleLoginPopup();
+        } else if (controller.isFullSeriesMode.value) {
+          controller.toggleFullSeriesMode();
+        } else {
+          // If in Shorts mode and no popups, go back to Discover tab (index 0)
+          try {
+            final navController = Get.find<NavigationController>();
+            if (navController.currentIndex.value != 0) {
+              navController.changeIndex(0);
+            } else {
+              // If already in Discover, handle accordingly
+            }
+          } catch (e) {
+            // navigation logic fallback
+          }
+        }
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            PageView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: controller.shortsList.length,
+              onPageChanged: (index) => controller.currentIndex.value = index,
               itemBuilder: (context, index) {
                 final shorts = controller.shortsList[index];
                 return Stack(
                   fit: StackFit.expand,
                   children: [
                     // Background Video
-                    ShortsVideoPlayer(
-                      videoUrl: shorts.videoUrl,
-                    ),
+                    ShortsVideoPlayer(videoUrl: shorts.videoUrl),
 
-                  // Top Gradient
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: 120.h,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Colors.black.withOpacity(0.5),
-                            Colors.transparent,
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  // Bottom Gradient
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    height: 300.h,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [
-                            Colors.black.withOpacity(0.8),
-                            Colors.transparent,
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  // Reward Icon
-                  Positioned(
-                    top: 51.h,
-                    right: 22.w,
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        SvgPicture.asset(
-                          AppIcons.short_reword_icon,
-                          width: 24.w,
-                          height: 24.w,
-                        ),
-                        Positioned(
-                          top: -18,
-                          right: -2,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xFF272727),
-                                  blurRadius: 6,
-                                ),
-                              ],
+                    // Overlay Content (Conditional based on Mode)
+                    Obx(() {
+                      final isFullMode = controller.isFullSeriesMode.value;
+                      return Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          if (!isFullMode)
+                            ShortsDefaultOverlay(
+                              controller: controller,
+                              shorts: shorts,
+                            )
+                          else
+                            ShortsFullSeriesOverlay(
+                              controller: controller,
+                              shorts: shorts,
                             ),
-                            child: GestureDetector(
-                              onTap: () {
-                                ///
-                              },
-                              child: Icon(
-                                Icons.close,
-                                size: 10.sp,
-                                color: Color(0xFFE6E6E6),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  // Right Side Action Buttons
-                  Positioned(
-                    right: 16.w,
-                    bottom: 73.h,
-                    child: Column(
-                      children: [
-                        // Bookmark Button
-                        Obx(
-                          () => ShortsSideButton(
-                            iconPath: AppIcons.save_icon,
-                            color: controller.isBookmarked.value
-                                ? AppColors.gray500
-                                : AppColors.orange100,
-                            label: "15.5k",
-                            onTap: () => controller.toggleBookmark(),
-                          ),
-                        ),
-                        SizedBox(height: 12.h),
-
-                        // Favorite Button
-                        Obx(
-                          () => ShortsSideButton(
-                            iconPath: AppIcons.hard_icon,
-                            color: controller.isFav.value
-                                ? AppColors.gray500
-                                : AppColors.orange100,
-                            label: "14.4k",
-                            onTap: () => controller.toggleFav(),
-                          ),
-                        ),
-                        SizedBox(height: 12.h),
-
-                        // Share Button
-                        ShortsSideButton(
-                          iconPath: AppIcons.share_icon,
-                          label: "Share",
-                          onTap: () {},
-                        ),
-                        SizedBox(height: 12.h),
-
-                        // More Button
-                        ShortsSideButton(
-                          iconPath: AppIcons.more_icon,
-                          onTap: () => controller.toggleMoreMenu(),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  // Bottom Info Section
-                  Positioned(
-                    left: 16.w,
-                    bottom: 83.h,
-                    child: Obx(
-                      () => ShortsInfoOverlay(
-                        profileImage: shorts.profileImage,
-                        title: shorts.title,
-                        description: shorts.description,
-                        isExpanded: controller.isDescriptionExpanded.value,
-                        onMoreTap: () => controller.toggleDescription(),
-                      ),
-                    ),
-                  ),
-
-                  // Watch Now Button
-                  Positioned(
-                    left: 16.w,
-                    right: 16.w,
-                    bottom: 22.h,
-                    child: GestureDetector(
-                      onTap: () => controller.toggleEpisodePopup(),
-                      child: Container(
-                        height: 44.h,
-                        padding: EdgeInsets.symmetric(horizontal: 14.w),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF3A3A3A).withOpacity(0.20),
-                          borderRadius: BorderRadius.circular(8.r),
-                          border: Border.all(
-                            color: Colors.white.withOpacity(0.1),
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              AppIcons.episode_icon,
-                              height: 20.sp,
-                              width: 20.sp,
-                            ),
-                            SizedBox(width: 9.w),
-                            CustomText(
-                              text:
-                                  "Episode ${shorts.episode} • Season ${shorts.season}",
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xFFFFFFFF),
-                            ),
-                            const Spacer(),
-                            SvgPicture.asset(
-                              AppIcons.dowp_icon,
-                              height: 20.sp,
-                              width: 20.sp,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                        ],
+                      );
+                    }),
+                  ],
                 );
               },
             ),
 
-          // Episode Selection Popup
-          Obx(
-            () => controller.showEpisodePopup.value
-                ? _buildEpisodePopup(context, controller)
-                : const SizedBox.shrink(),
-          ),
+            // Episode Selection Popup
+            Obx(
+              () => controller.showEpisodePopup.value
+                  ? _buildEpisodePopup(context, controller)
+                  : const SizedBox.shrink(),
+            ),
 
-          // More Menu Overlay
-          Obx(
-            () => controller.showMoreMenu.value
-                ? GestureDetector(
-                    onTap: () => controller.toggleMoreMenu(),
-                    child: Container(
-                      color: Colors.black45,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [_buildMoreMenu(context, controller)],
+            // More Menu Overlay
+            Obx(
+              () => controller.showMoreMenu.value
+                  ? GestureDetector(
+                      onTap: () => controller.toggleMoreMenu(),
+                      child: Container(
+                        color: Colors.black45,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [_buildMoreMenu(context, controller)],
+                        ),
                       ),
-                    ),
-                  )
-                : const SizedBox.shrink(),
-          ),
+                    )
+                  : const SizedBox.shrink(),
+            ),
 
-          // Login Popup
-          Obx(
-            () => controller.showLoginPopup.value
-                ? Container(
-                    color: Colors.black.withOpacity(0.5),
-                    child: LoginPopup(
-                      onSignIn: () {
-                        controller.toggleLoginPopup();
-                        Get.toNamed(Routes.signinScreen);
-                      },
-                      onClose: () => controller.toggleLoginPopup(),
-                    ),
-                  )
-                : const SizedBox.shrink(),
-          ),
-        ],
+            // Login Popup
+            Obx(
+              () => controller.showLoginPopup.value
+                  ? Container(
+                      color: Colors.black.withOpacity(0.5),
+                      child: LoginPopup(
+                        onSignIn: () {
+                          controller.toggleLoginPopup();
+                          Get.toNamed(Routes.signinScreen);
+                        },
+                        onClose: () => controller.toggleLoginPopup(),
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildMoreMenu(BuildContext context, ShortsController controller) {
     return Container(
-      margin: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 6.h),
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
       decoration: BoxDecoration(
-        color: const Color(0xFF292929),
-        borderRadius: BorderRadius.circular(20.r),
+        color: Color(0xFF292929),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.r),
+          topRight: Radius.circular(20.r),
+        ),
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -306,7 +167,6 @@ class ShortsScreen extends StatelessWidget {
                 ],
               ),
             ),
-
             SizedBox(height: 12.h),
             _buildDivider(),
 
@@ -397,9 +257,7 @@ class ShortsScreen extends StatelessWidget {
             GestureDetector(
               onTap: () {}, // Prevent closing when clicking inside
               child: Container(
-                margin: EdgeInsets.only(
-                  bottom: 70.h,
-                ), // Respect the bottom margin
+                // Respect the bottom margin
                 width: double.infinity,
                 height: 406.h,
                 padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 0),

@@ -8,6 +8,10 @@ class ShortsVideoController extends GetxController {
   var isInitialized = false.obs;
   var isPlaying = false.obs;
   var isError = false.obs;
+  var position = Duration.zero.obs;
+  var duration = Duration.zero.obs;
+  var playbackSpeed = 1.0.obs;
+  var showPlayButton = true.obs;
 
   ShortsVideoController(this.videoUrl);
 
@@ -22,12 +26,21 @@ class ShortsVideoController extends GetxController {
       ..initialize().then((_) async {
         if (!isClosed) {
           isInitialized.value = true;
-          // Wait for 1 second as requested by user before auto-playing
+          duration.value = videoPlayerController.value.duration;
+          
+          videoPlayerController.addListener(() {
+            if (videoPlayerController.value.isInitialized) {
+              position.value = videoPlayerController.value.position;
+            }
+          });
+
+          // Wait for 500ms as requested by user before auto-playing
           await Future.delayed(const Duration(milliseconds: 500));
           if (!isClosed) {
             videoPlayerController.play();
             videoPlayerController.setLooping(true);
             isPlaying.value = true;
+            _startPlayButtonTimer();
           }
         }
       }).catchError((error) {
@@ -35,14 +48,35 @@ class ShortsVideoController extends GetxController {
       });
   }
 
+  void _startPlayButtonTimer() {
+    showPlayButton.value = true;
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (isPlaying.value && !isClosed) {
+        showPlayButton.value = false;
+      }
+    });
+  }
+
   void togglePlayPause() {
     if (videoPlayerController.value.isPlaying) {
       videoPlayerController.pause();
       isPlaying.value = false;
+      showPlayButton.value = true; // Show immediately when paused
     } else {
       videoPlayerController.play();
       isPlaying.value = true;
+      _startPlayButtonTimer(); // Hide after 500ms when playing
     }
+  }
+
+  void seekTo(Duration pos) {
+    videoPlayerController.seekTo(pos);
+    position.value = pos;
+  }
+
+  void setPlaybackSpeed(double speed) {
+    videoPlayerController.setPlaybackSpeed(speed);
+    playbackSpeed.value = speed;
   }
 
   @override

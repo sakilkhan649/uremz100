@@ -55,7 +55,7 @@ class NewView extends StatelessWidget {
 
   Widget _buildNewReleaseCard(DiscoverMovie movie) {
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.shortsScreen),
+      onTap: () => Get.toNamed(Routes.shortsFullSeriesOverlay),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

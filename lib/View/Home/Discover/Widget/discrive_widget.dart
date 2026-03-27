@@ -268,7 +268,7 @@ class MovieDetailsPopup extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () {
                                       onClose();
-                                      // Get.toNamed(Routes.shortsScreen);////////////////////////
+                                       Get.toNamed(Routes.shortsFullSeriesOverlay);
                                     },
                                     child: Container(
                                       width: double.infinity,

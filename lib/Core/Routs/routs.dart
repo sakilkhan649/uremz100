@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:uremz100/View/Home/Bottom_NabBar/Bottom_NabBar_Screens.dart';
 import 'package:uremz100/View/Home/My_List/my_list_screen.dart';
+import 'package:uremz100/View/Home/Shorts/Shorts_FullSeriesScreen.dart';
 import '../../View/Auth/Authentications_Screens/Forgot_OTP_Screen/forgot_OTP_Screen.dart';
 import '../../View/Auth/Authentications_Screens/Forgot_Pass_Screen/forgot_Pass_Screen.dart';
 import '../../View/Auth/Authentications_Screens/Set_Pass_Screen/set_Pass_Screen.dart';
@@ -40,6 +41,7 @@ class Routes {
   static const String rewardsScreen = "/RewardsScreen";
   static const String vipGames = "/VipGames";
   static const String shortsScreen = "/ShortsScreen";
+  static const String shortsFullSeriesOverlay = "/ShortsFullSeriesOverlay";
 
   static List<GetPage> routes = [
     GetPage(
@@ -135,6 +137,11 @@ class Routes {
     GetPage(
       name: shortsScreen,
       page: () => ShortsScreen(),
+      transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: shortsFullSeriesOverlay,
+      page: () => const ShortsFullSeriesScreen(),
       transition: Transition.noTransition,
     ),
   ];

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:uremz100/View/Home/Shorts/Controller/Shorts_Controller.dart';
 import '../../../../Core/Routs/routs.dart';
 import '../../../../Widgets/Custom_Text.dart';
 import '../Detail/discover_detail_screen.dart';
@@ -13,7 +14,9 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.shortsScreen),
+      onTap: (){
+       Get.toNamed(Routes.shortsFullSeriesOverlay);
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

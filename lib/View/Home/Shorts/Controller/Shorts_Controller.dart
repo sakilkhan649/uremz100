@@ -1,6 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../Utils/app_colors.dart';
+import '../../../../Widgets/Custom_Text.dart';
 import '../Model/shorts_model.dart';
 import '../../../../Utils/app_images.dart';
+import '../../Bottom_NabBar/Controller/Bottom_NabBar_Controller.dart';
+import 'Shorts_Video_Controller.dart';
 
 class ShortsController extends GetxController {
   var shortsList = <ShortsModel>[].obs;
@@ -16,6 +22,8 @@ class ShortsController extends GetxController {
   var isDescriptionExpanded = false.obs;
   var showEpisodePopup = false.obs;
   var selectedEpisodeRange = "1-25".obs;
+  var isFullSeriesMode = false.obs;
+  var currentIndex = 0.obs;
 
   @override
   void onInit() {
@@ -24,12 +32,13 @@ class ShortsController extends GetxController {
       ShortsModel(
         videoUrl:
             "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-        title: "Big Buck Bunny",
+        title: "The Scars You Carved Into Me...",
         description:
-            "A large rabbit helps his friends and learns about the power of friendship in a lush forest.",
+            "Pearl Zane dates Ivan Reed, a wealthy heir pretending to be poor. When he falls in love...",
         profileImage: AppImages.profile_image,
-        episode: "1",
+        episode: "11",
         season: "1",
+        tags: ["Hot", "Secret Baby", "Winning Her Back"],
       ),
       ShortsModel(
         videoUrl:
@@ -40,6 +49,7 @@ class ShortsController extends GetxController {
         profileImage: AppImages.profile_image,
         episode: "2",
         season: "1",
+        tags: ["Action", "Sci-Fi"],
       ),
       ShortsModel(
         videoUrl:
@@ -50,6 +60,7 @@ class ShortsController extends GetxController {
         profileImage: AppImages.profile_image,
         episode: "3",
         season: "1",
+        tags: ["Stunts", "Hot"],
       ),
       ShortsModel(
         videoUrl:
@@ -60,6 +71,7 @@ class ShortsController extends GetxController {
         profileImage: AppImages.profile_image,
         episode: "4",
         season: "1",
+        tags: ["Thriller", "Action"],
       ),
       ShortsModel(
         videoUrl:
@@ -70,6 +82,7 @@ class ShortsController extends GetxController {
         profileImage: AppImages.profile_image,
         episode: "5",
         season: "1",
+        tags: ["Comedy", "Fun"],
       ),
     ]);
   }
@@ -135,5 +148,62 @@ class ShortsController extends GetxController {
 
   void togglePip() {
     isPipEnabled.value = !isPipEnabled.value;
+  }
+
+  void toggleFullSeriesMode() {
+    isFullSeriesMode.value = !isFullSeriesMode.value;
+    try {
+      final navController = Get.find<NavigationController>();
+      navController.toggleBottomNav(!isFullSeriesMode.value);
+    } catch (e) {
+      // In case NavigationController is not found (e.g. direct screen load)
+    }
+  }
+
+  void showPlaybackSpeedBottomSheet(String videoUrl) {
+    if (!Get.isRegistered<ShortsVideoController>(tag: videoUrl)) return;
+    final videoController = Get.find<ShortsVideoController>(tag: videoUrl);
+    final speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
+
+    Get.bottomSheet(
+      Container(
+        padding: EdgeInsets.symmetric(vertical: 20.h),
+        decoration: BoxDecoration(
+          color: const Color(0xFF1A1A1A),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomText(
+              text: "Playback Speed",
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+            SizedBox(height: 20.h),
+            ...speeds.map((speed) => ListTile(
+                  title: Center(
+                    child: Obx(() => CustomText(
+                          text: speed == 1.0 ? "Normal" : "${speed}x",
+                          fontSize: 16.sp,
+                          color: videoController.playbackSpeed.value == speed
+                              ? AppColors.yellow100
+                              : Colors.white,
+                          fontWeight: videoController.playbackSpeed.value == speed
+                              ? FontWeight.w600
+                              : FontWeight.w400,
+                        )),
+                  ),
+                  onTap: () {
+                    videoController.setPlaybackSpeed(speed);
+                    Get.back();
+                  },
+                )),
+            SizedBox(height: 10.h),
+          ],
+        ),
+      ),
+    );
   }
 }

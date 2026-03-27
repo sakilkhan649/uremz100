@@ -21,78 +21,46 @@ class PopularView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 8.h),
-        // First Row (3-column)
-        _buildStandardGrid(controller.allMovies.sublist(0, 3)),
+        // First Row (Horizontal Scroll)
+        _buildHorizontalStandardGrid(controller.allMovies.take(10).toList()),
 
         // VIP Banner
         _buildVipBanner(),
 
-        // Second Row (3-column)
-        _buildStandardGrid(controller.allMovies.sublist(3, 6)),
+        // Second Row (Horizontal Scroll)
+        _buildHorizontalStandardGrid(controller.allMovies.skip(3).take(10).toList()),
 
         SizedBox(height: 24.h),
         SectionHeader(title: "Most Popular Series"),
         SizedBox(height: 12.h),
-        // Custom Grid for Most Popular Series
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: _buildSeriesCard(
-                movie: controller.allMovies[1],
-                badge: "New",
-                title: "Crimson Chars",
-                subtitle: "Exclusive",
-                views: "3.1M",
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Expanded(
-              child: _buildSeriesCard(
-                movie: controller.allMovies[2],
-                badge: "VIP",
-                title: "Crimson Chars",
-                subtitle: "Revenge",
-                views: "5.1M",
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Expanded(
-              child: _buildSeriesCard(
-                movie: controller.allMovies[3],
-                badge: "Hot",
-                title: "Mega",
-                subtitle: "New Day",
-                views: "12.1M",
-              ),
-            ),
-          ],
-        ),
+        // Most Popular Series (Horizontal Scroll)
+        _buildHorizontalSeriesGrid([
+          (movie: controller.allMovies[1], badge: "New", title: "Crimson Chars", subtitle: "Exclusive", views: "3.1M"),
+          (movie: controller.allMovies[2], badge: "VIP", title: "Crimson Chars", subtitle: "Revenge", views: "5.1M"),
+          (movie: controller.allMovies[3], badge: "Hot", title: "Mega", subtitle: "New Day", views: "12.1M"),
+          (movie: controller.allMovies[4], badge: "New", title: "Shadows", subtitle: "Mystery", views: "1.1M"),
+        ]),
+           SizedBox(height: 24.h),
+        SectionHeader(title: "Most Popular Movies"),
+        SizedBox(height: 12.h),
+        // Most Popular Movies (Horizontal Scroll)
+        _buildHorizontalSeriesGrid([
+          (movie: controller.allMovies[1], badge: "New", title: "Crimson Chars", subtitle: "Exclusive", views: "3.1M"),
+          (movie: controller.allMovies[2], badge: "VIP", title: "Crimson Chars", subtitle: "Revenge", views: "5.1M"),
+          (movie: controller.allMovies[3], badge: "Hot", title: "Mega", subtitle: "New Day", views: "12.1M"),
+          (movie: controller.allMovies[4], badge: "New", title: "Shadows", subtitle: "Mystery", views: "1.1M"),
+        ]),
 
         SizedBox(height: 24.h),
         SectionHeader(title: "You Might Like"),
         SizedBox(height: 16.h),
 
-        // You Might Like Layout (Large Card + Top Picks List)
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: _buildLargeMovieCard(
-                movie: controller.allMovies[1],
-                badge: "VIP",
-                title: "Crimson Chars",
-                subtitle: "Exclusive",
-                views: "3.1M",
-                height: 280.h,
-              ),
-            ),
-            SizedBox(width: 12.w),
-            Expanded(
-              child: TopPicksList(movies: controller.allMovies.sublist(6, 11)),
-            ),
-          ],
-        ),
+        // You Might Like (Horizontal Scroll)
+        _buildHorizontalLargeGrid([
+          (movie: controller.allMovies[1], badge: "VIP", title: "Crimson Chars", subtitle: "Exclusive", views: "3.1M"),
+          (movie: controller.allMovies[3], badge: "Hot", title: "Mega", subtitle: "New Day", views: "12.1M"),
+          (movie: controller.allMovies[2], badge: "New", title: "Shadows", subtitle: "Mystery", views: "1.1M"),
+        ]),
 
         SizedBox(height: 16.h),
 
@@ -164,60 +132,120 @@ class PopularView extends StatelessWidget {
         SizedBox(height: 24.h),
         SectionHeader(title: "Recently Watched"),
         SizedBox(height: 12.h),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: _buildRecentlyWatchedCard(
-                movie: controller.allMovies[4],
-                badge: "Exclusive",
-                views: "3.1M",
-                progress: 0.3,
-                overlayMovie: controller.allMovies[0],
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Expanded(
-              child: _buildRecentlyWatchedCard(
-                movie: controller.allMovies[5],
-                views: "225.1k",
-                progress: 0.6,
-              ),
-            ),
-            SizedBox(width: 10.w),
-            Expanded(
-              child: _buildRecentlyWatchedCard(
-                movie: controller.allMovies[6],
-                badge: "New",
-                views: "3.1M",
-                progress: 0.8,
-              ),
-            ),
-          ],
-        ),
+        // Recently Watched (Horizontal Scroll)
+        _buildHorizontalRecentlyWatchedGrid([
+          (movie: controller.allMovies[4], badge: "Exclusive", views: "3.1M", progress: 0.3, overlayMovie: controller.allMovies[0]),
+          (movie: controller.allMovies[5], badge: null, views: "225.1k", progress: 0.6, overlayMovie: null),
+          (movie: controller.allMovies[6], badge: "New", views: "3.1M", progress: 0.8, overlayMovie: null),
+        ]),
       ],
     );
   }
 
-  // --- Standard 3-column Grid Builder ---
-  Widget _buildStandardGrid(List<DiscoverMovie> items) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: items.map((movie) {
-        return Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(right: movie == items.last ? 0 : 10.w),
-            child: _buildStandardMovieCard(movie),
-          ),
-        );
-      }).toList(),
+  // --- Horizontal Recently Watched Scroll Grid ---
+  Widget _buildHorizontalRecentlyWatchedGrid(List<({DiscoverMovie movie, String? badge, String views, double progress, DiscoverMovie? overlayMovie})> items) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      physics: const BouncingScrollPhysics(),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: items.map((item) {
+          return SizedBox(
+            width: 120.w, // Reduced width to match others
+            child: Padding(
+              padding: EdgeInsets.only(right: 12.w),
+              child: _buildRecentlyWatchedCard(
+                movie: item.movie,
+                badge: item.badge,
+                views: item.views,
+                progress: item.progress,
+                overlayMovie: item.overlayMovie,
+              ),
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
+
+  // --- Horizontal Series Scroll Grid ---
+  Widget _buildHorizontalSeriesGrid(List<({DiscoverMovie movie, String? badge, String title, String subtitle, String views})> items) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      physics: const BouncingScrollPhysics(),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: items.map((item) {
+          return SizedBox(
+            width: 120.w,
+            child: Padding(
+              padding: EdgeInsets.only(right: 10.w),
+              child: _buildSeriesCard(
+                movie: item.movie,
+                badge: item.badge ?? "",
+                title: item.title,
+                subtitle: item.subtitle,
+                views: item.views,
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  // --- Horizontal Large Scroll Grid ---
+  Widget _buildHorizontalLargeGrid(List<({DiscoverMovie movie, String? badge, String title, String subtitle, String views})> items) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      physics: const BouncingScrollPhysics(),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: items.map((item) {
+          return SizedBox(
+            width: 120.w,
+            child: Padding(
+              padding: EdgeInsets.only(right: 12.w),
+              child: _buildLargeMovieCard(
+                movie: item.movie,
+                badge: item.badge,
+                title: item.title,
+                subtitle: item.subtitle,
+                views: item.views,
+                height: 150.h,
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  // --- Horizontal Scroll Grid Builder ---
+  Widget _buildHorizontalStandardGrid(List<DiscoverMovie> items) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      physics: const BouncingScrollPhysics(),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: items.map((movie) {
+          return SizedBox(
+            width: 120.w,
+            child: Padding(
+              padding: EdgeInsets.only(right: 12.w),
+              child: _buildStandardMovieCard(movie),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
 
   // --- Standard Movie Card (Consistent sizing) ---
   Widget _buildStandardMovieCard(DiscoverMovie movie) {
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.shortsScreen),
+      onTap: () => Get.toNamed(Routes.shortsFullSeriesOverlay),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -302,7 +330,7 @@ class PopularView extends StatelessWidget {
     DiscoverMovie? overlayMovie,
   }) {
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.shortsScreen),
+      onTap: () => Get.toNamed(Routes.shortsFullSeriesOverlay),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -458,7 +486,7 @@ class PopularView extends StatelessWidget {
     double? height, // Added height parameter
   }) {
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.shortsScreen),
+      onTap: () => Get.toNamed(Routes.shortsFullSeriesOverlay),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -680,7 +708,7 @@ class PopularView extends StatelessWidget {
     required String views,
   }) {
     return GestureDetector(
-      onTap: () => Get.toNamed(Routes.shortsScreen),
+      onTap: () => Get.toNamed(Routes.shortsFullSeriesOverlay),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

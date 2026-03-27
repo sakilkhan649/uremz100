@@ -26,7 +26,6 @@ class _ShortsVideoPlayerState extends State<ShortsVideoPlayer> {
 
   @override
   void dispose() {
-    Get.delete<ShortsVideoController>(tag: widget.videoUrl);
     super.dispose();
   }
 
