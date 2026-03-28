@@ -7,7 +7,6 @@ import 'package:uremz100/Utils/app_icons.dart';
 import 'package:uremz100/View/Home/Discover/Models/discrive_models.dart';
 import 'package:uremz100/Widgets/Custom_Text.dart';
 import '../Controller/discover_controller.dart';
-import '../New/new.dart';
 import '../Widget/discrive_widget.dart';
 
 class PopularView extends StatelessWidget {

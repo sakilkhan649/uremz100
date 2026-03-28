@@ -59,17 +59,22 @@ class BottomNabbarScreens extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SvgPicture.asset(_getSvgForIndex(index), width: 24.w, height: 24.w),
+          SvgPicture.asset(
+            _getSvgForIndex(index),
+            width: 24.w,
+            height: 24.w,
+            colorFilter: ColorFilter.mode(
+              isSelected ? AppColors.white100 : Colors.grey,
+              BlendMode.srcIn,
+            ),
+          ),
           SizedBox(height: 6.h),
           Text(
             _getLabelForIndex(index),
             style: TextStyle(
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
-              color: index == 3 && isSelected
-                  ? Colors
-                        .white // Gold for Rewards
-                  : (isSelected ? Colors.white : AppColors.gray400),
+              color: isSelected ? AppColors.white100 : Colors.grey,
             ),
           ),
         ],
