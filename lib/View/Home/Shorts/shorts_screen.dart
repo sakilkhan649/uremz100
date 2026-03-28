@@ -12,6 +12,7 @@ import 'Widget/Shorts_DefaultOverlay.dart';
 import 'Widget/Shorts_FullSeriesOverlay.dart';
 import '../../../Core/Routs/routs.dart';
 import '../Bottom_NabBar/Controller/Bottom_NabBar_Controller.dart';
+import '../../../Controller/pip_controller.dart';
 
 class ShortsScreen extends StatelessWidget {
   const ShortsScreen({super.key});
@@ -35,6 +36,8 @@ class ShortsScreen extends StatelessWidget {
         } else {
           // If in Shorts mode and no popups, go back to Discover tab (index 0)
           controller.pauseCurrentVideo(); // Pause video before switching
+          controller.triggerPip();
+
           try {
             final navController = Get.find<NavigationController>();
             if (navController.currentIndex.value != 0) {

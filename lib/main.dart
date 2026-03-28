@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'Core/Routs/routs.dart';
 import 'Utils/app_colors.dart';
+import 'Widgets/pip_wrapper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         getPages: Routes.routes,
         initialRoute: Routes.welcomeScreen,
+        builder: (context, child) {
+          return PipWrapper(child: child!);
+        },
       ),
     );
   }

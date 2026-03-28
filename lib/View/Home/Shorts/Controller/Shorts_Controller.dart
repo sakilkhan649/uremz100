@@ -6,6 +6,7 @@ import '../../../../Widgets/Custom_Text.dart';
 import '../Model/shorts_model.dart';
 import '../../../../Utils/app_images.dart';
 import '../../Bottom_NabBar/Controller/Bottom_NabBar_Controller.dart';
+import '../../../../Controller/pip_controller.dart';
 import 'Shorts_Video_Controller.dart';
 
 class ShortsController extends GetxController {
@@ -172,7 +173,17 @@ class ShortsController extends GetxController {
     }
   }
 
+  void triggerPip() {
+    if (shortsList.isNotEmpty) {
+      final activeShort = shortsList[currentIndex.value];
+      try {
+        PipController.to.showPip(activeShort);
+      } catch (e) {}
+    }
+  }
+
   void exitFullSeries() {
+    triggerPip();
     pauseCurrentVideo(); // Pause before going back
     isFullSeriesMode.value = false;
     try {

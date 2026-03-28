@@ -11,6 +11,7 @@ import 'Controller/Shorts_Controller.dart';
 import 'Widget/Login_Popup.dart';
 import 'Widget/Shorts_FullSeriesOverlay.dart';
 import 'Widget/Shorts_VideoPlayer.dart';
+import '../../../Controller/pip_controller.dart';
 
 
 class ShortsFullSeriesScreen extends StatelessWidget {
