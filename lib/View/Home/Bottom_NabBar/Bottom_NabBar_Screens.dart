@@ -54,7 +54,7 @@ class BottomNabbarScreens extends StatelessWidget {
   Widget _buildCustomIcon(int index, NavigationController navController) {
     final bool isSelected = navController.currentIndex.value == index;
 
-    return GestureDetector(
+    return InkWell(
       onTap: () => navController.changeIndex(index),
       child: Column(
         mainAxisSize: MainAxisSize.min,
