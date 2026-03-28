@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get.dart';
 import 'package:uremz100/Core/Routs/routs.dart';
 import 'package:uremz100/Utils/app_icons.dart';
 import 'package:uremz100/View/Home/Discover/Models/discrive_models.dart';
@@ -17,8 +16,10 @@ class PopularView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 8.h),
         // First Row (Horizontal Scroll)
@@ -28,60 +29,86 @@ class PopularView extends StatelessWidget {
         _buildVipBanner(),
 
         // Second Row (Horizontal Scroll)
-        _buildHorizontalStandardGrid(controller.allMovies.skip(3).take(10).toList()),
+        _buildHorizontalStandardGrid(
+          controller.allMovies.skip(3).take(10).toList(),
+        ),
 
         SizedBox(height: 24.h),
         SectionHeader(title: "Most Popular Series"),
         SizedBox(height: 12.h),
         // Most Popular Series (Horizontal Scroll)
         _buildHorizontalSeriesGrid([
-          (movie: controller.allMovies[1], badge: "New", title: "Crimson Chars", subtitle: "Exclusive", views: "3.1M"),
-          (movie: controller.allMovies[2], badge: "VIP", title: "Crimson Chars", subtitle: "Revenge", views: "5.1M"),
-          (movie: controller.allMovies[3], badge: "Hot", title: "Mega", subtitle: "New Day", views: "12.1M"),
-          (movie: controller.allMovies[4], badge: "New", title: "Shadows", subtitle: "Mystery", views: "1.1M"),
+          (
+            movie: controller.allMovies[1],
+            badge: "New",
+            title: "Crimson Chars",
+            subtitle: "Exclusive",
+            views: "3.1M",
+          ),
+          (
+            movie: controller.allMovies[2],
+            badge: "VIP",
+            title: "Crimson Chars",
+            subtitle: "Revenge",
+            views: "5.1M",
+          ),
+          (
+            movie: controller.allMovies[3],
+            badge: "Hot",
+            title: "Mega",
+            subtitle: "New Day",
+            views: "12.1M",
+          ),
+          (
+            movie: controller.allMovies[4],
+            badge: "New",
+            title: "Shadows",
+            subtitle: "Mystery",
+            views: "1.1M",
+          ),
+          (
+            movie: controller.allMovies[5],
+            badge: "New",
+            title: "Shadows",
+            subtitle: "Mystery",
+            views: "1.1M",
+          ),
+          (
+            movie: controller.allMovies[6],
+            badge: "New",
+            title: "Shadows",
+            subtitle: "Mystery",
+            views: "1.1M",
+          ),
+          (
+            movie: controller.allMovies[7],
+            badge: "New",
+            title: "Shadows",
+            subtitle: "Mystery",
+            views: "1.1M",
+          ),
+          (
+            movie: controller.allMovies[8],
+            badge: "New",
+            title: "Shadows",
+            subtitle: "Mystery",
+            views: "1.1M",
+          ),
         ]),
-           SizedBox(height: 24.h),
-        SectionHeader(title: "Most Popular Movies"),
-        SizedBox(height: 12.h),
-        // Most Popular Movies (Horizontal Scroll)
-        _buildHorizontalSeriesGrid([
-          (movie: controller.allMovies[1], badge: "New", title: "Crimson Chars", subtitle: "Exclusive", views: "3.1M"),
-          (movie: controller.allMovies[2], badge: "VIP", title: "Crimson Chars", subtitle: "Revenge", views: "5.1M"),
-          (movie: controller.allMovies[3], badge: "Hot", title: "Mega", subtitle: "New Day", views: "12.1M"),
-          (movie: controller.allMovies[4], badge: "New", title: "Shadows", subtitle: "Mystery", views: "1.1M"),
-        ]),
-
         SizedBox(height: 24.h),
         SectionHeader(title: "You Might Like"),
         SizedBox(height: 16.h),
 
-        // You Might Like (Horizontal Scroll)
-        _buildHorizontalLargeGrid([
-          (movie: controller.allMovies[1], badge: "VIP", title: "Crimson Chars", subtitle: "Exclusive", views: "3.1M"),
-          (movie: controller.allMovies[3], badge: "Hot", title: "Mega", subtitle: "New Day", views: "12.1M"),
-          (movie: controller.allMovies[2], badge: "New", title: "Shadows", subtitle: "Mystery", views: "1.1M"),
-        ]),
-
-        SizedBox(height: 16.h),
-
-        // Staggered Section (Below You Might Like)
+        // You Might Like Staggered Grid (Matching Image)
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Left Column: Large Movie Cards
             Expanded(
               child: Column(
                 children: [
                   _buildLargeMovieCard(
-                    movie: controller.allMovies[3],
-                    badge: null,
-                    title: "Crimson Chars",
-                    subtitle: "Exclusive",
-                    views: "3.1M",
-                    height: 280.h,
-                  ),
-                  SizedBox(height: 16.h),
-                  _buildLargeMovieCard(
-                    movie: controller.allMovies[0],
+                    movie: controller.allMovies[1],
                     badge: "VIP",
                     title: "Crimson Chars",
                     subtitle: "Exclusive",
@@ -90,9 +117,27 @@ class PopularView extends StatelessWidget {
                   ),
                   SizedBox(height: 16.h),
                   _buildLargeMovieCard(
-                    movie: controller.allMovies[2],
+                    movie: controller.allMovies[3],
                     badge: null,
-                    title: "Crimson Chars",
+                    title: "Raised By Wolves",
+                    subtitle: "Exclusive",
+                    views: "2.1M",
+                    height: 280.h,
+                  ),
+                  SizedBox(height: 16.h),
+                  _buildLargeMovieCard(
+                    movie: controller.allMovies[2],
+                    badge: "VIP",
+                    title: "Monarch",
+                    subtitle: "Exclusive",
+                    views: "3.1M",
+                    height: 280.h,
+                  ),
+                  SizedBox(height: 16.h),
+                  _buildLargeMovieCard(
+                    movie: controller.allMovies[0],
+                    badge: null,
+                    title: "Alien",
                     subtitle: "Exclusive",
                     views: "3.1M",
                     height: 280.h,
@@ -101,15 +146,18 @@ class PopularView extends StatelessWidget {
               ),
             ),
             SizedBox(width: 12.w),
+            // Right Column: Top Picks, Find Out More, and Large Cards
             Expanded(
               child: Column(
                 children: [
+                  _buildTopPicks(),
+                  SizedBox(height: 16.h),
                   _buildFindOutMore(),
                   SizedBox(height: 16.h),
                   _buildLargeMovieCard(
                     movie: controller.allMovies[4],
                     badge: "New",
-                    title: "Crimson Chars",
+                    title: "Legacies",
                     subtitle: "Exclusive",
                     views: "3.1M",
                     height: 280.h,
@@ -118,7 +166,7 @@ class PopularView extends StatelessWidget {
                   _buildLargeMovieCard(
                     movie: controller.allMovies[5],
                     badge: "VIP",
-                    title: "Crimson Chars",
+                    title: "Monarch",
                     subtitle: "Exclusive",
                     views: "3.1M",
                     height: 280.h,
@@ -134,16 +182,46 @@ class PopularView extends StatelessWidget {
         SizedBox(height: 12.h),
         // Recently Watched (Horizontal Scroll)
         _buildHorizontalRecentlyWatchedGrid([
-          (movie: controller.allMovies[4], badge: "Exclusive", views: "3.1M", progress: 0.3, overlayMovie: controller.allMovies[0]),
-          (movie: controller.allMovies[5], badge: null, views: "225.1k", progress: 0.6, overlayMovie: null),
-          (movie: controller.allMovies[6], badge: "New", views: "3.1M", progress: 0.8, overlayMovie: null),
+          (
+            movie: controller.allMovies[4],
+            badge: "Exclusive",
+            views: "3.1M",
+            progress: 0.3,
+            overlayMovie: controller.allMovies[0],
+          ),
+          (
+            movie: controller.allMovies[5],
+            badge: null,
+            views: "225.1k",
+            progress: 0.6,
+            overlayMovie: null,
+          ),
+          (
+            movie: controller.allMovies[6],
+            badge: "New",
+            views: "3.1M",
+            progress: 0.8,
+            overlayMovie: null,
+          ),
         ]),
       ],
-    );
-  }
+    ),
+  );
+}
 
   // --- Horizontal Recently Watched Scroll Grid ---
-  Widget _buildHorizontalRecentlyWatchedGrid(List<({DiscoverMovie movie, String? badge, String views, double progress, DiscoverMovie? overlayMovie})> items) {
+  Widget _buildHorizontalRecentlyWatchedGrid(
+    List<
+      ({
+        DiscoverMovie movie,
+        String? badge,
+        String views,
+        double progress,
+        DiscoverMovie? overlayMovie,
+      })
+    >
+    items,
+  ) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       physics: const BouncingScrollPhysics(),
@@ -169,50 +247,38 @@ class PopularView extends StatelessWidget {
   }
 
   // --- Horizontal Series Scroll Grid ---
-  Widget _buildHorizontalSeriesGrid(List<({DiscoverMovie movie, String? badge, String title, String subtitle, String views})> items) {
+  Widget _buildHorizontalSeriesGrid(
+    List<
+      ({
+        DiscoverMovie movie,
+        String? badge,
+        String title,
+        String subtitle,
+        String views,
+      })
+    >
+    items,
+  ) {
     return SingleChildScrollView(
+      controller: controller.popularScrollController,
       scrollDirection: Axis.horizontal,
       physics: const BouncingScrollPhysics(),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: items.map((item) {
+        // Duplicate items to simulate an infinite list so the auto-slide doesn't hit the end prematurely
+        children: List.generate(15, (_) => items)
+            .expand((i) => i)
+            .map((item) {
           return SizedBox(
             width: 120.w,
             child: Padding(
-              padding: EdgeInsets.only(right: 10.w),
+              padding: EdgeInsets.only(right: 10.w), // Re-evaluating width: 120.w includes everything visually
               child: _buildSeriesCard(
                 movie: item.movie,
                 badge: item.badge ?? "",
                 title: item.title,
                 subtitle: item.subtitle,
                 views: item.views,
-              ),
-            ),
-          );
-        }).toList(),
-      ),
-    );
-  }
-
-  // --- Horizontal Large Scroll Grid ---
-  Widget _buildHorizontalLargeGrid(List<({DiscoverMovie movie, String? badge, String title, String subtitle, String views})> items) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      physics: const BouncingScrollPhysics(),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: items.map((item) {
-          return SizedBox(
-            width: 120.w,
-            child: Padding(
-              padding: EdgeInsets.only(right: 12.w),
-              child: _buildLargeMovieCard(
-                movie: item.movie,
-                badge: item.badge,
-                title: item.title,
-                subtitle: item.subtitle,
-                views: item.views,
-                height: 150.h,
               ),
             ),
           );
@@ -240,7 +306,6 @@ class PopularView extends StatelessWidget {
       ),
     );
   }
-
 
   // --- Standard Movie Card (Consistent sizing) ---
   Widget _buildStandardMovieCard(DiscoverMovie movie) {
@@ -407,54 +472,6 @@ class PopularView extends StatelessWidget {
                   ],
                 ),
               ),
-              // Close Button (X)
-              if (overlayMovie != null)
-                Positioned(
-                  bottom: 40.h,
-                  right: 20.w,
-                  child: Container(
-                    padding: EdgeInsets.all(2.r),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.8),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(Icons.close, size: 12.sp, color: Colors.black),
-                  ),
-                ),
-              // Small Overlay Image
-              if (overlayMovie != null)
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  child: Container(
-                    width: 60.w,
-                    height: 70.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.r),
-                      border: Border.all(color: Colors.white24, width: 1),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.r),
-                      child: Stack(
-                        children: [
-                          Image.asset(
-                            overlayMovie.image,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: double.infinity,
-                          ),
-                          const Center(
-                            child: Icon(
-                              Icons.play_arrow,
-                              color: Colors.white,
-                              size: 20,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
             ],
           ),
           SizedBox(height: 8.h),
@@ -637,6 +654,139 @@ class PopularView extends StatelessWidget {
     );
   }
 
+  Widget _buildTopPicks() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(10.w, 10.h, 7.w, 7.h),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: const Color(0xFF080E26), width: 1),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            const Color(0xFF994A24).withOpacity(0.85),
+            const Color(0xFF1A1B20).withOpacity(0.50),
+          ],
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: CustomText(
+              text: "Top Picks",
+              fontSize: 16.sp, // Slightly larger to match image proportion
+              fontWeight: FontWeight.w700,
+              color: const Color(0xFFF76212),
+            ),
+          ),
+          SizedBox(height: 10.h), // Matching Gap spec
+          Column(
+            children: List.generate(5, (index) {
+              final movie =
+                  controller.allMovies[index % controller.allMovies.length];
+              return Padding(
+                padding: EdgeInsets.only(bottom: 10.h),
+                child: Row(
+                  children: [
+                    Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(4.r),
+                          child: Image.asset(
+                            movie.image,
+                            width: 30.w,
+                            height: 36.h,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 4.w,
+                              vertical: 2.h,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF76212),
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(4.r),
+                                bottomLeft: Radius.circular(4.r),
+                              ),
+                            ),
+                            alignment: Alignment.center,
+                            child: CustomText(
+                              text: "${index + 1}",
+                              fontSize: 4.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 4.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText(
+                            text: "Avatar The Way Of Water",
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                            maxLines: 2,
+                          ),
+                          SizedBox(height: 2.h),
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                AppIcons.fire_icon,
+                                width: 10.w,
+                                height: 10.h,
+                              ),
+                              SizedBox(width: 4.w),
+                              CustomText(
+                                text: "127k",
+                                fontSize: 8.sp,
+                                fontWeight: FontWeight.w600,
+                                color: const Color(0xFFF76212),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ),
+          SizedBox(height: 8.h),
+          InkWell(
+            onTap: () {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomText(
+                  text: "Explore More ",
+                  fontSize: 10.sp,
+                  color: Colors.white.withOpacity(0.7),
+                ),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white.withOpacity(0.7),
+                  size: 10.sp,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildFindOutMore() {
     final categories = [
       "Hidden Identity",
@@ -644,58 +794,63 @@ class PopularView extends StatelessWidget {
       "Revenge",
       "Age Gap",
     ];
-    return Transform.translate(
-      offset: Offset(0, -10.h), // Move the card 10px up
-      child: Container(
-        padding: EdgeInsets.fromLTRB(14.w, 23.h, 14.w, 0.h),
-        decoration: BoxDecoration(
-          color: const Color(0xFF1D1817),
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(color: Colors.white.withOpacity(0.05)),
-          gradient: const LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF994A24), // orange — top left
-              Color(0xFF1B1616), // dark brown — middle
-              Color(0xFF000000), // dark brown — middle
-            ],
-            stops: [0.0, 0.70, 2.0],
-          ),
+    return Container(
+      width: 172.w,
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 20.h),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1D1817),
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(color: const Color(0xFF080E26), width: 1),
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF994A24), // orange — top left
+            Color(0xFF1B1616), // dark brown — middle
+            Color(0xFF000000), // dark brown — middle
+          ],
+          stops: [0.0, 0.70, 2.0],
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomText(
-              text: "Find Out More",
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w700,
-              color: const Color(0xFFF76212),
-            ),
-            SizedBox(height: 22.h),
-            ...categories
-                .map(
-                  (cat) => Padding(
-                    padding: EdgeInsets.only(bottom: 16.h),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 6.h),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF4A2B1E),
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                      alignment: Alignment.center,
-                      child: CustomText(
-                        text: cat,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xFFFFFFFF),
-                      ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomText(
+            text: "Find Out More",
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w700,
+            color: const Color(0xFFF76212),
+          ),
+          SizedBox(height: 22.h),
+          ...categories
+              .map(
+                (cat) => Padding(
+                  padding: EdgeInsets.only(bottom: 12.h),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 8.h),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF4A2B1E),
+                      borderRadius: BorderRadius.circular(8.r),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                    child: CustomText(
+                      text: cat,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xFFFFFFFF),
                     ),
                   ),
-                )
-                .toList(),
-          ],
-        ),
+                ),
+              )
+              .toList(),
+        ],
       ),
     );
   }

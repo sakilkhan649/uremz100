@@ -255,8 +255,7 @@ class MovieDetailsPopup extends StatelessWidget {
                                   SizedBox(height: 12.h),
                                   // Category Tags
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       _buildTag("Surrogate Bride"),
                                       SizedBox(width: 8.w),
@@ -268,7 +267,9 @@ class MovieDetailsPopup extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () {
                                       onClose();
-                                       Get.toNamed(Routes.shortsFullSeriesOverlay);
+                                      Get.toNamed(
+                                        Routes.shortsFullSeriesOverlay,
+                                      );
                                     },
                                     child: Container(
                                       width: double.infinity,

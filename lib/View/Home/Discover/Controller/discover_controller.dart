@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../Models/discrive_models.dart';
 import '../Data/discover_data.dart';
@@ -11,9 +14,40 @@ class DiscoverController extends GetxController {
   var showMoviePopup = false.obs; // Toggle movie popup visibility
   static bool _hasShownInitialPopups = false;
 
+  late ScrollController popularScrollController;
+  Timer? _marqueeTimer;
+
   final List<String> categories = DiscoverData.categories;
   final List<DiscoverMovie> allMovies = DiscoverData.allMovies;
   final List<BonusItem> dailyBonus = DiscoverData.dailyBonus;
+
+  @override
+  void onInit() {
+    super.onInit();
+    popularScrollController = ScrollController();
+    _startMarquee();
+  }
+
+void _startMarquee() {
+  _marqueeTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
+    if (popularScrollController.hasClients) {
+      double maxScroll = popularScrollController.position.maxScrollExtent;
+      double currentScroll = popularScrollController.offset;
+      
+      if (currentScroll >= maxScroll) {
+        // Go back to start
+        popularScrollController.jumpTo(0);
+      } else {
+        // Slide by exactly 3 items (120w item * 3 = 360w)
+        popularScrollController.animateTo(
+          currentScroll + 360.w,
+          duration: const Duration(milliseconds: 800),
+          curve: Curves.fastOutSlowIn,
+        );
+      }
+    }
+  });
+}
 
   @override
   void onReady() {
@@ -108,5 +142,12 @@ class DiscoverController extends GetxController {
 
   void closePopup() {
     showBonusPopup.value = false;
+  }
+
+  @override
+  void onClose() {
+    _marqueeTimer?.cancel();
+    popularScrollController.dispose();
+    super.onClose();
   }
 }
