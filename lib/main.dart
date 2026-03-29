@@ -6,6 +6,14 @@ import 'Utils/app_colors.dart';
 import 'Widgets/pip_wrapper.dart';
 
 void main() {
+  // // Ensure Flutter is initialized
+  // WidgetsFlutterBinding.ensureInitialized();
+  //
+  // // Initialize Firebase
+  // await Firebase.initializeApp();
+  //
+  // // Initialize Firebase Messaging
+  // await FirebaseNotificationService.initialize();
   runApp(const MyApp());
 }
 
