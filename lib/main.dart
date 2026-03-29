@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'Core/Routs/routs.dart';
 import 'Utils/app_colors.dart';
 import 'Widgets/pip_wrapper.dart';
 
-void main() {
-  // // Ensure Flutter is initialized
-  // WidgetsFlutterBinding.ensureInitialized();
-  //
+void main() async{
+  // Ensure Flutter is initialized
+  WidgetsFlutterBinding.ensureInitialized();
+  
   // // Initialize Firebase
   // await Firebase.initializeApp();
   //
   // // Initialize Firebase Messaging
   // await FirebaseNotificationService.initialize();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(const MyApp());
 }
 
