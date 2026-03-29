@@ -659,13 +659,15 @@ class PopularView extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
         border: Border.all(color: const Color(0xFF080E26), width: 1),
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            const Color(0xFF994A24).withOpacity(0.85),
-            const Color(0xFF1A1B20).withOpacity(0.50),
+            Color(0xFF994A24), // orange — top left
+            Color(0xFF1B1616), // dark brown — middle
+            Color(0xFF000000), // dark brown — middle
           ],
+          stops: [0.0, 0.70, 2.0],
         ),
       ),
       child: Column(
