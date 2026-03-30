@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import '../../../../Core/Routs/routs.dart';
 import '../../../../Utils/app_icons.dart';
 import '../../../../Widgets/Custom_Text.dart';
 import '../Controller/Shorts_Controller.dart';
@@ -27,18 +28,64 @@ class ShortsDefaultOverlay extends StatelessWidget {
       children: [
         // Top Gradient
         ShortsOverlayComponents.buildGradient(
-            Alignment.topCenter, Alignment.bottomCenter, 150.h),
+          Alignment.topCenter,
+          Alignment.bottomCenter,
+          150.h,
+        ),
 
-        // Search Icon (Top Right)
-        Positioned(
-          top: 50.h,
-          right: 20.w,
-          child: SvgPicture.asset(
-            AppIcons.sech_icon,
-            width: 24.w,
-            height: 24.w,
-            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-          ),
+        // Reward Icon with Close Button (Top Right)
+        Obx(
+          () => controller.showRewardIcon.value
+              ? Positioned(
+                  top: 30.h,
+                  right: 10.w,
+                  child: SizedBox(
+                    width: 60.w, // Large enough to cover coin and close button
+                    height: 60.h,
+                    child: Stack(
+                      children: [
+                        // Main Reward Coin
+                        Positioned(
+                          bottom: 10,
+                          left: 20,
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.rewardsScreen);
+                            },
+                            child: SvgPicture.asset(
+                              AppIcons.short_reword_icon,
+                              width: 24.w,
+                              height: 24.w,
+                            ),
+                          ),
+                        ),
+                        // Close Button (Top Right)
+                        Positioned(
+                          top: -0,
+                          right: 8,
+                          child: GestureDetector(
+                            onTap: () {
+                              controller.showRewardIcon.value = false;
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(4.r),
+                              decoration: const BoxDecoration(
+                                color: Color(0xFF292929),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.close,
+                                color: Colors.white,
+                                size: 10.sp,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : const SizedBox.shrink(),
         ),
 
         // Central Play Button
@@ -70,7 +117,7 @@ class ShortsDefaultOverlay extends StatelessWidget {
           left: 16.w,
           bottom: 110.h,
           child: Obx(
-                () => ShortsInfoOverlay(
+            () => ShortsInfoOverlay(
               title: shorts.title,
               description: shorts.description,
               tags: shorts.tags,
@@ -80,12 +127,26 @@ class ShortsDefaultOverlay extends StatelessWidget {
             ),
           ),
         ),
+        // More Button
+        Positioned(
+          left: 16.w,
+          bottom: 85.h,
+          child: GestureDetector(
+            onTap: () => Get.toNamed(Routes.moreScreen),
+            child: CustomText(
+              text: "More",
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xFFE6B323),
+            ),
+          ),
+        ),
 
         // Watch Full Series Button
         Positioned(
           left: 16.w,
           right: 16.w,
-          bottom: 45.h,
+          bottom: 30.h,
           child: GestureDetector(
             onTap: () => controller.toggleFullSeriesMode(),
             child: Container(
@@ -107,7 +168,7 @@ class ShortsDefaultOverlay extends StatelessWidget {
 
         // Progress Bar (Shorts View)
         Positioned(
-          bottom: 10.h,
+          bottom: 4.h,
           left: 10.w,
           right: 10.w,
           child: ShortsOverlayComponents.buildVideoSlider(shorts.videoUrl),

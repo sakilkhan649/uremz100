@@ -73,8 +73,8 @@ class ShortsScreen extends StatelessWidget {
                         children: [
                           if (!isFullMode)
                             ShortsDefaultOverlay(
-                              controller: controller,
                               shorts: shorts,
+                              controller: controller                             ,
                             )
                           else
                             ShortsFullSeriesOverlay(

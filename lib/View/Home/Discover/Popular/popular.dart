@@ -19,194 +19,213 @@ class PopularView extends StatelessWidget {
       onWillPop: () async => false,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 8.h),
-        // First Row (Horizontal Scroll)
-        _buildHorizontalStandardGrid(controller.allMovies.take(10).toList()),
+        children: [
+          SizedBox(height: 8.h),
+          // First Row (Horizontal Scroll)
+          _buildHorizontalStandardGrid(controller.allMovies.take(10).toList()),
 
-        // VIP Banner
-        _buildVipBanner(),
+          // VIP Banner
+          _buildVipBanner(),
 
-        // Second Row (Horizontal Scroll)
-        _buildHorizontalStandardGrid(
-          controller.allMovies.skip(3).take(10).toList(),
-        ),
+          // Second Row (Horizontal Scroll)
+          _buildHorizontalStandardGrid(
+            controller.allMovies.skip(3).take(10).toList(),
+          ),
 
-        SizedBox(height: 24.h),
-        SectionHeader(title: "Most Popular Series"),
-        SizedBox(height: 12.h),
-        // Most Popular Series (Horizontal Scroll)
-        _buildHorizontalSeriesGrid([
-          (
-            movie: controller.allMovies[1],
-            badge: "New",
-            title: "Crimson Chars",
-            subtitle: "Exclusive",
-            views: "3.1M",
-          ),
-          (
-            movie: controller.allMovies[2],
-            badge: "VIP",
-            title: "Crimson Chars",
-            subtitle: "Revenge",
-            views: "5.1M",
-          ),
-          (
-            movie: controller.allMovies[3],
-            badge: "Hot",
-            title: "Mega",
-            subtitle: "New Day",
-            views: "12.1M",
-          ),
-          (
-            movie: controller.allMovies[4],
-            badge: "New",
-            title: "Shadows",
-            subtitle: "Mystery",
-            views: "1.1M",
-          ),
-          (
-            movie: controller.allMovies[5],
-            badge: "New",
-            title: "Shadows",
-            subtitle: "Mystery",
-            views: "1.1M",
-          ),
-          (
-            movie: controller.allMovies[6],
-            badge: "New",
-            title: "Shadows",
-            subtitle: "Mystery",
-            views: "1.1M",
-          ),
-          (
-            movie: controller.allMovies[7],
-            badge: "New",
-            title: "Shadows",
-            subtitle: "Mystery",
-            views: "1.1M",
-          ),
-          (
-            movie: controller.allMovies[8],
-            badge: "New",
-            title: "Shadows",
-            subtitle: "Mystery",
-            views: "1.1M",
-          ),
-        ]),
-        SizedBox(height: 24.h),
-        SectionHeader(title: "You Might Like"),
-        SizedBox(height: 16.h),
-
-        // You Might Like Staggered Grid (Matching Image)
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Left Column: Large Movie Cards
-            Expanded(
-              child: Column(
-                children: [
-                  _buildLargeMovieCard(
-                    movie: controller.allMovies[1],
-                    badge: "VIP",
-                    title: "Crimson Chars",
-                    subtitle: "Exclusive",
-                    views: "3.1M",
-                    height: 280.h,
-                  ),
-                  SizedBox(height: 16.h),
-                  _buildLargeMovieCard(
-                    movie: controller.allMovies[3],
-                    badge: null,
-                    title: "Raised By Wolves",
-                    subtitle: "Exclusive",
-                    views: "2.1M",
-                    height: 280.h,
-                  ),
-                  SizedBox(height: 16.h),
-                  _buildLargeMovieCard(
-                    movie: controller.allMovies[2],
-                    badge: "VIP",
-                    title: "Monarch",
-                    subtitle: "Exclusive",
-                    views: "3.1M",
-                    height: 280.h,
-                  ),
-                  SizedBox(height: 16.h),
-                  _buildLargeMovieCard(
-                    movie: controller.allMovies[0],
-                    badge: null,
-                    title: "Alien",
-                    subtitle: "Exclusive",
-                    views: "3.1M",
-                    height: 280.h,
-                  ),
-                ],
-              ),
+          SizedBox(height: 24.h),
+          SectionHeader(title: "Most Popular Series"),
+          SizedBox(height: 12.h),
+          // Most Popular Series (Horizontal Scroll)
+          _buildHorizontalSeriesGrid([
+            (
+              movie: controller.allMovies[1],
+              badge: "New",
+              title: "Crimson Chars",
+              subtitle: "Exclusive",
+              views: "3.1M",
             ),
-            SizedBox(width: 12.w),
-            // Right Column: Top Picks, Find Out More, and Large Cards
-            Expanded(
-              child: Column(
-                children: [
-                  _buildTopPicks(),
-                  SizedBox(height: 16.h),
-                  _buildFindOutMore(),
-                  SizedBox(height: 16.h),
-                  _buildLargeMovieCard(
-                    movie: controller.allMovies[4],
-                    badge: "New",
-                    title: "Legacies",
-                    subtitle: "Exclusive",
-                    views: "3.1M",
-                    height: 280.h,
-                  ),
-                  SizedBox(height: 16.h),
-                  _buildLargeMovieCard(
-                    movie: controller.allMovies[5],
-                    badge: "VIP",
-                    title: "Monarch",
-                    subtitle: "Exclusive",
-                    views: "3.1M",
-                    height: 280.h,
-                  ),
-                ],
-              ),
+            (
+              movie: controller.allMovies[2],
+              badge: "VIP",
+              title: "Crimson Chars",
+              subtitle: "Revenge",
+              views: "5.1M",
             ),
-          ],
-        ),
+            (
+              movie: controller.allMovies[3],
+              badge: "Hot",
+              title: "Mega",
+              subtitle: "New Day",
+              views: "12.1M",
+            ),
+            (
+              movie: controller.allMovies[4],
+              badge: "New",
+              title: "Shadows",
+              subtitle: "Mystery",
+              views: "1.1M",
+            ),
+            (
+              movie: controller.allMovies[5],
+              badge: "New",
+              title: "Shadows",
+              subtitle: "Mystery",
+              views: "1.1M",
+            ),
+            (
+              movie: controller.allMovies[6],
+              badge: "New",
+              title: "Shadows",
+              subtitle: "Mystery",
+              views: "1.1M",
+            ),
+            (
+              movie: controller.allMovies[7],
+              badge: "New",
+              title: "Shadows",
+              subtitle: "Mystery",
+              views: "1.1M",
+            ),
+            (
+              movie: controller.allMovies[8],
+              badge: "New",
+              title: "Shadows",
+              subtitle: "Mystery",
+              views: "1.1M",
+            ),
+          ]),
+          SizedBox(height: 24.h),
+          SectionHeader(title: "You Might Like"),
+          SizedBox(height: 16.h),
 
-        SizedBox(height: 24.h),
-        SectionHeader(title: "Recently Watched"),
-        SizedBox(height: 12.h),
-        // Recently Watched (Horizontal Scroll)
-        _buildHorizontalRecentlyWatchedGrid([
-          (
-            movie: controller.allMovies[4],
-            badge: "Exclusive",
-            views: "3.1M",
-            progress: 0.3,
-            overlayMovie: controller.allMovies[0],
+          // You Might Like Staggered Grid (Matching Image)
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Left Column: Large Movie Cards
+              Expanded(
+                child: Column(
+                  children: [
+                    _buildLargeMovieCard(
+                      movie: controller.allMovies[1],
+                      badge: "VIP",
+                      title: "Crimson Chars",
+                      subtitle: "Exclusive",
+                      views: "3.1M",
+                      height: 280.h,
+                    ),
+                    SizedBox(height: 16.h),
+                    _buildLargeMovieCard(
+                      movie: controller.allMovies[3],
+                      badge: null,
+                      title: "Raised By Wolves",
+                      subtitle: "Exclusive",
+                      views: "2.1M",
+                      height: 280.h,
+                    ),
+                    SizedBox(height: 16.h),
+                    _buildLargeMovieCard(
+                      movie: controller.allMovies[2],
+                      badge: "VIP",
+                      title: "Monarch",
+                      subtitle: "Exclusive",
+                      views: "3.1M",
+                      height: 280.h,
+                    ),
+                    SizedBox(height: 16.h),
+                    _buildLargeMovieCard(
+                      movie: controller.allMovies[0],
+                      badge: null,
+                      title: "Alien",
+                      subtitle: "Exclusive",
+                      views: "3.1M",
+                      height: 280.h,
+                    ),
+                     SizedBox(height: 16.h),
+                    _buildLargeMovieCard(
+                      movie: controller.allMovies[4],
+                      badge: null,
+                      title: "Alien",
+                      subtitle: "Exclusive",
+                      views: "3.1M",
+                      height: 280.h,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(width: 12.w),
+              // Right Column: Top Picks, Find Out More, and Large Cards
+              Expanded(
+                child: Column(
+                  children: [
+                    _buildTopPicks(),
+                    SizedBox(height: 16.h),
+                    _buildLargeMovieCard(
+                      movie: controller.allMovies[1],
+                      badge: "VIP",
+                      title: "Crimson Chars",
+                      subtitle: "Exclusive",
+                      views: "3.1M",
+                      height: 280.h,
+                    ),
+                    SizedBox(height: 16.h),
+                    _buildFindOutMore(),
+                    SizedBox(height: 16.h),
+                    _buildLargeMovieCard(
+                      movie: controller.allMovies[4],
+                      badge: "New",
+                      title: "Legacies",
+                      subtitle: "Exclusive",
+                      views: "3.1M",
+                      height: 280.h,
+                    ),
+                    SizedBox(height: 16.h),
+                    _buildLargeMovieCard(
+                      movie: controller.allMovies[5],
+                      badge: "VIP",
+                      title: "Monarch",
+                      subtitle: "Exclusive",
+                      views: "3.1M",
+                      height: 280.h,
+                    ),
+                
+                  ],
+                ),
+              ),
+            ],
           ),
-          (
-            movie: controller.allMovies[5],
-            badge: null,
-            views: "225.1k",
-            progress: 0.6,
-            overlayMovie: null,
-          ),
-          (
-            movie: controller.allMovies[6],
-            badge: "New",
-            views: "3.1M",
-            progress: 0.8,
-            overlayMovie: null,
-          ),
-        ]),
-      ],
-    ),
-  );
-}
+
+          SizedBox(height: 24.h),
+          SectionHeader(title: "Recently Watched"),
+          SizedBox(height: 12.h),
+          // Recently Watched (Horizontal Scroll)
+          _buildHorizontalRecentlyWatchedGrid([
+            (
+              movie: controller.allMovies[4],
+              badge: "Exclusive",
+              views: "3.1M",
+              progress: 0.3,
+              overlayMovie: controller.allMovies[0],
+            ),
+            (
+              movie: controller.allMovies[5],
+              badge: null,
+              views: "225.1k",
+              progress: 0.6,
+              overlayMovie: null,
+            ),
+            (
+              movie: controller.allMovies[6],
+              badge: "New",
+              views: "3.1M",
+              progress: 0.8,
+              overlayMovie: null,
+            ),
+          ]),
+        ],
+      ),
+    );
+  }
 
   // --- Horizontal Recently Watched Scroll Grid ---
   Widget _buildHorizontalRecentlyWatchedGrid(
@@ -265,13 +284,13 @@ class PopularView extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         // Duplicate items to simulate an infinite list so the auto-slide doesn't hit the end prematurely
-        children: List.generate(15, (_) => items)
-            .expand((i) => i)
-            .map((item) {
+        children: List.generate(15, (_) => items).expand((i) => i).map((item) {
           return SizedBox(
             width: 120.w,
             child: Padding(
-              padding: EdgeInsets.only(right: 10.w), // Re-evaluating width: 120.w includes everything visually
+              padding: EdgeInsets.only(
+                right: 10.w,
+              ), // Re-evaluating width: 120.w includes everything visually
               child: _buildSeriesCard(
                 movie: item.movie,
                 badge: item.badge ?? "",

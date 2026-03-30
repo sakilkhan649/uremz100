@@ -25,6 +25,7 @@ class ShortsController extends GetxController {
   var selectedEpisodeRange = "1-25".obs;
   var isFullSeriesMode = false.obs;
   var currentIndex = 0.obs;
+  var showRewardIcon = true.obs;
 
   @override
   void onInit() {

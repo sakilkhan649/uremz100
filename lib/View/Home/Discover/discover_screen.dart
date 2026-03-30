@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'Controller/discover_controller.dart';
 import 'Widget/DailyBonusPopup.dart';
+import '../Shorts/Widget/Login_Popup.dart';
+import '../../../Core/Routs/routs.dart';
 import 'Widget/discrive_widget.dart';
 import 'Popular/popular.dart';
 import 'New/new.dart';
@@ -74,6 +76,21 @@ class DiscoverScreen extends StatelessWidget {
                 ? MovieDetailsPopup(
                     movie: controller.selectedMovie.value!,
                     onClose: controller.closeMoviePopup,
+                  )
+                : const SizedBox.shrink(),
+          ),
+          // Login Popup
+          Obx(
+            () => controller.showLoginPopup.value
+                ? Container(
+                    color: Colors.black.withOpacity(0.5),
+                    child: LoginPopup(
+                      onSignIn: () {
+                        controller.showLoginPopup.value = false;
+                        Get.toNamed(Routes.signinScreen);
+                      },
+                      onClose: controller.closeLoginPopup,
+                    ),
                   )
                 : const SizedBox.shrink(),
           ),

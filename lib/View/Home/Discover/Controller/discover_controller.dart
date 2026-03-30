@@ -12,6 +12,7 @@ class DiscoverController extends GetxController {
   var selectedRankingTab = 'Popular'.obs;
   var selectedMovie = Rxn<DiscoverMovie>(); // Selected movie for popup
   var showMoviePopup = false.obs; // Toggle movie popup visibility
+  var showLoginPopup = false.obs; // Toggle login popup visibility
   static bool _hasShownInitialPopups = false;
 
   late ScrollController popularScrollController;
@@ -28,26 +29,26 @@ class DiscoverController extends GetxController {
     _startMarquee();
   }
 
-void _startMarquee() {
-  _marqueeTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
-    if (popularScrollController.hasClients) {
-      double maxScroll = popularScrollController.position.maxScrollExtent;
-      double currentScroll = popularScrollController.offset;
-      
-      if (currentScroll >= maxScroll) {
-        // Go back to start
-        popularScrollController.jumpTo(0);
-      } else {
-        // Slide by exactly 3 items (120w item * 3 = 360w)
-        popularScrollController.animateTo(
-          currentScroll + 360.w,
-          duration: const Duration(milliseconds: 800),
-          curve: Curves.fastOutSlowIn,
-        );
+  void _startMarquee() {
+    _marqueeTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (popularScrollController.hasClients) {
+        double maxScroll = popularScrollController.position.maxScrollExtent;
+        double currentScroll = popularScrollController.offset;
+
+        if (currentScroll >= maxScroll) {
+          // Go back to start
+          popularScrollController.jumpTo(0);
+        } else {
+          // Slide by exactly 3 items (120w item * 3 = 360w)
+          popularScrollController.animateTo(
+            currentScroll + 360.w,
+            duration: const Duration(milliseconds: 800),
+            curve: Curves.fastOutSlowIn,
+          );
+        }
       }
-    }
-  });
-}
+    });
+  }
 
   @override
   void onReady() {
@@ -70,6 +71,14 @@ void _startMarquee() {
 
   void closeMoviePopup() {
     showMoviePopup.value = false;
+    // After 500ms, show login popup
+    Future.delayed(const Duration(milliseconds: 500), () {
+      showLoginPopup.value = true;
+    });
+  }
+
+  void closeLoginPopup() {
+    showLoginPopup.value = false;
     // After 1 second, show bonus popup
     Future.delayed(const Duration(seconds: 1), () {
       showBonusPopup.value = true;

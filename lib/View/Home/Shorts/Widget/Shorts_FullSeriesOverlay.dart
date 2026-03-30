@@ -180,13 +180,6 @@ class ShortsFullSeriesOverlay extends StatelessWidget {
                     ],
                   ),
                 ),
-                const Spacer(),
-                CustomText(
-                  text: "Download",
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white.withOpacity(0.7),
-                ),
               ],
             ),
           ),

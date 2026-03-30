@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         getPages: Routes.routes,
         initialRoute: Routes.welcomeScreen,
         builder: (context, child) {
-          return PipWrapper(child: child!);
+          return child != null ? PipWrapper(child: child) : const SizedBox.shrink();
         },
       ),
     );
