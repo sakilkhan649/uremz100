@@ -27,52 +27,62 @@ class ShortsVideoController extends GetxController {
         if (!isClosed) {
           isInitialized.value = true;
           duration.value = videoPlayerController.value.duration;
-          
+          videoPlayerController.setLooping(true);
+
           videoPlayerController.addListener(() {
-            if (videoPlayerController.value.isInitialized) {
+            if (!isClosed && videoPlayerController.value.isInitialized) {
               position.value = videoPlayerController.value.position;
             }
           });
 
-          // Wait for 500ms as requested by user before auto-playing
-          await Future.delayed(const Duration(milliseconds: 500));
-          if (!isClosed) {
+          // Auto-play after short delay — ShortsVideoPlayer will pause
+          // non-active pages via ever(currentIndex)
+          await Future.delayed(const Duration(milliseconds: 400));
+          if (!isClosed && !videoPlayerController.value.isPlaying) {
             videoPlayerController.play();
-            videoPlayerController.setLooping(true);
             isPlaying.value = true;
             _startPlayButtonTimer();
           }
         }
       }).catchError((error) {
-        isError.value = true;
+        if (!isClosed) isError.value = true;
       });
   }
 
   void _startPlayButtonTimer() {
     showPlayButton.value = true;
-    Future.delayed(const Duration(milliseconds: 500), () {
-      if (isPlaying.value && !isClosed) {
+    Future.delayed(const Duration(milliseconds: 600), () {
+      if (!isClosed && isPlaying.value) {
         showPlayButton.value = false;
       }
     });
+  }
+
+  void playVideo() {
+    if (isClosed) return;
+    if (videoPlayerController.value.isInitialized &&
+        !videoPlayerController.value.isPlaying) {
+      videoPlayerController.play();
+      isPlaying.value = true;
+      _startPlayButtonTimer();
+    }
+  }
+
+  void pauseVideo() {
+    if (isClosed) return;
+    if (videoPlayerController.value.isInitialized &&
+        videoPlayerController.value.isPlaying) {
+      videoPlayerController.pause();
+      isPlaying.value = false;
+      showPlayButton.value = true;
+    }
   }
 
   void togglePlayPause() {
     if (videoPlayerController.value.isPlaying) {
       pauseVideo();
     } else {
-      videoPlayerController.play();
-      isPlaying.value = true;
-      _startPlayButtonTimer(); // Hide after 500ms when playing
-    }
-  }
-
-  void pauseVideo() {
-    if (videoPlayerController.value.isInitialized &&
-        videoPlayerController.value.isPlaying) {
-      videoPlayerController.pause();
-      isPlaying.value = false;
-      showPlayButton.value = true; // Show immediately when paused
+      playVideo();
     }
   }
 

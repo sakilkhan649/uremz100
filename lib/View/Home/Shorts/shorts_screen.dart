@@ -63,7 +63,7 @@ class ShortsScreen extends StatelessWidget {
                   fit: StackFit.expand,
                   children: [
                     // Background Video
-                    ShortsVideoPlayer(videoUrl: shorts.videoUrl),
+                    ShortsVideoPlayer(videoUrl: shorts.videoUrl, index: index),
 
                     // Overlay Content (Conditional based on Mode)
                     Obx(() {

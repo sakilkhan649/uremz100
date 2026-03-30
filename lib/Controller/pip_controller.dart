@@ -7,9 +7,10 @@ class PipController extends GetxController {
 
   final RxBool isPipVisible = false.obs;
   final Rx<ShortsModel?> currentShort = Rx<ShortsModel?>(null);
-  
+
   VideoPlayerController? videoController;
   final RxBool isPlaying = false.obs;
+  final RxBool isVideoInitialized = false.obs;
 
   void showPip(ShortsModel short) {
     currentShort.value = short;
@@ -21,12 +22,14 @@ class PipController extends GetxController {
 
   Future<void> _initController(String url) async {
     await videoController?.dispose();
+    isVideoInitialized.value = false;
+    isPlaying.value = false;
     videoController = VideoPlayerController.networkUrl(Uri.parse(url))
       ..initialize().then((_) {
         videoController!.setLooping(true);
         videoController!.play();
         isPlaying.value = true;
-        update(); // Trigger UI rebuild if needed
+        isVideoInitialized.value = true; // Triggers Obx to show video
       });
   }
 
@@ -49,6 +52,7 @@ class PipController extends GetxController {
     videoController?.dispose();
     videoController = null;
     isPlaying.value = false;
+    isVideoInitialized.value = false;
   }
 
   @override

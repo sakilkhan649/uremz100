@@ -32,10 +32,10 @@ class ShortsController extends GetxController {
     shortsList.addAll([
       ShortsModel(
         videoUrl:
-            "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
         title: "The Scars You Carved Into Me...",
         description:
-            "Pearl Zane dates Ivan Reed, a wealthy heir pretending to be poor. When he falls in love...",
+        "Pearl Zane dates Ivan Reed, a wealthy heir pretending to be poor. When he falls in love...",
         profileImage: AppImages.profile_image,
         episode: "11",
         season: "1",
@@ -43,10 +43,10 @@ class ShortsController extends GetxController {
       ),
       ShortsModel(
         videoUrl:
-            "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+        "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
         title: "Elephants Dream",
         description:
-            "A surreal journey through a mechanical world filled with curious characters and wonders.",
+        "A surreal journey through a mechanical world filled with curious characters and wonders.",
         profileImage: AppImages.profile_image,
         episode: "2",
         season: "1",
@@ -54,10 +54,10 @@ class ShortsController extends GetxController {
       ),
       ShortsModel(
         videoUrl:
-            "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+        "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
         title: "For Bigger Blazes",
         description:
-            "Action-packed stunts and fire-breathing performances that will leave you breathless.",
+        "Action-packed stunts and fire-breathing performances that will leave you breathless.",
         profileImage: AppImages.profile_image,
         episode: "3",
         season: "1",
@@ -65,10 +65,10 @@ class ShortsController extends GetxController {
       ),
       ShortsModel(
         videoUrl:
-            "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+        "https://media.w3.org/2010/05/bunny/trailer.mp4",
         title: "For Bigger Escapes",
         description:
-            "Thrill-seekers take on impossible challenges to escape from high-stakes situations.",
+        "Thrill-seekers take on impossible challenges to escape from high-stakes situations.",
         profileImage: AppImages.profile_image,
         episode: "4",
         season: "1",
@@ -76,10 +76,10 @@ class ShortsController extends GetxController {
       ),
       ShortsModel(
         videoUrl:
-            "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+        "https://media.w3.org/2010/05/bunny/movie.mp4",
         title: "For Bigger Fun",
         description:
-            "A lighthearted comedy about a group of friends who find humor in life's most unexpected moments.",
+        "A lighthearted comedy about a group of friends who find humor in life's most unexpected moments.",
         profileImage: AppImages.profile_image,
         episode: "5",
         season: "1",
@@ -218,23 +218,23 @@ class ShortsController extends GetxController {
             ),
             SizedBox(height: 20.h),
             ...speeds.map((speed) => ListTile(
-                  title: Center(
-                    child: Obx(() => CustomText(
-                          text: speed == 1.0 ? "Normal" : "${speed}x",
-                          fontSize: 16.sp,
-                          color: videoController.playbackSpeed.value == speed
-                              ? AppColors.yellow100
-                              : Colors.white,
-                          fontWeight: videoController.playbackSpeed.value == speed
-                              ? FontWeight.w600
-                              : FontWeight.w400,
-                        )),
-                  ),
-                  onTap: () {
-                    videoController.setPlaybackSpeed(speed);
-                    Get.back();
-                  },
+              title: Center(
+                child: Obx(() => CustomText(
+                  text: speed == 1.0 ? "Normal" : "${speed}x",
+                  fontSize: 16.sp,
+                  color: videoController.playbackSpeed.value == speed
+                      ? AppColors.yellow100
+                      : Colors.white,
+                  fontWeight: videoController.playbackSpeed.value == speed
+                      ? FontWeight.w600
+                      : FontWeight.w400,
                 )),
+              ),
+              onTap: () {
+                videoController.setPlaybackSpeed(speed);
+                Get.back();
+              },
+            )),
             SizedBox(height: 10.h),
           ],
         ),

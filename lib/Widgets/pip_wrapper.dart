@@ -76,16 +76,26 @@ class _DraggablePipOverlayState extends State<_DraggablePipOverlay> {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                // Actual Video
-                if (controller.videoController != null && controller.videoController!.value.isInitialized)
-                  FittedBox(
-                    fit: BoxFit.cover,
-                    child: SizedBox(
-                      width: controller.videoController!.value.size.width,
-                      height: controller.videoController!.value.size.height,
-                      child: VideoPlayer(controller.videoController!),
+                // Actual Video — reactive: rebuilds when initialized
+                Obx(() {
+                  if (controller.isVideoInitialized.value &&
+                      controller.videoController != null) {
+                    return FittedBox(
+                      fit: BoxFit.cover,
+                      child: SizedBox(
+                        width: controller.videoController!.value.size.width,
+                        height: controller.videoController!.value.size.height,
+                        child: VideoPlayer(controller.videoController!),
+                      ),
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white54,
+                      strokeWidth: 2,
                     ),
-                  ),
+                  );
+                }),
 
                 // Dark overlay to make icons visible
                 Container(
