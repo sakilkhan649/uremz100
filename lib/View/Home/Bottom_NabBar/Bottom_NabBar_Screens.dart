@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -26,10 +27,18 @@ class BottomNabbarScreens extends StatelessWidget {
       ProfileScreen(),
     ];
 
-    return SafeArea(
-      child: Scaffold(
-        body: Obx(() => pages[navController.currentIndex.value]),
-        bottomNavigationBar: Obx(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (bool didPop, dynamic result) {
+        if (didPop) {
+          return;
+        }
+        SystemNavigator.pop();
+      },
+      child: SafeArea(
+        child: Scaffold(
+          body: Obx(() => pages[navController.currentIndex.value]),
+          bottomNavigationBar: Obx(
           () => navController.showBottomNav.value
               ? Container(
                   padding:
@@ -46,6 +55,7 @@ class BottomNabbarScreens extends StatelessWidget {
                   ),
                 )
               : const SizedBox.shrink(),
+          ),
         ),
       ),
     );
