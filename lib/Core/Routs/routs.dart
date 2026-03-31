@@ -143,7 +143,7 @@ class Routes {
     ),
     GetPage(
       name: shortsFullSeriesOverlay,
-      page: () => const ShortsFullSeriesScreen(),
+      page: () => ShortsFullSeriesScreen(),
       transition: Transition.noTransition,
     ),
     GetPage(
