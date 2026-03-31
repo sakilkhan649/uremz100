@@ -66,6 +66,24 @@ class ShortsFullSeriesScreen extends StatelessWidget {
                       shorts: shorts,
                       onBack: () => controller.exitFullSeries(),
                     ),
+                    // More Button
+                    Positioned(
+                      left: 16.w,
+                      bottom: 85.h,
+                      child: GestureDetector(
+                        onTap: () async {
+                          controller.pauseCurrentVideo();
+                          await Get.toNamed(Routes.moreScreen);
+                          controller.playCurrentVideo();
+                        },
+                        child: CustomText(
+                          text: "More",
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFFE6B323),
+                        ),
+                      ),
+                    ),
                   ],
                 );
               },
