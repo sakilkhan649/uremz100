@@ -174,6 +174,18 @@ class ShortsController extends GetxController {
     }
   }
 
+  void playCurrentVideo() {
+    try {
+      final videoUrl = shortsList[currentIndex.value].videoUrl;
+      if (Get.isRegistered<ShortsVideoController>(tag: videoUrl)) {
+        final videoController = Get.find<ShortsVideoController>(tag: videoUrl);
+        videoController.playVideo();
+      }
+    } catch (e) {
+      // Index out of range or controller not found
+    }
+  }
+
   void triggerPip() {
     if (shortsList.isNotEmpty) {
       final activeShort = shortsList[currentIndex.value];

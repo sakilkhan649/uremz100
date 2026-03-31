@@ -33,61 +33,6 @@ class ShortsDefaultOverlay extends StatelessWidget {
           150.h,
         ),
 
-        // Reward Icon with Close Button (Top Right)
-        Obx(
-          () => controller.showRewardIcon.value
-              ? Positioned(
-                  top: 30.h,
-                  right: 10.w,
-                  child: SizedBox(
-                    width: 60.w, // Large enough to cover coin and close button
-                    height: 60.h,
-                    child: Stack(
-                      children: [
-                        // Main Reward Coin
-                        Positioned(
-                          bottom: 10,
-                          left: 20,
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.rewardsScreen);
-                            },
-                            child: SvgPicture.asset(
-                              AppIcons.short_reword_icon,
-                              width: 24.w,
-                              height: 24.w,
-                            ),
-                          ),
-                        ),
-                        // Close Button (Top Right)
-                        Positioned(
-                          top: -0,
-                          right: 8,
-                          child: GestureDetector(
-                            onTap: () {
-                              controller.showRewardIcon.value = false;
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(4.r),
-                              decoration: const BoxDecoration(
-                                color: Color(0xFF292929),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                Icons.close,
-                                color: Colors.white,
-                                size: 10.sp,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              : const SizedBox.shrink(),
-        ),
-
         // Central Play Button
         ShortsOverlayComponents.buildCentralPlayButton(shorts.videoUrl),
 
@@ -132,7 +77,11 @@ class ShortsDefaultOverlay extends StatelessWidget {
           left: 16.w,
           bottom: 85.h,
           child: GestureDetector(
-            onTap: () => Get.toNamed(Routes.moreScreen),
+            onTap: () async {
+              controller.pauseCurrentVideo();
+              await Get.toNamed(Routes.moreScreen);
+              controller.playCurrentVideo();
+            },
             child: CustomText(
               text: "More",
               fontSize: 12.sp,

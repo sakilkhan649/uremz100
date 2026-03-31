@@ -27,10 +27,13 @@ class MyListScreen extends GetView<MyListController> {
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 16.w),
-            child: SvgPicture.asset(
-              AppIcons.vip_icon,
-              height: 30.w,
-              width: 30.w,
+            child: GestureDetector(
+              onTap: () => Get.toNamed(Routes.standardVip),
+              child: SvgPicture.asset(
+                AppIcons.vip_icon,
+                height: 30.w,
+                width: 30.w,
+              ),
             ),
           ),
         ],

@@ -259,8 +259,50 @@ class MoreScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 32.h),
 
-                    // Episodes Section
-                    MoreScreenWidgets.buildSectionTitle("Episodes"),
+                    // Episodes Section Header
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        MoreScreenWidgets.buildSectionTitle("Episodes"),
+                        Row(
+                          children: [
+                            CustomText(
+                              text: "38 Episodes in total",
+                              fontSize: 13.sp,
+                              color: const Color(0xFF8E8E8E),
+                            ),
+                            SizedBox(width: 4.w),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 12.sp,
+                              color: const Color(0xFF8E8E8E),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+
+                    // Episode Range Selection
+                    Row(
+                      children: [
+                        CustomText(
+                          text: "1-30",
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 24.w),
+                        CustomText(
+                          text: "31-38",
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xFF8E8E8E),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16.h),
+
+                    // Horizontal Episode List
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       physics: const BouncingScrollPhysics(),
@@ -268,8 +310,25 @@ class MoreScreen extends StatelessWidget {
                         children: [
                           // Trailer Item
                           Container(
-                            width: 76.w,
-                            height: 52.h,
+                            width: 68.w,
+                            height: 48.h,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF222222),
+                              borderRadius: BorderRadius.circular(6.r),
+                            ),
+                            alignment: Alignment.center,
+                            child: CustomText(
+                              text: "Trailer",
+                              fontSize: 13.sp,
+                              color: const Color(0xFF8E8E8E),
+                            ),
+                          ),
+                          SizedBox(width: 10.w),
+
+                          // Episode 1 (Active with Animation Bars)
+                          Container(
+                            width: 52.w,
+                            height: 48.h,
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 begin: Alignment.topLeft,
@@ -279,28 +338,28 @@ class MoreScreen extends StatelessWidget {
                                   const Color(0xFF630E0E).withOpacity(0.5),
                                 ],
                               ),
-                              borderRadius: BorderRadius.circular(8.r),
+                              borderRadius: BorderRadius.circular(6.r),
                             ),
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
                                 CustomText(
-                                  text: "Trailer",
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: const Color(0xFFE3E3E3),
+                                  text: "1",
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
                                 ),
                                 Positioned(
                                   bottom: 6.h,
-                                  right: 8.w,
+                                  right: 6.w,
                                   child: Row(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Container(
                                         width: 2.w,
-                                        height: 5.h,
+                                        height: 4.h,
                                         margin: EdgeInsets.symmetric(
-                                          horizontal: 1.w,
+                                          horizontal: 0.5.w,
                                         ),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
@@ -311,9 +370,9 @@ class MoreScreen extends StatelessWidget {
                                       ),
                                       Container(
                                         width: 2.w,
-                                        height: 10.h,
+                                        height: 8.h,
                                         margin: EdgeInsets.symmetric(
-                                          horizontal: 1.w,
+                                          horizontal: 0.5.w,
                                         ),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
@@ -324,9 +383,9 @@ class MoreScreen extends StatelessWidget {
                                       ),
                                       Container(
                                         width: 2.w,
-                                        height: 7.h,
+                                        height: 6.h,
                                         margin: EdgeInsets.symmetric(
-                                          horizontal: 1.w,
+                                          horizontal: 0.5.w,
                                         ),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
@@ -339,6 +398,27 @@ class MoreScreen extends StatelessWidget {
                                   ),
                                 ),
                               ],
+                            ),
+                          ),
+                          SizedBox(width: 10.w),
+
+                          // Other Episodes (2, 3, 4, 5, etc.)
+                          ...List.generate(
+                            10,
+                            (index) => Container(
+                              margin: EdgeInsets.only(right: 10.w),
+                              width: 52.w,
+                              height: 48.h,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF222222),
+                                borderRadius: BorderRadius.circular(6.r),
+                              ),
+                              alignment: Alignment.center,
+                              child: CustomText(
+                                text: "${index + 2}",
+                                fontSize: 14.sp,
+                                color: const Color(0xFF8E8E8E),
+                              ),
                             ),
                           ),
                         ],

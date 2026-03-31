@@ -13,7 +13,6 @@ import 'Widget/Shorts_FullSeriesOverlay.dart';
 import 'Widget/Shorts_VideoPlayer.dart';
 import '../../../Controller/pip_controller.dart';
 
-
 class ShortsFullSeriesScreen extends StatelessWidget {
   const ShortsFullSeriesScreen({super.key});
 
@@ -74,40 +73,40 @@ class ShortsFullSeriesScreen extends StatelessWidget {
 
             // Episode Selection Popup
             Obx(
-                  () => controller.showEpisodePopup.value
+              () => controller.showEpisodePopup.value
                   ? _buildEpisodePopup(context, controller)
                   : const SizedBox.shrink(),
             ),
 
             // More Menu Overlay
             Obx(
-                  () => controller.showMoreMenu.value
+              () => controller.showMoreMenu.value
                   ? GestureDetector(
-                onTap: () => controller.toggleMoreMenu(),
-                child: Container(
-                  color: Colors.black45,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [_buildMoreMenu(context, controller)],
-                  ),
-                ),
-              )
+                      onTap: () => controller.toggleMoreMenu(),
+                      child: Container(
+                        color: Colors.black45,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [_buildMoreMenu(context, controller)],
+                        ),
+                      ),
+                    )
                   : const SizedBox.shrink(),
             ),
 
             // Login Popup
             Obx(
-                  () => controller.showLoginPopup.value
+              () => controller.showLoginPopup.value
                   ? Container(
-                color: Colors.black.withOpacity(0.5),
-                child: LoginPopup(
-                  onSignIn: () {
-                    controller.toggleLoginPopup();
-                    Get.toNamed(Routes.signinScreen);
-                  },
-                  onClose: () => controller.toggleLoginPopup(),
-                ),
-              )
+                      color: Colors.black.withOpacity(0.5),
+                      child: LoginPopup(
+                        onSignIn: () {
+                          controller.toggleLoginPopup();
+                          Get.toNamed(Routes.signinScreen);
+                        },
+                        onClose: () => controller.toggleLoginPopup(),
+                      ),
+                    )
                   : const SizedBox.shrink(),
             ),
           ],
@@ -186,7 +185,7 @@ class ShortsFullSeriesScreen extends StatelessWidget {
                 iconPath: AppIcons.picture_icon,
                 title: "Picture in Picture",
                 trailing: Obx(
-                      () => SizedBox(
+                  () => SizedBox(
                     height: 26.h,
                     child: FittedBox(
                       fit: BoxFit.fill,
@@ -315,7 +314,11 @@ class ShortsFullSeriesScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildEpisodeItem(ShortsController controller, int episodeNum, bool isLocked) {
+  Widget _buildEpisodeItem(
+    ShortsController controller,
+    int episodeNum,
+    bool isLocked,
+  ) {
     return GestureDetector(
       onTap: () => controller.selectEpisode(episodeNum),
       child: Stack(
@@ -366,7 +369,9 @@ class ShortsFullSeriesScreen extends StatelessWidget {
               text: range,
               fontSize: 18.sp,
               fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-              color: isSelected ? const Color(0xFFF76212) : const Color(0xFF8E8E8E),
+              color: isSelected
+                  ? const Color(0xFFF76212)
+                  : const Color(0xFF8E8E8E),
             ),
             SizedBox(height: 8.h),
             Container(
@@ -402,20 +407,43 @@ class ShortsFullSeriesScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 12.h),
         child: Row(
           children: [
-            SvgPicture.asset(iconPath, color: Colors.white, width: 24.sp, height: 24.sp),
-            SizedBox(width: 12.w),
-            CustomText(text: title, fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.white),
-            const Spacer(),
-            if (trailing != null) trailing else Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (value != null) CustomText(text: value, fontSize: 14.sp, fontWeight: FontWeight.w500, color: Colors.white),
-                if (showArrow) ...[
-                  SizedBox(width: 8.w),
-                  Icon(Icons.arrow_forward_ios, color: Colors.white, size: 14.sp),
-                ],
-              ],
+            SvgPicture.asset(
+              iconPath,
+              color: Colors.white,
+              width: 24.sp,
+              height: 24.sp,
             ),
+            SizedBox(width: 12.w),
+            CustomText(
+              text: title,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+            const Spacer(),
+            if (trailing != null)
+              trailing
+            else
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (value != null)
+                    CustomText(
+                      text: value,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
+                  if (showArrow) ...[
+                    SizedBox(width: 8.w),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.white,
+                      size: 14.sp,
+                    ),
+                  ],
+                ],
+              ),
           ],
         ),
       ),
@@ -423,74 +451,143 @@ class ShortsFullSeriesScreen extends StatelessWidget {
   }
 
   void _showSpeedSelection(BuildContext context, ShortsController controller) {
-    final speeds = ["0.25x", "0.5x", "0.75x", "Normal", "1.25x", "1.5x", "2.0x"];
+    final speeds = [
+      "0.25x",
+      "0.5x",
+      "0.75x",
+      "Normal",
+      "1.25x",
+      "1.5x",
+      "2.0x",
+    ];
     Get.bottomSheet(
-      Obx(() => Container(
-        constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.7),
-        padding: EdgeInsets.all(20.r),
-        decoration: BoxDecoration(color: const Color(0xFF222222), borderRadius: BorderRadius.vertical(top: Radius.circular(20.r))),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CustomText(text: "Playback Speed", fontSize: 18.sp, fontWeight: FontWeight.w600, color: Colors.white),
-              SizedBox(height: 20.h),
-              ...speeds.asMap().entries.map((entry) {
-                final index = entry.key;
-                final speed = entry.value;
-                final isSelected = controller.playbackSpeed.value == (speed == "Normal" ? "1.0x" : speed);
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ListTile(
-                      title: CustomText(text: speed, fontSize: 14.sp, color: isSelected ? AppColors.orange100 : Colors.white),
-                      trailing: isSelected ? Icon(Icons.check, color: AppColors.orange100, size: 20.sp) : null,
-                      onTap: () { controller.updatePlaybackSpeed(speed == "Normal" ? "1.0x" : speed); Get.back(); },
-                    ),
-                    if (index < speeds.length - 1) _buildDivider(),
-                  ],
-                );
-              }),
-            ],
+      Obx(
+        () => Container(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.7,
+          ),
+          padding: EdgeInsets.all(20.r),
+          decoration: BoxDecoration(
+            color: const Color(0xFF222222),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomText(
+                  text: "Playback Speed",
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+                SizedBox(height: 20.h),
+                ...speeds.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final speed = entry.value;
+                  final isSelected =
+                      controller.playbackSpeed.value ==
+                      (speed == "Normal" ? "1.0x" : speed);
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListTile(
+                        title: CustomText(
+                          text: speed,
+                          fontSize: 14.sp,
+                          color: isSelected
+                              ? AppColors.orange100
+                              : Colors.white,
+                        ),
+                        trailing: isSelected
+                            ? Icon(
+                                Icons.check,
+                                color: AppColors.orange100,
+                                size: 20.sp,
+                              )
+                            : null,
+                        onTap: () {
+                          controller.updatePlaybackSpeed(
+                            speed == "Normal" ? "1.0x" : speed,
+                          );
+                          Get.back();
+                        },
+                      ),
+                      if (index < speeds.length - 1) _buildDivider(),
+                    ],
+                  );
+                }),
+              ],
+            ),
           ),
         ),
-      )),
+      ),
     );
   }
 
-  void _showQualitySelection(BuildContext context, ShortsController controller) {
+  void _showQualitySelection(
+    BuildContext context,
+    ShortsController controller,
+  ) {
     final qualities = ["144p", "240p", "360p", "480p", "720p", "1080p", "Auto"];
     Get.bottomSheet(
-      Obx(() => Container(
-        constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.7),
-        padding: EdgeInsets.all(20.r),
-        decoration: BoxDecoration(color: const Color(0xFF222222), borderRadius: BorderRadius.vertical(top: Radius.circular(20.r))),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CustomText(text: "Video Quality", fontSize: 18.sp, fontWeight: FontWeight.w600, color: Colors.white),
-              SizedBox(height: 20.h),
-              ...qualities.asMap().entries.map((entry) {
-                final index = entry.key;
-                final quality = entry.value;
-                final isSelected = controller.videoQuality.value == quality;
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ListTile(
-                      title: CustomText(text: quality, fontSize: 14.sp, color: isSelected ? AppColors.orange100 : Colors.white),
-                      trailing: isSelected ? Icon(Icons.check, color: AppColors.orange100, size: 20.sp) : null,
-                      onTap: () { controller.updateVideoQuality(quality); Get.back(); },
-                    ),
-                    if (index < qualities.length - 1) _buildDivider(),
-                  ],
-                );
-              }),
-            ],
+      Obx(
+        () => Container(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.7,
+          ),
+          padding: EdgeInsets.all(20.r),
+          decoration: BoxDecoration(
+            color: const Color(0xFF222222),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomText(
+                  text: "Video Quality",
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+                SizedBox(height: 20.h),
+                ...qualities.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final quality = entry.value;
+                  final isSelected = controller.videoQuality.value == quality;
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListTile(
+                        title: CustomText(
+                          text: quality,
+                          fontSize: 14.sp,
+                          color: isSelected
+                              ? AppColors.orange100
+                              : Colors.white,
+                        ),
+                        trailing: isSelected
+                            ? Icon(
+                                Icons.check,
+                                color: AppColors.orange100,
+                                size: 20.sp,
+                              )
+                            : null,
+                        onTap: () {
+                          controller.updateVideoQuality(quality);
+                          Get.back();
+                        },
+                      ),
+                      if (index < qualities.length - 1) _buildDivider(),
+                    ],
+                  );
+                }),
+              ],
+            ),
           ),
         ),
-      )),
+      ),
     );
   }
 }
