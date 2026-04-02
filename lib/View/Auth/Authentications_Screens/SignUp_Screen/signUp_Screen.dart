@@ -11,6 +11,7 @@ import 'package:uremz100/Widgets/Custom_Text_Gray.dart';
 import '../../../../Core/Routs/routs.dart';
 import '../../../../Utils/app_icons.dart';
 import '../../../../Utils/app_images.dart';
+import '../../../../Utils/app_consts.dart';
 
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
@@ -21,6 +22,8 @@ class SignupScreen extends StatelessWidget {
   final TextEditingController ConfromPasswordController =
       TextEditingController();
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   // Reactive variable to control password visibility
   final isConformPasswordVisible = false.obs;
   final isNewPasswordVisible = false.obs;
@@ -29,12 +32,14 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.black100,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+      body: Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
               SizedBox(height: 80.h),
               Center(
                 child: Image.asset(
@@ -73,6 +78,14 @@ class SignupScreen extends StatelessWidget {
                 hintText: "Enter your Full Name",
                 obscureText: false,
                 textInputType: TextInputType.name,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter your name";
+                  } else if (!AppString.usernameRegexp.hasMatch(value)) {
+                    return "Please enter a valid name (3-16 characters)";
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 18.h),
               // Email Field
@@ -87,6 +100,14 @@ class SignupScreen extends StatelessWidget {
                 hintText: "mdibukholil@gmail.com",
                 obscureText: false,
                 textInputType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter your email";
+                  } else if (!AppString.emailRegexp.hasMatch(value)) {
+                    return "Please enter a valid email address";
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 18.h),
               // New Password Field
@@ -102,6 +123,14 @@ class SignupScreen extends StatelessWidget {
                   hintText: "Enter your new password",
                   obscureText: !isNewPasswordVisible.value,
                   textInputType: TextInputType.visiblePassword,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter a password";
+                    } else if (!AppString.passRegexp.hasMatch(value)) {
+                      return "Password must be at least 8 characters long (A-Z, a-z)";
+                    }
+                    return null;
+                  },
                   suffixIcon: IconButton(
                     icon: Icon(
                       isNewPasswordVisible.value
@@ -130,6 +159,14 @@ class SignupScreen extends StatelessWidget {
                   hintText: "Re-enter your new password",
                   obscureText: !isConformPasswordVisible.value,
                   textInputType: TextInputType.visiblePassword,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please confirm your password";
+                    } else if (value != NewPasswordController.text) {
+                      return "Passwords do not match";
+                    }
+                    return null;
+                  },
                   suffixIcon: IconButton(
                     icon: Icon(
                       isConformPasswordVisible.value
@@ -149,7 +186,9 @@ class SignupScreen extends StatelessWidget {
               CustomButton(
                 text: "Sign Up",
                 onPressed: () {
-                  Get.toNamed(Routes.forgotOtpScreen);
+                  if (_formKey.currentState!.validate()) {
+                    Get.toNamed(Routes.forgotOtpScreen);
+                  }
                 },
               ),
               SizedBox(height: 18.h),
@@ -221,10 +260,11 @@ class SignupScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 40.h),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+            ], // Column children
+          ), // Column
+        ), // SingleChildScrollView
+      ), // Padding
+    ), // Form
+    ); // Scaffold
+  } // build
+} // SignupScreen

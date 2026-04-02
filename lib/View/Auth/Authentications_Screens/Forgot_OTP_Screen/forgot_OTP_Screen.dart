@@ -12,10 +12,12 @@ import '../../../../Utils/app_images.dart';
 import '../../../../Widgets/Custom_AppBar.dart';
 import '../../../../Widgets/Custom_Button.dart';
 import '../../../../Widgets/Custom_Text_Gray.dart';
+import '../../../../Utils/app_consts.dart';
 
 class ForgotOtpScreen extends StatelessWidget {
   ForgotOtpScreen({super.key});
   final pinController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +39,14 @@ class ForgotOtpScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.black100,
       appBar: CustomAppBar(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+      body: Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
               SizedBox(height: 20.h),
               Center(
                 child: Image.asset(
@@ -130,7 +134,7 @@ class ForgotOtpScreen extends StatelessWidget {
                       return 'Enter 6 digit OTP';
                     }
                     // Only number check
-                    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                    if (!AppString.otpRegexp.hasMatch(value)) {
                       return 'Enter Only number';
                     }
                     return null;
@@ -169,13 +173,17 @@ class ForgotOtpScreen extends StatelessWidget {
               CustomButton(
                 text: "Submit OTP",
                 onPressed: () {
-                  Get.toNamed(Routes.signinScreen);
+                  if (_formKey.currentState!.validate()) {
+                    Get.toNamed(Routes.signinScreen);
+                  }
                 },
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+              SizedBox(height: 20.h),
+            ], // Column children
+          ), // Column
+        ), // SingleChildScrollView
+      ), // Padding
+    ), // Form
+    ); // Scaffold
+  } // build
+} // ForgotOtpScreen

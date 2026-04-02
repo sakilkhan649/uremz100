@@ -11,12 +11,14 @@ import 'package:uremz100/Widgets/Custom_Text_Gray.dart';
 import '../../../../Core/Routs/routs.dart';
 import '../../../../Utils/app_icons.dart';
 import '../../../../Utils/app_images.dart';
+import '../../../../Utils/app_consts.dart';
 
 class SigninScreen extends StatelessWidget {
   SigninScreen({super.key});
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // Reactive variable to control password visibility
   final isPasswordVisible = false.obs;
@@ -25,12 +27,14 @@ class SigninScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.black100,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+      body: Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
               SizedBox(height: 100.h),
               Center(
                 child: Image.asset(
@@ -60,6 +64,14 @@ class SigninScreen extends StatelessWidget {
                 hintText: "mdibukholil@gmail.com",
                 obscureText: false,
                 textInputType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter your email";
+                  } else if (!AppString.emailRegexp.hasMatch(value)) {
+                    return "Please enter a valid email address";
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 16.h),
               // Password Field
@@ -75,6 +87,12 @@ class SigninScreen extends StatelessWidget {
                   hintText: "Enter your password",
                   obscureText: !isPasswordVisible.value,
                   textInputType: TextInputType.visiblePassword,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your password";
+                    }
+                    return null;
+                  },
                   suffixIcon: IconButton(
                     icon: Icon(
                       isPasswordVisible.value
@@ -109,7 +127,9 @@ class SigninScreen extends StatelessWidget {
               CustomButton(
                 text: "Sign in",
                 onPressed: () {
-                  Get.offAllNamed(Routes.bottomNabbarScreens);
+                  if (_formKey.currentState!.validate()) {
+                    Get.offAllNamed(Routes.bottomNabbarScreens);
+                  }
                 },
               ),
               SizedBox(height: 18.h),
@@ -178,12 +198,13 @@ class SigninScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+                ], // Row children
+              ), // Row
+            ], // Column children
+          ), // Column
+        ), // SingleChildScrollView
+      ), // Padding
+    ), // Form
+    ); // Scaffold
+  } // build
+} // SigninScreen

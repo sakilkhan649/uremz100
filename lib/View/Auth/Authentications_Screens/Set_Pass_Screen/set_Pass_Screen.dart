@@ -9,6 +9,7 @@ import '../../../../Widgets/Custom_AppBar.dart';
 import '../../../../Widgets/Custom_Button.dart';
 import '../../../../Widgets/Custom_Text_Field.dart';
 import '../../../../Widgets/Custom_Text_Gray.dart';
+import '../../../../Utils/app_consts.dart';
 
 class SetPassScreen extends StatelessWidget {
   SetPassScreen({super.key});
@@ -16,6 +17,8 @@ class SetPassScreen extends StatelessWidget {
   final TextEditingController NewPasswordController = TextEditingController();
   final TextEditingController ConfromPasswordController =
       TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // Reactive variable to control password visibility
   final isConformPasswordVisible = false.obs;
@@ -25,12 +28,14 @@ class SetPassScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+      body: Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
               SizedBox(height: 20.h),
               Center(
                 child: Image.asset(
@@ -92,6 +97,14 @@ class SetPassScreen extends StatelessWidget {
                   hintText: "Enter your new password",
                   obscureText: !isNewPasswordVisible.value,
                   textInputType: TextInputType.visiblePassword,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter a password";
+                    } else if (!AppString.passRegexp.hasMatch(value)) {
+                      return "Password must be at least 8 characters long (A-Z, a-z)";
+                    }
+                    return null;
+                  },
                   suffixIcon: IconButton(
                     icon: Icon(
                       isNewPasswordVisible.value
@@ -120,6 +133,14 @@ class SetPassScreen extends StatelessWidget {
                   hintText: "Re-enter your new password",
                   obscureText: !isConformPasswordVisible.value,
                   textInputType: TextInputType.visiblePassword,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please confirm your password";
+                    } else if (value != NewPasswordController.text) {
+                      return "Passwords do not match";
+                    }
+                    return null;
+                  },
                   suffixIcon: IconButton(
                     icon: Icon(
                       isConformPasswordVisible.value
@@ -139,13 +160,17 @@ class SetPassScreen extends StatelessWidget {
               CustomButton(
                 text: "Reset Password",
                 onPressed: () {
-                  // Get.toNamed(Routes.forgotOtpScreen);
+                  if (_formKey.currentState!.validate()) {
+                    // Navigate to success or sign in
+                  }
                 },
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+              SizedBox(height: 20.h),
+            ], // Column children
+          ), // Column
+        ), // SingleChildScrollView
+      ), // Padding
+    ), // Form
+    ); // Scaffold
+  } // build
+} // SetPassScreen

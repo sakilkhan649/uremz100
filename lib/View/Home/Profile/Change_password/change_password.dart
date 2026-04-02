@@ -5,6 +5,7 @@ import 'package:uremz100/Utils/app_colors.dart';
 import 'package:uremz100/Widgets/Custom_AppBar.dart';
 import 'package:uremz100/Widgets/Custom_Text.dart';
 import 'package:uremz100/Widgets/Custom_Text_Field.dart';
+import 'package:uremz100/Utils/app_consts.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
@@ -17,16 +18,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final _oldPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: "Change Password", showBackButton: true),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      body: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
             SizedBox(height: 24.h),
             CustomText(
               text: "Change Password",
@@ -44,6 +48,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               hintText: "Enter Old Password",
               obscureText: true,
               textInputType: TextInputType.visiblePassword,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Please enter your old password";
+                }
+                return null;
+              },
             ),
             SizedBox(height: 14.h),
 
@@ -55,6 +65,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               hintText: "Enter New Password",
               obscureText: true,
               textInputType: TextInputType.visiblePassword,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Please enter a new password";
+                } else if (!AppString.passRegexp.hasMatch(value)) {
+                  return "Password must be at least 8 characters long (A-Z, a-z)";
+                }
+                return null;
+              },
             ),
             SizedBox(height: 14.h),
 
@@ -66,6 +84,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               hintText: "Enter Confirm Password",
               obscureText: true,
               textInputType: TextInputType.visiblePassword,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Please confirm your password";
+                } else if (value != _newPasswordController.text) {
+                  return "Passwords do not match";
+                }
+                return null;
+              },
             ),
 
             SizedBox(height: 200.h),
@@ -74,7 +100,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () => Get.back(),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Get.back();
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.orange100,
                   shape: RoundedRectangleBorder(
@@ -112,6 +142,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             SizedBox(height: 20.h),
           ],
         ),
+      ),
       ),
     );
   }

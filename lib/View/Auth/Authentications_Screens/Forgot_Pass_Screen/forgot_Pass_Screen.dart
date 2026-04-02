@@ -11,22 +11,25 @@ import '../../../../Widgets/Custom_AppBar.dart';
 import '../../../../Widgets/Custom_Button.dart';
 import '../../../../Widgets/Custom_Text_Field.dart';
 import '../../../../Widgets/Custom_Text_Gray.dart';
+import '../../../../Utils/app_consts.dart';
 
 class ForgotPassScreen extends StatelessWidget {
   ForgotPassScreen({super.key});
-
-  TextEditingController emailController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+      body: Form(
+        key: _formKey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
               SizedBox(height: 20.h),
               Center(
                 child: Image.asset(
@@ -87,19 +90,31 @@ class ForgotPassScreen extends StatelessWidget {
                 hintText: "mdibukholil@gmail.com",
                 obscureText: false,
                 textInputType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter your email";
+                  } else if (!AppString.emailRegexp.hasMatch(value)) {
+                    return "Please enter a valid email address";
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 20.h),
               // Send OTP Button
               CustomButton(
                 text: "Send OTP",
                 onPressed: () {
-                  Get.toNamed(Routes.forgotOtpScreen);
+                  if (_formKey.currentState!.validate()) {
+                    Get.toNamed(Routes.forgotOtpScreen);
+                  }
                 },
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+              SizedBox(height: 20.h),
+            ], // Column children
+          ), // Column
+        ), // SingleChildScrollView
+      ), // Padding
+    ), // Form
+    ); // Scaffold
+  } // build
+} // ForgotPassScreen
