@@ -8,7 +8,7 @@ import '../../../Utils/app_icons.dart';
 import '../../../Widgets/Custom_Text.dart';
 import '../Bottom_NabBar/Controller/Bottom_NabBar_Controller.dart';
 import 'Controller/Shorts_Controller.dart';
-import 'Widget/Login_Popup.dart';
+import '../../../Widgets/LoginPopup.dart';
 import 'Widget/Shorts_FullSeriesOverlay.dart';
 import 'Widget/Shorts_VideoPlayer.dart';
 import '../../../Controller/pip_controller.dart';

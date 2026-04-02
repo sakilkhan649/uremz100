@@ -6,7 +6,7 @@ import '../../../Utils/app_icons.dart';
 import '../../../Utils/app_colors.dart';
 import '../../../Widgets/Custom_Text.dart';
 import 'Controller/Shorts_Controller.dart';
-import 'Widget/Login_Popup.dart';
+import '../../../Widgets/LoginPopup.dart';
 import 'Widget/Shorts_VideoPlayer.dart';
 import 'Widget/Shorts_DefaultOverlay.dart';
 import 'Widget/Shorts_FullSeriesOverlay.dart';

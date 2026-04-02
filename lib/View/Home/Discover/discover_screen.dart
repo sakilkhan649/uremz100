@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'Controller/discover_controller.dart';
-import 'Widget/DailyBonusPopup.dart';
-import '../Shorts/Widget/Login_Popup.dart';
+import 'Models/discrive_models.dart';
+import '../../../Widgets/DailyBonusCoinPopup.dart';
+import '../../../Widgets/LoginPopup.dart';
+import '../../../Widgets/MovieDetailsPopup.dart';
 import '../../../Core/Routs/routs.dart';
 import 'Widget/discrive_widget.dart';
 import 'Popular/popular.dart';
@@ -69,16 +71,16 @@ class DiscoverScreen extends StatelessWidget {
                 : const SizedBox.shrink(),
           ),
           // Movie Details Popup
-          Obx(
-            () =>
-                controller.showMoviePopup.value &&
-                    controller.selectedMovie.value != null
-                ? MovieDetailsPopup(
-                    movie: controller.selectedMovie.value!,
-                    onClose: controller.closeMoviePopup,
-                  )
-                : const SizedBox.shrink(),
-          ),
+          Obx(() {
+            final movie = controller.selectedMovie.value;
+            if (controller.showMoviePopup.value && movie != null) {
+              return MovieDetailsPopup(
+                movie: movie,
+                onClose: controller.closeMoviePopup,
+              );
+            }
+            return const SizedBox.shrink();
+          }),
           // Login Popup
           Obx(
             () => controller.showLoginPopup.value
