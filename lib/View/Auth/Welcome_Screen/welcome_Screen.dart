@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../Core/Routs/routs.dart';
-import '../../../Utils/app_images.dart';
+import '../../../Config/Routs/routs.dart';
+import '../../../Core/Utils/app_images.dart';
+
 
 
 class WelcomeScreen extends StatefulWidget {
@@ -21,7 +22,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       Get.offAllNamed(Routes.bottomNabbarScreens);
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

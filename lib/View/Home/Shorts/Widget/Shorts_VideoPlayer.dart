@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
-import '../../../../Utils/app_icons.dart';
+import '../../../../Core/Utils/app_icons.dart';
 import '../Controller/Shorts_Controller.dart';
 import '../Controller/Shorts_Video_Controller.dart';
 

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:uremz100/Utils/app_icons.dart';
-import 'package:uremz100/Utils/app_images.dart';
+import '../../../../../Core/Utils/app_icons.dart';
+import '../../../../../Core/Utils/app_images.dart';
 import '../../Model/standart_vip_model.dart';
 
 class BasicVipController extends GetxController {

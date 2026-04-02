@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
-import '../View/Home/Shorts/Model/shorts_model.dart';
+
+import '../../View/Home/Shorts/Model/shorts_model.dart';
+
 
 class PipController extends GetxController {
   static PipController get to => Get.find();

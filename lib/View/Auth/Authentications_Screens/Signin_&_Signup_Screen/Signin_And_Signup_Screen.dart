@@ -4,9 +4,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:uremz100/Widgets/Custom_Button.dart';
-import '../../../../Core/Routs/routs.dart';
-import '../../../../Utils/app_colors.dart';
-import '../../../../Utils/app_images.dart';
+import '../../../../Config/Routs/routs.dart';
+import '../../../../Core/Utils/app_colors.dart';
+import '../../../../Core/Utils/app_images.dart';
+
 
 class SigninAndSignupScreen extends StatelessWidget {
   const SigninAndSignupScreen({super.key});

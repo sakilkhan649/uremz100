@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:uremz100/Utils/app_colors.dart';
-import 'package:uremz100/Utils/app_images.dart';
 import 'package:uremz100/Widgets/Custom_AppBar.dart';
 import 'package:uremz100/Widgets/Custom_Text.dart';
 import 'package:uremz100/Widgets/Custom_Text_Field.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import '../../../../Core/Utils/app_colors.dart';
+import '../../../../Core/Utils/app_images.dart';
 import 'Controller/change_profile_info_controller.dart';
 
 class ChangeProfileInfoScreen extends StatefulWidget {

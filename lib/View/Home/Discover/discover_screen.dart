@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../Config/Routs/routs.dart';
 import 'Controller/discover_controller.dart';
 import 'Models/discrive_models.dart';
 import '../../../Widgets/DailyBonusCoinPopup.dart';
 import '../../../Widgets/LoginPopup.dart';
 import '../../../Widgets/MovieDetailsPopup.dart';
-import '../../../Core/Routs/routs.dart';
+
 import 'Widget/discrive_widget.dart';
 import 'Popular/popular.dart';
 import 'New/new.dart';

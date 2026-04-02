@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:uremz100/Utils/app_icons.dart';
 import 'package:uremz100/Widgets/Custom_Text.dart';
+import '../Core/Utils/app_icons.dart';
 import '../View/Home/Discover/Controller/discover_controller.dart';
 
 class DailyBonusPopup extends StatelessWidget {

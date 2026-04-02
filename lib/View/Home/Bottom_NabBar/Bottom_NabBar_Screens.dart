@@ -3,13 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import '../../../Utils/app_icons.dart';
+import '../../../Core/Utils/app_colors.dart';
+import '../../../Core/Utils/app_icons.dart';
 import '../Discover/discover_screen.dart';
 import '../My_List/my_list_screen.dart';
 import '../Profile/profile_screen.dart';
 import '../Rewards/rewards_screen.dart';
 import '../Shorts/shorts_screen.dart';
-import 'package:uremz100/Utils/app_colors.dart';
 import 'Controller/Bottom_NabBar_Controller.dart';
 
 class BottomNabbarScreens extends StatelessWidget {

@@ -1,5 +1,6 @@
+import '../../../../Core/Utils/app_images.dart';
 import '../Models/discrive_models.dart';
-import '../../../../Utils/app_images.dart';
+
 
 class DiscoverData {
   static final List<String> categories = [

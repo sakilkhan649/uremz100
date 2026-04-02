@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../Utils/app_colors.dart';
+import '../../../../Core/Controller/pip_controller.dart';
+import '../../../../Core/Utils/app_colors.dart';
+import '../../../../Core/Utils/app_images.dart';
 import '../../../../Widgets/Custom_Text.dart';
 import '../Model/shorts_model.dart';
-import '../../../../Utils/app_images.dart';
 import '../../Bottom_NabBar/Controller/Bottom_NabBar_Controller.dart';
-import '../../../../Controller/pip_controller.dart';
 import 'Shorts_Video_Controller.dart';
 
 class ShortsController extends GetxController {

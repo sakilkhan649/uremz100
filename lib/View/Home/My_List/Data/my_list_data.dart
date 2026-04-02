@@ -1,4 +1,5 @@
-import 'package:uremz100/Utils/app_images.dart';
+
+import '../../../../Core/Utils/app_images.dart';
 import '../Model/my_list_model.dart';
 
 class MyListData {

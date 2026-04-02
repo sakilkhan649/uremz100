@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../Config/Routs/routs.dart';
 import '../View/Home/Discover/Models/discrive_models.dart';
-import '../Core/Routs/routs.dart';
 import 'Custom_Text.dart';
 
 class MovieDetailsPopup extends StatelessWidget {

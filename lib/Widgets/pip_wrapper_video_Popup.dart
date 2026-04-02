@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
-import '../Controller/pip_controller.dart';
-import '../Core/Routs/routs.dart';
+import '../Config/Routs/routs.dart';
+import '../Core/Controller/pip_controller.dart';
+
 
 class PipWrapper extends StatelessWidget {
   final Widget child;

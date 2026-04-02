@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../Core/Controller/interner_controller.dart';
+import '../../../Core/Utils/app_colors.dart';
 
-import '../../../Controller/interner_controller.dart';
-import '../../../Utils/app_colors.dart';
 
 
 class NoInternetScreen extends StatelessWidget {

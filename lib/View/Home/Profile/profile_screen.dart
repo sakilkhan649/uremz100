@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:uremz100/Utils/app_colors.dart';
-import 'package:uremz100/Utils/app_icons.dart';
-import 'package:uremz100/Utils/app_images.dart';
-import 'package:uremz100/Widgets/Custom_AppBar.dart';
 import 'package:uremz100/Widgets/Custom_Text.dart';
+import '../../../Config/Routs/routs.dart';
+import '../../../Core/Utils/app_colors.dart';
+import '../../../Core/Utils/app_icons.dart';
+import '../../../Core/Utils/app_images.dart';
 
-import '../../../Core/Routs/routs.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

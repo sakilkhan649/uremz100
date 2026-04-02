@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:uremz100/View/Home/Shorts/Controller/Shorts_Controller.dart';
-import '../../../../Core/Routs/routs.dart';
+import '../../../../Config/Routs/routs.dart';
 import '../../../../Widgets/Custom_Text.dart';
 import '../Detail/discover_detail_screen.dart';
 import '../Models/discrive_models.dart';

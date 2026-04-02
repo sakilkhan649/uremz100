@@ -5,14 +5,15 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
-import 'package:uremz100/Core/Routs/routs.dart';
-import 'package:uremz100/Utils/app_colors.dart';
 import 'package:uremz100/Widgets/Custom_Text.dart';
-import '../../../../Utils/app_images.dart';
+import '../../../../Config/Routs/routs.dart';
+import '../../../../Core/Utils/app_colors.dart';
+import '../../../../Core/Utils/app_consts.dart';
+import '../../../../Core/Utils/app_images.dart';
 import '../../../../Widgets/Custom_AppBar.dart';
 import '../../../../Widgets/Custom_Button.dart';
 import '../../../../Widgets/Custom_Text_Gray.dart';
-import '../../../../Utils/app_consts.dart';
+
 
 class ForgotOtpScreen extends StatelessWidget {
   ForgotOtpScreen({super.key});

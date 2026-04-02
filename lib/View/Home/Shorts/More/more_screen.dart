@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../../Utils/app_colors.dart';
-import '../../../../Utils/app_images.dart';
+import '../../../../Core/Utils/app_colors.dart';
+import '../../../../Core/Utils/app_images.dart';
 import '../../../../Widgets/Custom_Text.dart';
 import 'Modet/more_model.dart';
 import 'Widget/more_widget.dart';

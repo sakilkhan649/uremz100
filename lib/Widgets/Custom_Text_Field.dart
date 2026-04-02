@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../Utils/app_colors.dart';
+
+import '../Core/Utils/app_colors.dart';
+
 
 class Customtextfield extends StatelessWidget {
   final TextEditingController controller;

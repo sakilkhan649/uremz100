@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'Core/Routs/routs.dart';
-import 'Utils/app_colors.dart';
+import 'Config/Routs/routs.dart';
+import 'Core/Utils/app_colors.dart';
 import 'Widgets/pip_wrapper_video_Popup.dart';
 
 void main() async{
