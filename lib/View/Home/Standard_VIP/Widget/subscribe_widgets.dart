@@ -159,18 +159,22 @@ class MovieGrid extends StatelessWidget {
         ),
         SizedBox(height: 18.h),
         SizedBox(
-          height: 230.h, // Slightly reduced height
+          height: 260.h, // Fixed height to accommodate content and prevent overflow
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.zero,
             itemCount: movies.length,
             itemBuilder: (context, index) {
               final movie = movies[index];
               return Container(
                 width: 110.w,
                 margin: EdgeInsets.only(right: 12.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                child: SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
                     Stack(
                       children: [
                         ClipRRect(
@@ -233,6 +237,7 @@ class MovieGrid extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       color: Color(0xFFE3E3E3),
                       maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     CustomText(
                       text: movie.subtitle,
@@ -240,9 +245,11 @@ class MovieGrid extends StatelessWidget {
                       color: Color(0xFFCFCDCD),
                       fontWeight: FontWeight.w400,
                       maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
+              ),
               );
             },
           ),
