@@ -10,6 +10,7 @@ class ShortsInfoOverlay extends StatelessWidget {
   final bool isEpisodeInfo; // true for EP.11 style
   final bool isExpanded;
   final VoidCallback onMoreTap;
+  final VoidCallback onTitleTap;
 
   const ShortsInfoOverlay({
     super.key,
@@ -19,6 +20,7 @@ class ShortsInfoOverlay extends StatelessWidget {
     this.isEpisodeInfo = false,
     required this.isExpanded,
     required this.onMoreTap,
+    required this.onTitleTap,
   });
 
   @override
@@ -28,25 +30,28 @@ class ShortsInfoOverlay extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         // Title with Arrow
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flexible(
-              child: CustomText(
-                text: title,
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-                overflow: TextOverflow.ellipsis,
+        GestureDetector(
+          onTap: onTitleTap,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                child: CustomText(
+                  text: title,
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
-            SizedBox(width: 8.w),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
-              size: 16.sp,
-            ),
-          ],
+              SizedBox(width: 8.w),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
+                size: 16.sp,
+              ),
+            ],
+          ),
         ),
         
         // Tags
@@ -62,41 +67,48 @@ class ShortsInfoOverlay extends StatelessWidget {
         // Description / Episode Info
         SizedBox(
           width: 300.w,
-          child: RichText(
-            text: TextSpan(
-              style: TextStyle(
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w400,
-                color: const Color(0xFFE6E6E6),
-                height: 1.4,
-              ),
-              children: [
-                if (isEpisodeInfo)
-                  TextSpan(
-                    text: "EP.11  |  ",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white.withOpacity(0.9),
-                    ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text.rich(
+                TextSpan(
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w400,
+                    color: const Color(0xFFE6E6E6),
+                    height: 1.4,
                   ),
-                TextSpan(text: description),
-                WidgetSpan(
-                  child: GestureDetector(
-                    onTap: onMoreTap,
-                    child: Text(
-                      isExpanded ? " Less" : " ... more",
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                  children: [
+                    if (isEpisodeInfo)
+                      TextSpan(
+                        text: "EP.11  |  ",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white.withOpacity(0.9),
+                        ),
                       ),
+                    TextSpan(text: description),
+                  ],
+                ),
+                maxLines: isExpanded ? null : 2,
+                overflow: isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
+              ),
+              GestureDetector(
+                onTap: onMoreTap,
+                behavior: HitTestBehavior.opaque,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 4.h, right: 20.w, bottom: 8.h),
+                  child: Text(
+                    isExpanded ? " Less" : " ... more",
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
                     ),
                   ),
                 ),
-              ],
-            ),
-            maxLines: isExpanded ? null : 2,
-            overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
         ),
       ],

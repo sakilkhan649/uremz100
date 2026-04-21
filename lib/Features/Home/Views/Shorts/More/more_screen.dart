@@ -106,11 +106,18 @@ class MoreScreen extends StatelessWidget {
       ),
     ];
 
-    return Scaffold(
-      backgroundColor: AppColors.black100,
-      body: Stack(
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.8,
+      decoration: BoxDecoration(
+        color: const Color(0xFF121212),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24.r),
+          topRight: Radius.circular(24.r),
+        ),
+      ),
+      child: Stack(
         children: [
-          // Background Top Gradient (Reddish to Black)
+          // Background Top Gradient
           Positioned(
             top: 0,
             left: 0,
@@ -118,6 +125,10 @@ class MoreScreen extends StatelessWidget {
             height: 300.h,
             child: Container(
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(24.r),
+                  topRight: Radius.circular(24.r),
+                ),
                 gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
@@ -131,19 +142,19 @@ class MoreScreen extends StatelessWidget {
           ),
           CustomScrollView(
             slivers: [
-              // Header Section
-              SliverAppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                leading: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back_ios,
-                    size: 24,
-                    color: Colors.white,
+              // Drag Handle
+              SliverToBoxAdapter(
+                child: Center(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 12.h),
+                    width: 40.w,
+                    height: 4.h,
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      borderRadius: BorderRadius.circular(2.r),
+                    ),
                   ),
-                  onPressed: () => Get.back(),
                 ),
-                pinned: true,
               ),
 
               SliverPadding(
@@ -455,6 +466,19 @@ class MoreScreen extends StatelessWidget {
               ),
               SliverToBoxAdapter(child: SizedBox(height: 40.h)),
             ],
+          ),
+          Positioned(
+            top: 8.h,
+            right: 8.w,
+            child: CircleAvatar(
+              radius: 14.r,
+              backgroundColor: const Color(0xFF292929),
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                icon: Icon(Icons.close, color: Colors.white, size: 18.sp),
+                onPressed: () => Get.back(),
+              ),
+            ),
           ),
         ],
       ),

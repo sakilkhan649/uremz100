@@ -125,6 +125,7 @@ class ShortsFullSeriesOverlay extends StatelessWidget {
           bottom: 110.h,
           child: Obx(
             () => ShortsInfoOverlay(
+              onTitleTap: () => controller.showMoreDetailsBottomSheet(),
               title: shorts.title,
               description: shorts.description,
               isEpisodeInfo: false,
@@ -133,24 +134,24 @@ class ShortsFullSeriesOverlay extends StatelessWidget {
             ),
           ),
         ),
-        // More Button
-        Positioned(
-          left: 16.w,
-          bottom: 85.h,
-          child: GestureDetector(
-            onTap: () async {
-              controller.pauseCurrentVideo();
-              await Get.toNamed(Routes.moreScreen);
-              controller.playCurrentVideo();
-            },
-            child: CustomText(
-              text: "More",
-              fontSize: 12.sp,
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFFE6B323),
-            ),
-          ),
-        ),
+        // // More Button
+        // Positioned(
+        //   left: 16.w,
+        //   bottom: 85.h,
+        //   child: GestureDetector(
+        //     onTap: () async {
+        //       controller.pauseCurrentVideo();
+        //       await Get.toNamed(Routes.moreScreen);
+        //       controller.playCurrentVideo();
+        //     },
+        //     child: CustomText(
+        //       text: "More",
+        //       fontSize: 12.sp,
+        //       fontWeight: FontWeight.w600,
+        //       color: const Color(0xFFE6B323),
+        //     ),
+        //   ),
+        // ),
 
         // Progress Bar (Full Series View)
         Positioned(
@@ -164,7 +165,7 @@ class ShortsFullSeriesOverlay extends StatelessWidget {
         Obx(
           () => controller.showRewardIcon.value
               ? Positioned(
-                  top: 100.h,
+                  top: 90.h,
                   right: 12.w,
                   child: SizedBox(
                     width: 60.w, // Large enough to cover coin and close button

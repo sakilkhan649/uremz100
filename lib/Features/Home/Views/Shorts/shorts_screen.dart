@@ -132,6 +132,8 @@ class ShortsScreen extends StatelessWidget {
     );
   }
 
+  ///  More Menu ==========================================================================
+
   Widget _buildMoreMenu(BuildContext context, ShortsController controller) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
@@ -263,7 +265,7 @@ class ShortsScreen extends StatelessWidget {
                 // Respect the bottom margin
                 width: double.infinity,
                 height: 406.h,
-                padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 0),
+                padding: EdgeInsets.fromLTRB(20.w, 40.h, 20.w, 0),
                 decoration: BoxDecoration(
                   color: const Color(0xFF121212),
                   borderRadius: BorderRadius.only(

@@ -9,6 +9,8 @@ import '../Model/shorts_model.dart';
 import '../../Bottom_NabBar/Controller/Bottom_NabBar_Controller.dart';
 import 'Shorts_Video_Controller.dart';
 
+import '../More/more_screen.dart';
+
 class ShortsController extends GetxController {
   var shortsList = <ShortsModel>[].obs;
   var isFav = false.obs;
@@ -27,6 +29,17 @@ class ShortsController extends GetxController {
   var currentIndex = 0.obs;
   var showRewardIcon = true.obs;
 
+  void showMoreDetailsBottomSheet() {
+    pauseCurrentVideo();
+    Get.bottomSheet(
+      const MoreScreen(),
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+    ).then((_) {
+      playCurrentVideo();
+    });
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -36,7 +49,7 @@ class ShortsController extends GetxController {
             "https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4",
         title: "The Scars You Carved Into Me...",
         description:
-            "Pearl Zane dates Ivan Reed, a wealthy heir pretending to be poor. When he falls in love...",
+            "Pearl Zane dates Ivan Reed, a wealthy heir pretending to be poor. When he falls in love with her, he faces a difficult choice: tell her the truth and risk losing her, or keep his secret and live a lie forever. As their relationship deepens, secrets from Ivan's past begin to surface, threatening everything they've built together. This story of love, betrayal, and redemption will keep you on the edge of your seat until the very last episode.",
         profileImage: AppImages.profile_image,
         episode: "11",
         season: "1",
@@ -114,6 +127,7 @@ class ShortsController extends GetxController {
 
   void toggleDescription() {
     isDescriptionExpanded.value = !isDescriptionExpanded.value;
+    print("Description expanded: ${isDescriptionExpanded.value}");
   }
 
   void updatePlaybackSpeed(String speed) {

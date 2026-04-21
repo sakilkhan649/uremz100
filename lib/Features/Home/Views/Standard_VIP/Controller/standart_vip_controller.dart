@@ -6,14 +6,33 @@ import '../Model/standart_vip_model.dart';
 class StandartVipController extends GetxController {
   final RxInt selectedTabIndex = 0.obs;
 
-  void changeTab(int index) {
-    selectedTabIndex.value = index;
-  }
+  // void changeTab(int index) {
+  //   selectedTabIndex.value = index;
+  // }
 
   final List<VipPlanModel> standardPlans = [
     VipPlanModel(
       title: "Weekly Pass Pro",
       price: "1,500",
+      features: [
+        VipFeatureModel(
+          label: "Short Drama Viewing",
+          iconPath: AppIcons.drama_icon,
+        ),
+        VipFeatureModel(label: "Ad-Free", iconPath: AppIcons.ad_free_icon),
+        VipFeatureModel(
+          label: "Daily VIP Reward",
+          iconPath: AppIcons.rewards_icon,
+        ),
+        VipFeatureModel(
+          label: "1080p Full HD",
+          iconPath: AppIcons.full_hd_icon,
+        ),
+      ],
+    ),
+    VipPlanModel(
+      title: "Monthly Pass Pro",
+      price: "2,500",
       features: [
         VipFeatureModel(
           label: "Short Drama Viewing",

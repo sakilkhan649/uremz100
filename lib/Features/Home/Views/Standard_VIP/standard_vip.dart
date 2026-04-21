@@ -46,34 +46,34 @@ class StandardVip extends StatelessWidget {
               color: Color(0xFFFFFFFF),
             ),
             SizedBox(height: 30.h),
-            // Custom TabBar
-            Obx(
-              () => Container(
-                height: 45.h,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF1F1F1F),
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Row(
-                  children: [
-                    _buildTabItem(
-                      "Standard VIP",
-                      isSelected: controller.selectedTabIndex.value == 0,
-                      onTap: () => controller.changeTab(0),
-                      isLeft: true,
-                    ),
-                    _buildTabItem(
-                      "Basic VIP",
-                      isSelected: controller.selectedTabIndex.value == 1,
-                      onTap: () => controller.changeTab(1),
-                      isLeft: false,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 13.h),
-            // Content based on tab
+           // // Custom TabBar
+           //  Obx(
+           //    () => Container(
+           //      height: 45.h,
+           //      decoration: BoxDecoration(
+           //        color: const Color(0xFF1F1F1F),
+           //        borderRadius: BorderRadius.circular(8.r),
+           //      ),
+           //      child: Row(
+           //        children: [
+           //          _buildTabItem(
+           //            "Standard VIP",
+           //            isSelected: controller.selectedTabIndex.value == 0,
+           //            onTap: () => controller.changeTab(0),
+           //            isLeft: true,
+           //          ),
+           //          _buildTabItem(
+           //            "Basic VIP",
+           //            isSelected: controller.selectedTabIndex.value == 1,
+           //            onTap: () => controller.changeTab(1),
+           //            isLeft: false,
+           //          ),
+           //        ],
+           //      ),
+           //    ),
+           //  ),
+           //  SizedBox(height: 13.h),
+           // Content based on tab
             Obx(() {
               if (controller.selectedTabIndex.value == 0) {
                 return _buildStandardContent(controller);
